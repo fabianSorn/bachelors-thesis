@@ -1,0 +1,36 @@
+# Other additions
+
+.venv/
+*/cache/
+*/results/
+document/out/
+
+vispy
+
+benchmark-app-orig/\.vscode/
+
+benchmark-app/\.vscode/
+
+# LaTex Build files
+
+*.aux
+*.ist
+*.lof
+*.lot
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.acn
+*.bcf
+*.glo
+*.ist
+thesis.run.xml
+
+*.bbl
+
+*.blg
+
+*.fdb_latexmk
+
+*.fls

@@ -1,0 +1,65 @@
+% Chapter I: Introduction
+
+\chapter{Introduction}
+\label{ch:Introduction}
+
+The following chapter will provide an introduction into this work. First the setting in which the work is done, will be described, starting with the orgranisation followed by the team. Afterwards the fundamental problem and the goal of this work will be explained, rounded up by an overview about the structure of the following chapters.
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\section{Motivation}
+\label{sec:Introduction:Motivation}
+
+The big advantage that the raise of computing brought with it, was, that complex mathematical tasks, could be performed in very little time. Since the beginnings, a lot has happened and computers got much more powerful. Even with these improvements, the question of good performance could not be more relevant as today. We have to make sure, that the hardware and our algorithms are fast enough, to keep up with the tasks we we want to accomplish. This demand is especially relevant in the scientific world, where often gigantic data sets have to be filtered, recorded and analyzed. A popular tool for such work are software products, that allow us to visualize data as graphs, since visualization allows us to have a much deeper insight into the data we want to understand. As with any type of software, the performance of graphs has to keep up with our high demands. One of the places, where this couldn't become more clear, is CERN, where the fundamental question the following work is based on, was researched.
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\section{CERN}
+\label{sec:Introduction:CERN}
+
+The \gls{cern} is one of the biggest and most well known research facilities in the world. It is most known as the host of one of the world most complex and astonishing machines, the \gls{lhc} as well as the birth place of the \gls{web}, on which we rely on daily everywhere around the world. \cite{Cern}
+These and many more achievements and projects all contribute to the central mission at \gls{cern}: Finding out, what our universe is made of. To find answers to this question, \gls{cern} brings together over 17500 people from all over the world, to work together in many different fields including physics, engineering, computer science and more. Today, \gls{cern} counts 23 member states that collaborate on decisions made at in the organisation every day \cite{CernWhoWeAre}.
+
+\gls{cern}'s roots can be traced back to the 1940's, when a hand full of scientists saw the needs for Europe to advance its role in the scientific world by hosting its own research facility for physics. Starting with 12 original member states, \gls{cern} originally was founded based on this vision in 1954 located at the franco-swiss border, as the \emph{Conseil Européen pour la Recherche Nucléaire}, leading to today's well recognized acronym \gls{cern}. Until today, these member states are contributing to \gls{cern}'s financing, organisation and foundations to achieve its goals to expand the boundaries of human knowledge. \cite{CernOurHistory}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\section{Beams Controls Applications}
+\label{sec:Introduction:BE-CO-APS}
+
+\gls{cern}'s main focus for research is particle physics. To continuously improve our knowledge in this field, \gls{cern} is operating the world's most powerful particle accelerator called \gls{lhc}. The \gls{lhc} allows us to gain a much deeper insight into the subatomic structure of the world around us bringing us closer to understanding the inner workings of our universe. \gls{cern} itself is devided into different departments which have their own purposes. The \gls{be} is responsible for developing software and hardware instruments for the accelerator complex. \cite{CernBeamsDep}
+
+The \gls{lhc}'s task is to produce and accelerate two beams of charged particles, travelling in opposite directions. To achieve this,it is constructed as two circular pipes containing a vacuum, which are surrounded by magnets. The magnetic field created by these magnets can accelerate and steer particles passing by. If a beam of particles is injected into the accelerator, the strength of the magnetic field is increased with every round the beam travels in the accelerator, until the beam reaches speeds very close to the speed of light. Is this level of energy reached, the next step is to make particles from the two beams collide with each other. \gls{cern} is operating four experiments, Atlas, CMS, Alice and LHCb, where the particles can be led to collission. The particles detectors then can record the results of the collisions in great detail for later analysis. The operation of the \gls{lhc} is under one roof, the \gls{ccc}. \cite{CernLhc, HowParticleAccsWork}
+
+
+Particle accelerators are set up from many different components, ranging from power converters that provide energy to the magnets to instruments responsible for monitoring all metrics describing the state of the beam. To operate all these different parts, a control system is necessary, which allows operators to change settings of components and monitor the resulting behaviour. The development of this control system for the accelerator complex is done by the \gls{co} which is part of \gls{be}. \cite{ControlSystemBible}
+The control system itself is composed of different components that work together. Responsible for these components are different sections within the controls group.
+This work has been conducted in the \gls{aps}, whose responsibility it is, to provide software solutions for the many tasks of the control system. One of these products are \gls{guis}, that are vital tools for the operators' work.
+A \gls{gui} application allow to monitor the current state of the machine and react to occuring problems by altering the setting of these machines. To develop such monitoring applications, \gls{aps} is providing different reusable \gls{gui} widgets, from which more complex monitoring applications can be developed.
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\section{Problem}
+\label{sec:Introduction:problem}
+
+A recent decision of \gls{aps} at \gls{cern} was, to move from Java to Python for \gls{guis}. This decision opens the door for many people, which aren't primarily software developers, to write their own \gls{gui} applications for their specific use cases. The framework of widgets which \gls{aps} is providing, does also contain graph components, that allow operators to visualize data in their \gls{guis}.
+
+Choosing a library to implement graph widgets is not a trivial topic. Especially in python, there are many charting libraries, from which you can choose from, including matplotlib, Seaborn, PyQtGraph, Plotly and more \cite{PyDataVisLibs}. The comparison of offered features is in most cases not enough. Many users have specific needs and use cases, which rely heavily on the performance of the library. Compared to the evaluation of needed features and the offerings in libraries, evaluating the performance is not just a decision between \emph{is available} and \emph{is not available}. To answer the question, if a library is fast enough for a specific use case, we have to provide metrics, realistic use cases and a reliable way of testing the performance, that allow us to take a sound decision.
+
+Benchmarking is a good way of answering such performance questions. Most known in these cases are benchmarks, which allow us to compare the speed of different hardware components, by running the same sequence operations on them and comparing the times, that they required to complete these tasks \cite{OverviewBenchmarks}. To compare the perfromance of different implementations of software, we can utilize a very similar approach. Instead of running the same code on different hardware, we can run different implementations of the same tasks on the same hardware and measure each's performance. For more complex operations, like visualizing data, this inevitably raises the question, how we can implement such a measurment and what metrics describe the libraries performance.
+
+Benchmarking for different implementations would not only allow us to compare the same high level operations between different libraries, but also the development of certain operations in the same library over time. For the user, such a benchmarking possibility would also make a decision between libraries much easier, since he could actively test his demands and use cases on different libraries to find the library that fits his performance needs the best.
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\section{Planned Solution}
+\label{sec:Introduction:problem}
+
+Goal of our work is, to develop a benchmarking framework for python graph libraries.  The benchmark framework will be used to develop a suite of benchmarks, that can be used to verify the performance of a graph library written in Python in real world use cases. The benchmark suite should not only give use comparable results to objectively judge performance, but also help us to find and improve slow operations.
+Afterwards, we will implement potential improvements for found performance deficits. To evaluate our framework, we will run the same benchmarks, but now based on our changed implementation and compare the results to the original implementation.
+  
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\section{Structure of this work}
+\label{sec:Introduction:problem}
+
+\todo{Mention concrete chapter to distinguish this chapter from the prior one}
+
+In the beginning of this work, we will create a common knowledge base that is necessary to understand the following chapters, by going through the basics of data visualization. To understand thechnical decisions we took and implementations of our solution, we will have a look at the technologies we will use.
+The next chapter will deal with real use cases, that users of charting libraries at \gls{cern} have provided. From those we will derive metrics, which we can use for our later implementation.
+Following that, we will have a look at the basics of benchmarking as well as already existing benchmarking solutions, from which we can derive concepts, we can use for our own implementation.
+The next chapter then guides through the design and implementation of a benchmark framework and benchmarking suite, which allows us to run our graph library of choice against the collected use cases. Following that, we can use the benchmarks detailed results, to plan ways to remove performance bottle-necks in the implementation. Finally the exact same benchmarks will be run again, to objectively judge, which impact our changes had on the tested operations.
