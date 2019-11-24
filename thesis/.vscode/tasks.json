@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Thesis",
+            "type": "shell",
+            "command": "pdflatex thesis && biber thesis && pdflatex thesis",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
