@@ -1,41 +1,65 @@
-%% LaTeX2e class for student theses
-%% sections/apendix.tex
-%%
-%% Karlsruhe University of Applied Sciences
-%% Faculty of  Computer Science and Business Information Systems
-%% Distributed Systems (vsys)
-%%
-%% Prof. Dr. Christian Zirpins
-%% christian.zirpins@hs-karlsruhe.de
-%%
-%%
-%% Version 0.2, 2017-11-15
-%%
-%% --------------------------------------------------------
-%% | Derived from sdqthesis by Erik Burger burger@kit.edu |
-%% --------------------------------------------------------
-
-
-
 \iflanguage{english}
 {\chapter{Appendix}}    % english style
 {\chapter{Anhang}}      % german style
 \label{chap:appendix}
 
-\section{First Appendix Section}
-\label{sec:appendix:FirstSection}
+\section{PyQt}
+\label{sec:appendix:pyqt}
 
 \setcounter{figure}{0}
 
-\begin{figure} [ht]
-  \centering
-  \missingfigure{A figure}
-  \caption{A figure}
-  \label{fig:anotherfigure}
+\lstinputlisting[
+    language=python,
+    caption=Source code for the layout example in \ref{fig:qtExample}, 
+    label=a:qtbasics:code
+]{resources/code/windowexample.py}
+
+\lstinputlisting[
+    language=python,
+    caption=Source code an example window demonstrating qts event system,
+    label=a:qtevents:code
+]{resources/code/event_complete.py}
+
+\clearpage
+
+\section{PyQtGraph}
+\label{sec:appendix:pyqtgraph}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{resources/img/PyQtGraphContent}
+    \caption{Different items involved in a PlotWidget.}
+    \small\textsuperscript{Quelle: http://www.pyqtgraph.org/documentation/plotting.html}
+    \label{a:fig:pyqtgraph:content}
 \end{figure}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{resources/img/PyQtGraphDemo}
+    \caption{Window containing a plot created with PyQtGraph.}
+    \label{a:fig:pyqtgraph:window}
+\end{figure}
 
-\dots
+\clearpage
+
+\section{Matplotlib}
+\label{sec:appendix:matplotlib}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{resources/img/MatplotlibContent}
+    \caption{Different items involved in a Figure.}
+    \small\textsuperscript{Quelle: https://matplotlib.org/3.1.1/tutorials/introductory/usage.html}
+    \label{a:fig:matplotlib:content}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{resources/img/MatplotlibDemo}
+    \caption{Window containing plot created with Matplotlib.}
+    \label{a:fig:matplotlib:window}
+\end{figure}
+
 %% ---------------------
 %% | / Example content |
 %% ---------------------

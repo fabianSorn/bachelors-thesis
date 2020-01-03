@@ -34,3 +34,9 @@ thesis.run.xml
 *.fdb_latexmk
 
 *.fls
+
+*.run.xml
+
+thesis/\.vscode/
+
+*.code-workspace
