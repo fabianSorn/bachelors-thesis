@@ -1,0 +1,27 @@
+participant PROCESS
+participant UPDATE_SOURCE
+participant DATA_MODEL
+participant VIEW
+
+note over PROCESS: New Data appears
+PROCESS->UPDATE_SOURCE: callback(new_data)
+activate UPDATE_SOURCE
+UPDATE_SOURCE->DATA_MODEL: slot(new_data)
+deactivate UPDATE_SOURCE
+activate DATA_MODEL
+DATA_MODEL->DATA_MODEL: insert(new_data)
+activate DATA_MODEL
+space 
+deactivate DATA_MODEL
+DATA_MODEL->VIEW: slot()
+deactivate DATA_MODEL
+activate VIEW
+VIEW->DATA_MODEL: get_data()
+activate DATA_MODEL
+DATA_MODEL-->>VIEW: data
+deactivate DATA_MODEL
+VIEW->VIEW: display(data)
+activate VIEW
+space 
+deactivate VIEW
+deactivate VIEWeactivate VIEW

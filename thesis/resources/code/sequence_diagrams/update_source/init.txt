@@ -1,0 +1,35 @@
+participant APPLICATION
+participant PROCESS
+participant UPDATE_SOURCE
+participant DATA_MODEL
+participant VIEW
+
+activate APPLICATION
+APPLICATION->*UPDATE_SOURCE: __init__()
+activate UPDATE_SOURCE
+UPDATE_SOURCE->*PROCESS: __init__()
+UPDATE_SOURCE->PROCESS: subcribe(callback)
+activate PROCESS
+space 
+deactivate PROCESS
+UPDATE_SOURCE-->>APPLICATION:update_source
+deactivate UPDATE_SOURCE
+
+APPLICATION->*VIEW: __init__(update_source)
+activate VIEW
+VIEW->*DATA_MODEL: __init__(update_source)
+activate DATA_MODEL
+
+
+DATA_MODEL->UPDATE_SOURCE: connect(sig, slot)
+activate UPDATE_SOURCE
+space
+deactivate UPDATE_SOURCE
+deactivate DATA_MODEL
+VIEW->DATA_MODEL:connect(sig, slot)
+activate DATA_MODEL
+space 
+deactivate DATA_MODEL
+
+VIEW-->>APPLICATION: view
+deactivate VIEWIEW-->>APPLICATION: vieweactivate DATA_MODEL

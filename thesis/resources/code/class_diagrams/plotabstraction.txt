@@ -1,0 +1,22 @@
+[<abstract>AbstractBasePlot ||
+	+ using(lib: PlottingLibraryEnum) -> AbstractBasePlot
+    + add_item(type: DataItemType) -> object
+    + get_range() -> (float, float)
+    + set_range(range: (float, float)) -> None
+]
+
+[<abstract>AbstractDataItem ||
+    + get_data(item: object) -> list
+    + set_data(item: object, data: list) -> None
+    + add_data(item: object, data: list) -> None
+]
+
+[AbstractBasePlot] --> creates [PyQtGraphPlot]
+[PyQtGraphPlot] -:> [AbstractBasePlot]
+[PyQtGraphPlot] --> creates[PyQtGraphDataItem]
+[PyQtGraphDataItem] -:> [AbstractDataItem]
+
+[AbstractBasePlot] --> creates [MatplotlibPlot]
+[MatplotlibPlot] -:> [AbstractBasePlot]
+[MatplotlibPlot] --> creates [MatplotlibDataItem]
+[MatplotlibDataItem] -:> [AbstractDataItem]

@@ -1,0 +1,89 @@
+
+activate LAUNCHER
+
+participant LAUNCHER
+participant WINDOW
+participant EXECUTOR
+
+# This is a comment
+
+loop use_case in use_cases
+
+  loop param in use_case.params
+
+    # Window Creation
+
+    LAUNCHER->*WINDOW: use_case.widget
+    activate WINDOW
+    WINDOW->WINDOW: set_widget(widget)
+    activate WINDOW
+    space
+    deactivate WINDOW
+    LAUNCHER<--WINDOW: window
+    deactivate WINDOW
+
+    # Executor Creation
+
+    LAUNCHER->*EXECUTOR: window
+    activate EXECUTOR
+    EXECUTOR-->>LAUNCHER: executor
+    deactivate EXECUTOR
+    LAUNCHER->EXECUTOR: run(profile: bool)
+    activate EXECUTOR
+
+    # Inner Executor Execution
+
+    # Repeat Loop
+    loop repeat in window.use_case.repeat
+
+      # Time
+      EXECUTOR->EXECUTOR: timeit()
+      activate EXECUTOR
+      space
+      deactivate EXECUTOR
+
+      # If profile
+      alt profile == True
+        EXECUTOR->EXECUTOR: start_profile()
+        activate EXECUTOR
+        space
+        deactivate EXECUTOR
+      end
+
+      # Operate
+      EXECUTOR->WINDOW: operate()
+      activate WINDOW
+      space 
+      deactivate WINDOW
+
+      # If profile
+      alt profile==True
+        EXECUTOR->EXECUTOR: stop_and_save_profile()
+        activate EXECUTOR
+        space
+        deactivate EXECUTOR
+      end
+
+    # Repeat Loop End
+    end
+
+    EXECUTOR-->>LAUNCHER: [results]
+
+    destroy WINDOW
+    destroy EXECUTOR
+    deactivate EXECUTOR
+
+    LAUNCHER->LAUNCHER:save([results])
+    activate LAUNCHER
+    space 
+    deactivate LAUNCHER
+
+	# Param Loop End
+	end
+
+# Use Case Loop End
+end
+
+
+
+

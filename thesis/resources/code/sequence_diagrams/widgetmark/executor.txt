@@ -1,0 +1,39 @@
+
+activate EXECUTOR
+
+note over EXECUTOR: Actual Use Case Execution
+
+# Repeat Loop
+loop repeat in window.use_case.repeat
+
+  # Time
+  EXECUTOR->EXECUTOR: timeit()
+  activate EXECUTOR
+  space
+  deactivate EXECUTOR
+
+  # If profile
+  alt profile == True
+    EXECUTOR->EXECUTOR: start_profile()
+    activate EXECUTOR
+    space
+    deactivate EXECUTOR
+  end
+
+  # Operate
+  EXECUTOR->WINDOW: operate()
+  activate WINDOW
+  space 
+  deactivate WINDOW
+
+  # If profile
+  alt profile==True
+    EXECUTOR->EXECUTOR: stop_and_save_profile()
+    activate EXECUTOR
+    space
+    deactivate EXECUTOR
+  end
+
+# Repeat Loop End
+end
+

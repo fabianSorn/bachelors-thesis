@@ -4,6 +4,8 @@
 */cache/
 */results/
 document/out/
+*/__pycache__/*
+*.pyc
 
 vispy
 

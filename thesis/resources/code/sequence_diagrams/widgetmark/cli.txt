@@ -1,0 +1,34 @@
+actor USER
+participant CLI
+
+USER->*CLI:__init__
+USER->CLI: exec(*args)
+activate CLI
+CLI->*LAUNCHER: file: str
+activate LAUNCHER
+LAUNCHER->LAUNCHER: import_from_location(file)
+activate LAUNCHER
+space 
+LAUNCHER-->>LAUNCHER: use_cases
+deactivate LAUNCHER
+LAUNCHER-->>CLI:launcher
+deactivate LAUNCHER
+
+CLI->LAUNCHER:run(profile: bool)
+activate LAUNCHER
+
+LAUNCHER->LAUNCHER: execute(use_cases)
+activate LAUNCHER
+note over LAUNCHER: Execute Use Cases in Launcher
+LAUNCHER-->>LAUNCHER: [results]
+deactivate LAUNCHER
+
+LAUNCHER->CLI: [results]
+deactivate LAUNCHER
+destroy LAUNCHER
+
+CLI->CLI: view([results])
+activate CLI
+space 
+deactivate CLI
+deactivate CLI
