@@ -1,0 +1,56 @@
+[<abstract>UseCase |
+    + parameters: Dict\[str, Any\]
+    + repeat: int
+    + timeout: float
+    + profile: bool
+    + goal: float
+    + minimum: float
+    + tolerance: flaot
+|
+    setup_widget(): Widget
+    operate(): None
+]
+
+[Executor ||
+	launch()
+]
+
+[CLI ||
+	exec()
+]
+
+[Launcher ||
+	run()
+    load_use_cases()
+]
+
+[UseCaseResult
+||
+    failed(): bool
+    timed_out(): bool
+    operations_per_second(): bool
+]
+
+[BenchmarkingWindow ||
+	widget(): Widget
+    operate(): None
+]
+
+
+
+[UseCase] -- [<note> Is supposed to be subclassed
+	by the user to define own use cases]
+
+[UseCaseResult] +-> 1 [UseCase]
+
+[BenchmarkingWindow] +-> 1 [UseCase]
+
+[Executor] +-> 1 [BenchmarkingWindow]
+
+[Executor] +-> 0..* [UseCaseResult]
+
+[CLI] +-> 1 [Launcher]
+
+[Launcher] +-> 1 [Executor]
+
+[CLI] +-> 0..* [UseCaseResult]

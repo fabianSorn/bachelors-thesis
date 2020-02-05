@@ -8,8 +8,9 @@
 \chapter{Design and Implementation of a Benchmark Framework}
 \label{ch:application}
 
-In this chapter, the findings from the previous chapters will be combined
-to design and implement a benchmarking framework, which allows the user to benchmark charting operations, he has defined himself. 
+In this chapter, the findings from the previous chapters will be combined to
+design and implement a benchmarking framework, which allows the user to
+benchmark charting operations, he has defined himself. 
 
 
 
@@ -18,55 +19,129 @@ to design and implement a benchmarking framework, which allows the user to bench
 %%          Python Graph Libraries
 %% ==============================================
 
-\section{Python Graph Libraries}
-\label{sec:application:libraries}
+\section{Python Graph Libraries} \label{sec:application:libraries}
 
-When benchmarking different Python Graph libraries, we will focus our attention on two contenders for the implementation, which .
+When benchmarking different Python Graph libraries, we will focus our attention
+on two contenders for the implementation, which .
 
-\subsection{Matplotlib}
-\label{sec:application:libraries:matplotlib}
+\subsection{Matplotlib} \label{sec:application:libraries:matplotlib}
 
-Matplotlib is probably the standard library for 2D data visualization in Python. It offers publication quality visualization as well as an interactive environment. The project was initialized by John D. Hunter as an easy to use Python 2D plotting library, especially for users familiar with Data Visualization in Matlab.
-\cite{Matplotlib, MatplotlibHistory}
+Matplotlib is probably the standard library for 2D data visualization in Python.
+It offers publication quality visualization as well as an interactive
+environment. The project was initialized by John D. Hunter as an easy to use
+Python 2D plotting library, especially for users familiar with Data
+Visualization in Matlab.  \cite{Matplotlib, MatplotlibHistory}
 
-Matplotlibs central item is the \inlinecode{Python}{matplotlib.figure.Figure}. The Figure itself does not yet display anything, neither a plot with axes nor data. A plot is reffered as an \inlinecode{Python}{matplotlib.axes.Axes}. A figure can have multiple Axes in it. For each dimension in the data space the Axes contains \inlinecode{Python}{matplotlib.axis.Axis} objects, which represents the minimum and maximum data limit for each dimension of the data. An Axes object can be personalised thourgh axis labels and a title. In Matplotlib terminology, Artists are everything which is visible in a Figure. This includes, Labels, Line and Bar Graphs, Axis Items and more. The last crucial component is the Canvas, which is not really a visual component in the plot, but the component responsible for rendering the image.
+Matplotlibs central item is the \inlinecode{Python}{matplotlib.figure.Figure}.
+The Figure itself does not yet display anything, neither a plot with axes nor
+data. A plot is reffered as an \inlinecode{Python}{matplotlib.axes.Axes}. A
+figure can have multiple Axes in it. For each dimension in the data space the
+Axes contains \inlinecode{Python}{matplotlib.axis.Axis} objects, which
+represents the minimum and maximum data limit for each dimension of the data. An
+Axes object can be personalised thourgh axis labels and a title. In Matplotlib
+terminology, Artists are everything which is visible in a Figure. This includes,
+Labels, Line and Bar Graphs, Axis Items and more. The last crucial component is
+the Canvas, which is not really a visual component in the plot, but the
+component responsible for rendering the image.
 
-Matplotlib is built for many different use cases. While showing data in \gls{gui} applications is one of them, it can be used for other use cases, like generating plots as images for publications. This is achieved by Matplotlib supporting different Backends. A Backend is the system, which allows you to use Matplotlib in these different use cases. All available Backends can be devided in interactive and hardcopy ones. An example for a interactive backend is in our case PyQt5, but other Frameworks like Tkinter or PyGTK are supported. Non interactive backends are for creating image files in different file formats like PNG, SVG, PDF and more.
-\cite{MatplotlibIntro, PythonDataVis}
+Matplotlib is built for many different use cases. While showing data in
+\gls{gui} applications is one of them, it can be used for other use cases, like
+generating plots as images for publications. This is achieved by Matplotlib
+supporting different Backends. A Backend is the system, which allows you to use
+Matplotlib in these different use cases. All available Backends can be devided
+in interactive and hardcopy ones. An example for a interactive backend is in our
+case PyQt5, but other Frameworks like Tkinter or PyGTK are supported. Non
+interactive backends are for creating image files in different file formats like
+PNG, SVG, PDF and more.  \cite{MatplotlibIntro, PythonDataVis}
 
-Listing \ref{listing:application:matplotlib} shows the creation of a window containing a plot representing a sinus curve in different ways. For interaction, MatPlotLib offers a Toolbar, which lets you select between different interaction modes like panning and zooming. As a backend Matplotlib's Qt5 backend was used. The resulting window can be seen in Screenshot \ref{a:fig:matplotlib:window}.
+Listing \ref{listing:application:matplotlib} shows the creation of a window
+containing a plot representing a sinus curve in different ways. For interaction,
+MatPlotLib offers a Toolbar, which lets you select between different interaction
+modes like panning and zooming. As a backend Matplotlib's Qt5 backend was used.
+The resulting window can be seen in Screenshot \ref{a:fig:matplotlib:window}.
 
-\lstinputlisting[
+\lstinputlisting[ 
     caption=Definition of a Window containing a plot created with Matplotlib,
-    language=python, 
+    language=python,
     label=listing:application:matplotlib,
     firstline=4,
-    lastline=35
+    lastline=35 
 ]{resources/code/matplotlib_demo.py}
 
-\subsection{PyQtGraph}
-\label{sec:application:libraries:pyqtgraph}
+\subsection{PyQtGraph} \label{sec:application:libraries:pyqtgraph}
 
-PyQtGraph is a pure python plotting library. While not offering as many features as other Python plotting libraries like Matplotlib, PyQtGraph promises to offer much better Plotting performance. PyQtGraph was initialized by Luke Campagnola and is focused on providing plotting functionalities for engineering and science applications. It provides simple plots containing line graphs, scatter plots, bar graphs and more, but also offers widgets for image and video displaying, Region of Interest widgets, 3D visualization and more. Since our benchmarking efforts will be tightly focusing on the collected use cases, we will restrict our usage of its features mainly on plots with different data visualization. PyQtGraph uses Qt's Graphics View for drawing, which is a Framework for fast visualization of a large number of custom 2D items. A big advantage it offers is its fast performance and the possibility for the user to interact and transform the scene through for example zooming or rotation. \cite{GraphicsView}
+PyQtGraph is a pure python plotting library. While not offering as many features
+as other Python plotting libraries like Matplotlib, PyQtGraph promises to offer
+much better Plotting performance. PyQtGraph was initialized by Luke Campagnola
+and is focused on providing plotting functionalities for engineering and science
+applications. It provides simple plots containing line graphs, scatter plots,
+bar graphs and more, but also offers widgets for image and video displaying,
+Region of Interest widgets, 3D visualization and more. Since our benchmarking
+efforts will be tightly focusing on the collected use cases, we will restrict
+our usage of its features mainly on plots with different data visualization.
+PyQtGraph uses Qt's Graphics View for drawing, which is a Framework for fast
+visualization of a large number of custom 2D items. A big advantage it offers is
+its fast performance and the possibility for the user to interact and transform
+the scene through for example zooming or rotation. \cite{GraphicsView}
 
-Since PyQtGraph is built on top of Qt features, integrating it into Qt applications is very simple. The central component for plotting is the \inlinecode{Python}{pyqtgraph.PlotWidget}. Since it is derived from \inlinecode{Python}{QtWidgets.QWidget}, it is very simple to add to a window. When adding the plot widget to a window, it comes with different components on the inside, as seen in \ref{a:fig:pyqtgraph:content}. The central one is the \inlinecode{Python}{pyqtgraph.PlotItem}, which is the actual plot. The widget itself is only a wrapper for easy integration into Qt Applications. The PlotItem contains different components of the plot, including a \inlinecode{Python}{pyqtgraph.ViewBox}, which is the area data is visualized in, a \inlinecode{Python}{pyqtgraph.AxisItem}, which is representing the View Range of the View Box and a Title. Items which are actually representing a dataset are added to the View Box. For this, PyQtGraph is offering different types of representations like a \inlinecode{Python}{pyqtgraph.PlotDataItem} for Scatter Plots and Line Graphs or \inlinecode{Python}{pyqtgraph.BarGraphItem} for representing data in a bar graph.
+Since PyQtGraph is built on top of Qt features, integrating it into Qt
+applications is very simple. The central component for plotting is the
+\inlinecode{Python}{pyqtgraph.PlotWidget}. Since it is derived from
+\inlinecode{Python}{QtWidgets.QWidget}, it is very simple to add to a window.
+When adding the plot widget to a window, it comes with different components on
+the inside, as seen in \ref{a:fig:pyqtgraph:content}. The central one is the
+\inlinecode{Python}{pyqtgraph.PlotItem}, which is the actual plot. The widget
+itself is only a wrapper for easy integration into Qt Applications. The PlotItem
+contains different components of the plot, including a
+\inlinecode{Python}{pyqtgraph.ViewBox}, which is the area data is visualized in,
+a \inlinecode{Python}{pyqtgraph.AxisItem}, which is representing the View Range
+of the View Box and a Title. Items which are actually representing a dataset are
+added to the View Box. For this, PyQtGraph is offering different types of
+representations like a \inlinecode{Python}{pyqtgraph.PlotDataItem} for Scatter
+Plots and Line Graphs or \inlinecode{Python}{pyqtgraph.BarGraphItem} for
+representing data in a bar graph.
 
-Listing \ref{listing:application:pyqtgraph} shows the creation of a window containing a plot representing a sinus curve in different ways. It displays the same data sets in the same style as the example from \ref{sec:application:libraries:matplotlib}. For the Line Graph and Scatter Plot we can use \inlinecode{Python}{pyqtgraph.PlotDataItem}. For the Bar Graph we create a \inlinecode{Python}{pyqtgraph.BarGraphItem}. Each item can then be added to the plot. The resulting window can be seen in \ref{a:fig:pyqtgraph:window}.
-\cite{PyQtGraphDoc}
+Listing \ref{listing:application:pyqtgraph} shows the creation of a window
+containing a plot representing a sinus curve in different ways. It displays the
+same data sets in the same style as the example from
+\ref{sec:application:libraries:matplotlib}. For the Line Graph and Scatter Plot
+we can use \inlinecode{Python}{pyqtgraph.PlotDataItem}. For the Bar Graph we
+create a \inlinecode{Python}{pyqtgraph.BarGraphItem}. Each item can then be
+added to the plot. The resulting window can be seen in
+\ref{a:fig:pyqtgraph:window}.  \cite{PyQtGraphDoc}
 
 \lstinputlisting[
     caption=Definition of a window containing a plot created with PyQtGraph,
-    language=python, 
+    language=python,
     label=listing:application:pyqtgraph,
     firstline=2,
     lastline=25
 ]{resources/code/pyqtgraph_demo.py}
 
 \subsubsection{Extensions for PyQtGraph from \gls{aps}}
-\label{sec:application:libraries:accpyqtgraph}
-PyQtGraph has already seen adaption in projects at \gls{cern}, which needed fast plotting performance. To provide a more convenient and faster development experience, \gls{aps} is providing a extended version of PyQtGraph mainly adapted for usage in Runtime Monitoring Applications. This extension offers first of all the additions of important features missing in PyQtGraph and as second a convenient live data plotting layer.
+\label{sec:application:libraries:accpyqtgraph} PyQtGraph has already seen
+adaption in projects at \gls{cern}, which needed fast plotting performance. To
+provide a more convenient and faster development experience, \gls{aps} is
+providing a extended version of PyQtGraph mainly adapted for usage in Runtime
+Monitoring Applications. This extension offers first of all the additions of
+important features missing in PyQtGraph and as second a convenient live data
+plotting layer.
 
-One feature which PyQtGraph is lacking, is the ability to plot two ore more datasets on different y-axes. This feature is especially useful, when you are viewing and comparing data sets, whose values are in vastly different ranges on the y-axis. One example where this feature was heavily missing, was the use case described in section \ref{sec:usecases:linac}. As seen in the screenshot \ref{fig:linac4sourcegui} the plot in the upper right corner contains two axes on the left and right side. The left one is showing a range from approximately minus 35 to 15, while the right one shows a range from minus 15000 to 35000. To keep the plot interactive, the different data sets are displayed on different areas, which are \inlinecode{Python}{pyqtgraph.ViewBox}. The shown view range is displayed by an \inlinecode{Python}{pyqtgraph.AxisItem}. In the extension a layer describes one of these viewboxes together with its axis. Schema \ref{fig:application:pyqtgraph:layers} show how mulitple layers are stacked on top of each other to build a single plot. The big advantage is, that each layer can be moved individually by the user of the application.
+One feature which PyQtGraph is lacking, is the ability to plot two ore more
+datasets on different y-axes. This feature is especially useful, when you are
+viewing and comparing data sets, whose values are in vastly different ranges on
+the y-axis. One example where this feature was heavily missing, was the use case
+described in section \ref{sec:usecases:linac}. As seen in the screenshot
+\ref{fig:linac4sourcegui} the plot in the upper right corner contains two axes
+on the left and right side. The left one is showing a range from approximately
+minus 35 to 15, while the right one shows a range from minus 15000 to 35000. To
+keep the plot interactive, the different data sets are displayed on different
+areas, which are \inlinecode{Python}{pyqtgraph.ViewBox}. The shown view range is
+displayed by an \inlinecode{Python}{pyqtgraph.AxisItem}. In the extension a
+layer describes one of these viewboxes together with its axis. Schema
+\ref{fig:application:pyqtgraph:layers} show how mulitple layers are stacked on
+top of each other to build a single plot. The big advantage is, that each layer
+can be moved individually by the user of the application.
 
 \begin{figure}[h]
     \centering
@@ -75,18 +150,46 @@ One feature which PyQtGraph is lacking, is the ability to plot two ore more data
     \label{fig:application:pyqtgraph:layers}
 \end{figure}
 
-The other addition made to PyQtGraph is a convenience layer on top of different types of data visualizations, which allow much easier connection of processes emitting data to each data visualization item. Pure PyQtGraph does not have any way of incrementally feeding data into a plot, it only allows replacing the entire data set. As an example we assume a user, who wants to display the last hour of data coming from a process, which is continously emitting new data with a frequency of 1 Hz. With pure PyQtGraph the user will have to handle saving and creating a subset of data, he is interested in all by himself. Additionally, data coming from a data loggin system, which contains data with older time stamps compared to the ones from the live data, these points will have to be sorted into the existing array of data. The reason for that is, that PyQtGraph draws the connection between points by their position in the passed array, not by the x values provided. Additionally creating a subset of the last one hour of data for an unsorted data set will be a much harder task compared to a sorted data set. The convenience layer for PyQtGraph does remove these tasks from the users responsiblities by allowing him to define a time range he is actually interested in and the only feed new data to the graph without having to store or sort it.
+The other addition made to PyQtGraph is a convenience layer on top of different
+types of data visualizations, which allow much easier connection of processes
+emitting data to each data visualization item. Pure PyQtGraph does not have any
+way of incrementally feeding data into a plot, it only allows replacing the
+entire data set. As an example we assume a user, who wants to display the last
+hour of data coming from a process, which is continously emitting new data with
+a frequency of 1 Hz. With pure PyQtGraph the user will have to handle saving and
+creating a subset of data, he is interested in all by himself. Additionally,
+data coming from a data loggin system, which contains data with older time
+stamps compared to the ones from the live data, these points will have to be
+sorted into the existing array of data. The reason for that is, that PyQtGraph
+draws the connection between points by their position in the passed array, not
+by the x values provided. Additionally creating a subset of the last one hour of
+data for an unsorted data set will be a much harder task compared to a sorted
+data set. The convenience layer for PyQtGraph does remove these tasks from the
+users responsiblities by allowing him to define a time range he is actually
+interested in and the only feed new data to the graph without having to store or
+sort it.
 
-To achieve this, three different components have been introduced: the Update Source, the Data Model and the View. The Update Source is responsible for connecting to a device. The data model is responsible for storing the data and keeping it sorted. The View is responsible for displaying the data from the datamodel. Depiction \ref{fig:application:pyqtgraph:updatesource} shows the communication between these different layers. Operations marked in red are the intial setup of the connection between the components. Blue operatoins show the flow of data published from a process which is supposed to be visualized.
+To achieve this, three different components have been introduced: the Update
+Source, the Data Model and the View. The Update Source is responsible for
+connecting to a device or process whose data is supposed to be visualized. The
+data model is responsible for storing the data and keeping it sorted. The View
+is responsible for displaying the data from the datamodel. Depiction
+\ref{a:fig:pyqtgraph:updatesource:init} shows the initialization
+process of these different layers. The View is a single data is not the entire
+plot, but a single data visualization object, like curves or bar graphs.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=14cm]{resources/img/PyQtGraphUpdateSource}
-    \caption{Live Plotting Architecture for PyQtGraph. Operations for the initial connection are marked red, the data flow for new data is marked blue.}
-    \label{fig:application:pyqtgraph:updatesource}
-\end{figure}
+Depiction \ref{a:fig:pyqtgraph:updatesource:update} is showing the
+communication as soon as new data is available in the process. The Update Source
+receives the new data from the process. How this data is transferred is specific
+to the protocols used for communcation as well as the type of process connected
+to. From there the Update Source emits the new data thorugh signals to the data
+model, which sorts it in to the right position in the internal buffer.
+Afterwards the view is informed through signals, which can then take the subset
+of data, which it wants to display.
 
-Both, pure PyQtGraph as well as the extended versions will be included in our benchmarks, especially to investigate potential performance hits introduced by the new live data plotting architecture.
+Both, pure PyQtGraph as well as the extended versions will be included in our
+benchmarks, especially to investigate potential performance hits introduced by
+the new live data plotting architecture.
 
 
 
@@ -94,32 +197,845 @@ Both, pure PyQtGraph as well as the extended versions will be included in our be
 %%                   Design
 %% ==============================================
 
+\section{Analysis} \label{sec:application:analysis}
+
+After having a closer look at the two plotting libraries we will focus on, this
+chapter will focus on the design of the benchmarking framework, which we can use
+to investigate performance of both in the different use cases.
+
+This section will focus on the conceptual design of such a framework, while the
+following section \ref{sec:application:implementation} will focus on actual
+implementation.
+
+\subsection{Describing Performance of GUI systems}
+\label{sec:application:analysis:performance}
+
+From a Usability Engineering perspective, rendering performance is a vital
+aspect, since it greatly impacts a \glspl{gui} response time. The general advice
+on system's response times is 100 milliseconds, which is roughly the broundary
+up to which a systems feels like it is instantly responding to input. Delays
+over one second can already interrupt the thought process of the user, since he
+is clearly noticing the delay. Delays over ten seconds on the other hand require
+feedback from the system to signal the user it is performing long lasting tasks,
+since the user often already wants to perform other tasks.
+
+%% Source Chapter 5.5 of Jacob Nielsen's Usablility Engineering (https://www.nngroup.com/books/usability-engineering/)
+
+An often used measurment for describing a system's rendering performance is the
+Framerate, which describes the frequncy, with which images appear on a screen.
+This size originates from the movie industry, where the standard framerate is 24
+Frames per Second. The minimum frequency needed for the human eye to see a
+consecutive movement from a sequence of images is as low as 16 Frames per
+Second. This does not mean, that Framerates beyond this won't be recognized by
+the human eye. Increasing the Frame Rate leads to the reduciton of motion blur,
+increasing details and clearity of a moving image.
+
+Especially in the area of computer games, high Framerates are desirable, since
+they will not only enhance the visual experience, but will give the player a
+strategic advantage in a competitive environment.  A popular demonstration of
+the increased clarity of high framerates is the Blur Buster's UFO Motion Blut
+Test website, which shows the same scene of fast moving cartoon ufo in different
+Framerates (https://www.testufo.com).
+
+In many Hardware Benchmarks, Frames per Second can be found as the central
+description of a hardware component's abilities to render a complex scene. To
+measure this, the hardware benchmark will try to rerender the scene as fast as
+possible. At the same step in the rendering process of a single frame or image,
+the current timestamp is recorded. From these series of timestamps we can
+calulate the difference between two adjacent timestamps. This concept is known
+as Delta Timing and gives us information, how long the rendering process is
+taking us per Frame. In Video Games for example, this information allows us to
+find out, how much an object in the displayed scene should have moved since the
+last displayed frame. As a result, figure movement stays consistent, even under
+different load scenarios.
+
+From the recorded timing information, we can calculate the Framerate $f$ from a
+set of $m$ recorded time stamps $t_n$ as follows.
+
+$$f = \frac{1}{\frac{ \sum_{n=0}^{m-1} t_{n+1} - t_{n} }{ m - 1 }}$$
+
+%% Source: https://aframe.com/blog/2013/07/a-beginners-guide-to-frame-rates/
+%% Source: https://en.wikipedia.org/wiki/Frame_rate
+%% Source: https://medium.com/@dr3wc/understanding-delta-time-b53bf4781a03
+%% Source: https://en.wikipedia.org/wiki/Delta_timing
+
+While Framerates already provides very important information from a user's
+perspective, it does not yet help improving those from a developers perspective.
+Profilers are software tools which are able to measure different aspects of
+performance, like execution time, memory management, garbage collection and
+more. The type of profiler we will mainly focus on is deterministic CPU
+utilization profilers, collects information about time spent in functions, the
+origin and amount of calls to these functions. With the help of this
+information, optimization efforts can be directed to where they really can make
+a difference. Additionally Profilers can not only uncover slow performing
+fuctions, but also, if functions are more often called as intended by a programs
+author.
+
+%% Source: https://julien.danjou.info/guide-to-python-profiling-cprofile-concrete-case-carbonara/
+
+The standard option in Python to profile code, is the c extension cProfile,
+which allows deterministic profiling of your Python programs. Compared to the
+profiling profile, which is written in Python, cProfile offers a much lower
+overhead, which makes it suitable for profiling longer running programs Compared
+to the profiling profile, which is written in Python, cProfile offers a much
+lower overhead, which makes it suitable for profiling longer running programs.
+To provide this information about the execution of a program, cProfile does use
+hooks for events, which are offered by the Pyhton interpreter. These hooks are
+callbacks, which allow cProfile to receive and record timing information about
+every function executed by the Pyhton interpreter. For profile and cProfile,
+there are two limitations, which you have to be aware of when profiling sotware.
+The first one is the granularity of the underlying timer used for recording the
+duration of an operation, which is mostly around 0.001 seconds. The other
+limitation is the lag between the event being dispatched and the profiler to get
+the current time. Since profiling is introducing a certain overhead to the
+execution of a python program, it is not suitable for benchmarking itself.
+
+%% Source: https://docs.python.org/3.8/library/profile.html
+
+\subsection{Use Cases}
+
+\label{sec:application:analysis:usecase}
+
+One important aspect of desiging a framework, is the possible use cases it
+offers to the user. Users interested in the performance of a graph library in a
+specific scenario, have a clear idea of their use case. Most higher level
+descriptions can be broken down in a simple operation or a sequence of
+operations. Since these Use Cases are the central point of interaction with the
+Framework, the we will define the following requirements, which have to be met
+for the definition of Use Cases.
+
+\begin{description}
+    \item[Ease of Use] 
+        The Framework should handle everything that is not relevant for the Use
+        Case. The user should only define, what is part of the Use Case and
+        nothing else.
+    \item[Widget and Operation]
+        The central items for defining a Use Case are a widget, and an operation
+        which is executed on this widget.
+    \item[Multiple Use Cases]
+        Adding and removing Use Cases has to be possible without much effort.
+    \item[Parameterization]
+        A Use Case has to be reusable for different parameters and has to be
+        easily extensible.
+    \item[Performance Expectations]
+        The author has to be able to define his performance expectations per use
+        case.
+    \item[Timeout]
+        In case Use Cases take much longer than expecet, it should be possible
+        to define a timeout, which will terminate the Use Case exeution, if
+        reached.
+\end{description}
+
+One framework type, which allows a simlar way of defining specific use cases,
+are Testing Frameworks like unittest or pytest. Since most users are to an
+extend familiar with their functionality, the interface should conform the
+expectations built from the usage of these frameworks.
+
+For easy execution of Use Cases, the Framework will offer a command line
+interface, which offers similar functionality like other python tools. The
+interface should conform the user's expectations in the same way with a few
+additions specific for our needs. 
+
+\begin{description}
+    \item[Use Case Exection]
+        Simlar to Frameworks like pytest, it should be able to execute a full
+        suite of Use Cases or only specific ones.
+    \item[Meaningful Results]
+        After execution, the user should be able to clearly see the results of
+        his Use Cases. This includes the Use Case, its performance requirments,
+        the actually achieved performance and the parameters used in the run.
+    \item[Profiling]
+        Since Profiling introduces additional overhead to the code's execution,
+        profiling should be optional.
+    \item[Profiling Visualization]
+        Since profiles often contain large amount of data, they have to be
+        visualized in a user friendly way.
+\end{description}
+
 \section{Design}
+
 \label{sec:application:design}
 
-After having a closer look at the two plotting libraries we will focus on, this chapter will focus on the design of the benchmarking framework, which we can use to investigate performance of both in the different use cases.
+This section will focus on the design decisions for the framework and describing
+the components involved. The most outer layer of the framework contains two
+components. The first component is the command line interface, which offers the
+user the possiblity to execute his benchmarking use cases. Additionally the
+inteface offers functionality to display the results gathered by the framework.
+The second component is the actual framework in the narrow sense, which is
+responsible for providing the necessary interfaces for the definition of use
+cases, the functionality for executing use cases, as well as recording the
+performance metrics that are displayed later. We will refer to the executing
+part of the framework as the launcher from now on.
 
-\subsection{Architecture}
-\dots
+\subsection{Benchmark Execution}
 
-\subsection{Benchmarking Mechanism}
-\dots
+Figure \ref{fig:application:design:cli} shows the communcation
+between the user, the command line interface and the launcher for the
+application case of executing a benchmarking use case from the command line.
+When the User starts the executable, the a CLI instance is created, which parses
+the command line arguments and instantiates the launcher. To keep the user
+interface exchangable, launcher and CLI are strictly seperated from each other.
+After the Launcher is initialized, it will import the use case modules. With the
+completion of the step, the launcher can be started, which will execute all
+collected use cases, collect the results and return them to the CLI, where they
+can be displayed.
 
-\subsection{Profiling}
-\dots
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=11cm]{resources/img/sequence/cli}
+    \caption{
+        Sequence diagram showing the communication between the Command Line
+        Inteface and the Framework.
+    }
+    \label{fig:application:design:cli}
+\end{figure}
+
+As next we will have a more detailed look at the execution of a collection of
+use cases, which is visualized in depiction
+\ref{fig:application:design:launcher}. We want to allow executing a whole suite
+of use cases similar to testing frameworks allowing us to execute entire test
+suites. This means that out launcher has to be able to handle multiple use
+cases, execute them sequentially and save each's record. Additionally, the
+launcher has to be able to handle parameterized use cases and execute them for
+every possible parameter combination simlar to the parameterize functionalities
+of many testing framework. 
+
+For the execution we will introduce two new components to our framework. The
+first component is the \gls{gui} window, which we will embed the widget in,
+which we want to operate on. The second one is the executor, which is
+responsible to execute the defined operation on the window and record timing
+information and the profile. After our Launcher is initialized and out benchmark
+files are properly imported, we will execute each use case in all possible
+parameter combinations. For each Combination we create a benchmarking
+window, which embeds the widget defined in the use case to display it. The
+window will then be passed to the executor, which needs the window to execute
+the operations defined in the use case on it. After the executor is fully
+initialized, we can run it.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=12cm]{resources/img/sequence/launcher}
+    \caption{
+        Sequence diagram showing the creation of the benchmarking window and the
+        executor.
+    }
+    \label{fig:application:design:launcher}
+\end{figure}
+
+Depiction \ref{fig:application:design:executor} shows this process in more
+detail. Before each operation, the current time stamp is taken. If a profile is
+supposed to be created, the profiler is started here as well. Afterwards the
+operation, which we want to benchmark, is executed on the passed window
+instance.  After it and all of its side effects are completed, the profiler is
+stopped if necessary. This execution cycle is repeated, until the defined repeat
+count or the timeout is reached. Afterwards, the timing information and the
+profile data are can be returned to the launcher.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{resources/img/sequence/executor}
+    \caption{
+        Sequence diagram showing the actual benchmarking execution on the window
+        by the executor in more detail.
+    }
+    \label{fig:application:design:executor}
+\end{figure}
+
+Figure \ref{fig:application:design:classdiagram:widgetmark} shows the classes
+from the prior sequence diagrams and their relations to each other. Since
+Launcher and CLI are clearly seperated from each other, it will be easily
+possible to replace the User Interface whithout having to change any business
+logic of the framework. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{resources/img/class/widgetmark}
+    \caption{
+        Class diagram depicting all important classes involved in the
+        Benchmarking Framework. 
+    }
+    \label{fig:application:design:classdiagram:widgetmark}
+\end{figure}
+
+\clearpage
+
+\subsection{Use Case Definition}
+
+\label{sec:application:design:usecases}
+
+In this section we will have a closer look at the design of Use Case definition
+after collecting the requirements for Use Cases in section
+\ref{sec:application:analysis:usecase}. To define a Use Case, Users will have to
+define a class in a python module. To mark the class as a Use Case, it will have
+to subclass the class \inlinecode{Python}{UseCase}. This will allow us to have a
+clearly defined interface for Use Cases, and makes the discovery of use case
+classes easier on execution. Figure
+\ref{fig:application:design:classdiagram:widgetmark} shows the classes methods.
+
+To define plotting benchmarks that are executable with different plotting
+libraries we will implement a unified interface for them, that can be
+implemented using different graph libraries. For now we will limit this
+interface to the functionality of our use cases we need. Such an interface is of
+course limited as well to the functionality that all libraries used for the
+implementation offer in common. With using the parameterization functionalities
+of our Use Cases, we can simply define higher level plotting benchmarks and
+execute them using different libraries to compare the results from each library.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{resources/img/class/plotabstraction}
+    \caption{
+        Class diagram depicting the plot abstraction interface and two
+        subclasses for the python plotting libraries PyQtGraph and MatPlotLib. 
+    }
+    \label{fig:application:design:classdiagram:plot}
+\end{figure}
+
+Figure \ref{fig:application:design:classdiagram:plot} shows the the abstract
+base classes for the plot widget as well as data items like curves, bar graphs,
+scatter plots and more. The class \inlinecode{Python}{AbstractBasePlot} offers
+plot functionalities to add a new item, get the current view range, set the
+current view range and a factory method for creating a plot using a specific
+plotting library. The two subclasses \inlinecode{Python}{PyQtGraphPlot} and
+\inlinecode{Python}{MatplotlibCode} can implement the functionality defined by
+the base class using each's libraries API. The
+\inlinecode{Python}{AbstractDataItem} on the other hand defines a common
+interface for setting, getting and adding new data to a data item of a plot.
+Similar to the plot, the two subclasses \inlinecode{Python}{PyQtGraphDataItem}
+and \inlinecode{Python}{MatplotlibDataItem} implement this.
+
+Code Example \ref{listing:application:plotabstraction} shows an example of the
+interface usage in a standard Qt window. Which library is used for the
+visualization can be simply controlled by choosing it during the widget's
+creation using the \inlinecode{Python}{AbstractBasePlot} factory method.
+
+\lstinputlisting[ 
+    caption=Creating a plot showing a sinus curve using the Plot Abtraction 
+            Layer,
+    language=python,
+    label=listing:application:plotabstraction,
+    firstline=9,
+    lastline=30
+]{resources/code/plot_abstraction.py}
 
 
+\subsection{User Interface}
+
+In this section we will have a look at the design of the command line interface
+of the framework based on the requirements we collected in
+\ref{sec:application:analysis:usecase}. Since our command line is supposed to be
+easily usable for users of other testing frameworks, our command line interface
+should be kept similar. Listing \ref{listing:application:cliusage:location}
+shows how to specify the location of one or multiple use cases from the command
+line. We will use a specific naming convention to mark files who define use
+cases. Each file which is supposed to be searched has to start with the prefix
+\inlinecode{bash}{bench_*}. This pattern should be configurable from the command
+line as well.
+
+\lstinputlisting[ 
+    caption=Starting benchmarks from the command line,
+    language=bash,
+    label=listing:application:cliusage:location,
+    lastline=39
+]{resources/code/widgetmark_cli_usage.sh}
+
+Additionally the command line should allow us to configure, if we want to run
+the framework with or without profiling, as well as the location the files are
+saved in. Listing \ref{listing:application:cliusage:profile} shows these
+configuration options on the command line as well as the generated files.
+
+\lstinputlisting[ 
+    caption=Starting benchmarks and create profiles for them,
+    language=bash,
+    label=listing:application:cliusage:profile,
+    firstline=40,
+    lastline=52
+]{resources/code/widgetmark_cli_usage.sh}
+
+Additionally the CLI should provide a visualization option for these binary
+profile files, which listing \ref{listing:application:cliusage:visualize} is
+showing. Simply printing profile files would not be very helpful, since they can
+grow very fast in size. Because of this, there are multiple tools available,
+which offer a much more user friendly visualization. For our purposes we decide
+for \emph{snakeviz}, a browser based graphical viewer for profile files.
+
+%% Source: https://jiffyclub.github.io/snakeviz/
+
+To improve the usability of the CLI, a help function should be offered which
+explains what the framework is and how it is going to be used.
+Listing \ref{listing:application:cliusage:help} shows how such a help message
+could look like. Additionally it should be possible to run the CLI with
+additional output when searching for the cause of bugs. 
+
+\lstinputlisting[ 
+    caption=Starting benchmarks and create profiles for them,
+    language=bash,
+    label=listing:application:cliusage:help,
+    firstline=58,
+    lastline=68
+]{resources/code/widgetmark_cli_usage.sh}
+
+The CLI output should contain all important information about the found files,
+the use cases, the performance requirements, the parameters and the actual
+reached framerate. Listing \ref{listing:application:cliusage:output} shows these
+informations on the command line after all found benchmarks were executed.
+
+\lstinputlisting[ 
+    caption=Output of the CLI with showing the benchmark results,
+    language=bash,
+    label=listing:application:cliusage:output,
+    firstline=69,
+]{resources/code/widgetmark_cli_usage.sh}
 
 
 %% ==============================================
 %%             Implementation
 %% ==============================================
 
-\section{Implementation}
-\label{sec:application:implementation}
+\section{Implementation} \label{sec:application:implementation}
 
-\subsection{Implementation of the Framework}
+This section will focus on the actual implementation of the framework based on
+the Analysis from section \ref{sec:application:analysis}, the design from
+section \ref{sec:application:design} and the Use Cases from \ref{sec:usecases}.
+As a name we choose \emph{widgetmark}, a composite of widget and benchmark. The
+language we use is Python in the version 3.6 to use newer language features like
+typing hint, which will highly improve the usability of the framework.
+
+\subsection{Project Structure}
+
+The first part of the implementation is setting up our project in Python, which
+figure \ref{fig:application:implementation:structure} is showing. The project
+will follow python best practices with a pcakage \emph{widgetmark} for the
+source code and \emph{tests} for unit tests. Additionally the project contains
+the two generated files \emph{\_version.py} and \emph{versioneer.py} for getting
+version information from version control tags, \emph{README.md} for a
+introduction into the project, \emph{setup.cfg} for tooling configuration and
+\emph{setup.py} for dependency definition and installation instructions.
+
+\begin{figure}[h]
+    \centering
+    \framebox[\textwidth]{%
+        \begin{minipage}{0.9\textwidth}
+            \dirtree{%
+                .1 project.
+                .2 widgetmark.
+                    .3 base.
+                        .4 benchmark.py.
+                        .4 executor.py.
+                        .4 launcher.py.
+                    .3 qt.
+                        .4 benchmark.py.
+                        .4 executor.py.
+                        .4 plot.py.
+                        .4 util.py.
+                    .3 cli.
+                        .4 \_\_main\_\_.py.
+                        .4 cli.py.
+                        .4 cli\_view.py.
+                        .4 loader.py.
+                    .3 \_version.py.
+                .2 tests.
+                    .3 \_\_init\_\_.py.
+                    .3 \dots.
+                .2 setup.py.
+                .2 setup.cfg.
+                .2 versioneer.py.
+                .2 README.md.
+            }
+        \end{minipage}
+    }
+    \caption{Widgetmark project structure}
+    \label{fig:application:implementation:structure}
+\end{figure}
+
+\subsection{Subpackage widgetmark.base}
+
+The first sub-package of our implementation is the package
+\inlinecode{Python}{widgetmark.base}. In this package we will define all base
+classes for our benchmarking framework, which are not part of the user
+interface. To keep the framework extensible and not limited to Qt as its
+\gls{gui} framework, we will skip qt specific implementations of functionality
+in this package and only offer common functionality not related to \gls{gui}
+operations. Qt specific implementations will be part of the
+\inlinecode{Python}{widgetmark.qt} package.
+
+\subsubsection*{benchmark.py}
+
+The first class for our implementation is the use case interface. Python does
+not support interfaces, but offers abstract classes we can use to define our
+interface by simply not provide any implementations for functions.
+
+\lstinputlisting[ 
+    language=Python,
+    linerange={2-2, 14-14}
+]{resources/widgetmark/base/benchmark.py}
+
+When distinguish three different types of information that can be
+defined in a use case: functions all subclasses have to implement, attributes
+subclasses have to implement and attributes subclasses can implement.
+Mandatory functions can be simply implemented as abstract methods using the
+\inlinecode{Python}{abstractmethod} decorator provided by the abc package.
+
+\lstinputlisting[ 
+    language=Python,
+    linerange={116-117, 124-124}
+]{resources/widgetmark/base/benchmark.py}
+
+Non mandatory attributes can be easily implemented as class attributes.
+
+\lstinputlisting[ 
+    language=Python,
+    linerange={30-30}
+]{resources/widgetmark/base/benchmark.py}
+
+For implementing mandatory attributes, \inlinecode{Python}{abc} does not offer
+any standard decorators, but we can use \inlinecode{Python}{property} in
+combination with the \inlinecode{Python}{abstractmethod} decorator to create
+abstract properties for out class. While such an implementation does not
+actually depict a mandatory attribute on a class level, the abstract property
+can be implemented as a class attribute in subclasses.
+
+\lstinputlisting[ 
+    language=Python,
+    linerange={56-58, 64-64}
+]{resources/widgetmark/base/benchmark.py}
+
+\lstinputlisting[ 
+    language=Python,
+    linerange={19-19, 22-22}
+]{resources/widgetmark/bench_label.py}
+
+With this implementation, there is no visual difference between defining
+mandatory or optional attributes in use case classes, but we can enforce, that
+all all mandatory attributes have been implemented. Both, class attributes and
+abstract properties can also be accessed the same way after the class is
+initialized using \inlinecode{Python}{instance.attribute}.
+
+The next class defined in this module is the \inlinecode{Python}{UseCaseResult}
+class, which is based on a single use case. For parameterized use cases, there
+will be a result instance for each parameter combination. The result object
+should comprise all information we have recorded from the use case. To make sure
+that use cases are read only after their initialization, we hold the information
+in private instance attributes and allow reading access only over properties
+without defining property setters. Additionally we offer convenient properties
+for checks on the results. An example is a \inlinecode{Python}{failed} property
+that can be used to check for exceptions instead of comparing the
+\inlinecode{Python}{result.exception is None} property against
+\inlinecode{Python}{result.failed}.
+
+\lstinputlisting[ 
+    language=Python,
+    linerange={173-180, 194-198, 245-246, 248-248}
+]{resources/widgetmark/base/benchmark.py}
+
+The last class defined in the module is the benchmarking window, which
+incorporates the widget defined in the use case and grants access to the
+operation we want to benchmark. Wrapping the operation allows us to access it
+later in the executor without having to keep a direct reference to the use case.
+Since our goal is to keep the base implementation free from \gls{gui} framework
+specific functionality, we won't subclass any Qt window classes like
+\inlinecode{Python}{QtWidgets.QMainWindow}.
+
+\subsubsection*{executor.py}
+
+The executor module contains the class
+\inlinecode{Python}{AbstractBaseExecutor}, which is responsible for executing
+the benchmarking operations on the window, record the results and create a
+fitting instance of the \inlinecode{Python}{UseCaseResult} class.
+
+As \ref{fig:application:design:executor} shows, for recording execution times,
+we need a loop like execution of the same operation over and over again. Simply
+using a loop can lead to unrealistic results, since we have to give back the
+control to the control loop in between operations to not skip on pending work
+caused by our operation. The practical implementation of this is dependent on
+the used \gls{gui} framework and will not be part of this class. As for the
+benchmarking window, this implementation will be done in a fitting executor
+subclass in package \inlinecode{Python}{widgetmark.qt}.
+
+For all \gls{gui} independent functionalities, this class does provide
+implementations. As seen in \ref{fig:application:design:executor} an executor
+instance is initialized for every parameter combination of every use case. After
+the initialization, a window can be attached to the executor through
+\inlinecode{Python}{set_window()}. The execution can then be launched using the
+\inlinecode{Python}{launch()} method. 
+
+\lstinputlisting[
+    language=Python,
+    linerange={38-56}
+]{resources/widgetmark/base/executor.py}
+
+Internally the abstract protected function \inlinecode{Python}{_launch()} is
+called, which gives \gls{gui} specific subclasses an opportunity to set up the
+actual execution loop. This loop can use the protected operation
+\inlinecode{Python}{_redraw_operation}, which is responsible for calling the
+operation on the window, collect timing information and control the profiler.
+
+\lstinputlisting[
+    language=Python,
+    linerange={107-121}
+]{resources/widgetmark/base/executor.py}
+
+For recording the current time-stamp we can use the \inlinecode{Python}{time()}
+function of the python package \inlincode{Python}{time}, which returns us the
+current time as floating point number. From this time-stamp and the last
+recorded one we can calculate the delta timing for the last step. The current
+time will be saved in an instance attribute for the next operate.
+
+\lstinputlisting[
+    language=Python,
+    linerange={154-159}
+]{resources/widgetmark/base/executor.py}
+
+The protected function \inlinecode{Python}{_profile} is responsible for
+controlling the profiler, which is used to profile the use case operation and
+combine the profiling stats from each step to a single profiling stat. Before
+the old step the current Profile will be disabled, the stats are added to the
+previously saved ones and the new profile will be enabled.
+
+\lstinputlisting[
+    language=Python,
+    linerange={124-137}
+]{resources/widgetmark/base/executor.py}
+
+The last important function is \inlinecode{Python}{_check_if_completed()}
+function, which stops execution if either the timeout or the repeat counter of
+the use case is reached. If one is the case, the protected function
+\inlinecode{Python}{_complete()} is called. Since reaching the end of the
+execution cycle means stopping the execution loop, this step is \gls{gui}
+framework specific and will be implemented in the subclasses. 
+
+\lstinputlisting[
+    language=Python,
+    linerange={139-152}
+]{resources/widgetmark/base/executor.py}
+
+\subsubsection*{launcher.py}
+
+The module \inlinecode{Python}{launcher} contains the class
+\inlinecode{Python}{Launcher}. As figure \ref{fig:application:design:launcher}
+shows, the purpose of the Launcher class is to create fitting benchmarking
+windows and executors for the use cases it was passed on initialization. The
+launcher can be initialized using either a list of types, which are derived from
+the \inlinecode{Python}{UseCase} class or with a list of file locations, where
+these classes are defined. If a list of files is passed, the fitting classes are
+imported using the \inlinecode{Python}{importlib} module which python offers.
+To make sure we import only classes that we want, we filter the found classes by
+their name and their type. The filtering by name is for cases the user specifies
+a specific name or name pattern on the command line, the type filtering is for
+not accidentally trying to initialize classes which do not define use cases.
+This way use case files can safely contain other class definitions without
+leading to errors.
+
+\lstinputlisting[
+    language=Python,
+    linerange={123-126, 133-154}
+]{resources/widgetmark/base/launcher.py}
+
+The initialized launcher instance can be started using the
+\inlinecode{Python}{run()} method, which takes a parameter
+\inlinecode{Python}{profile} for controlling if the executor will create a
+profile of the use case or not. Before initializing window and executor we
+create a list of all parameter combinations. For each of these parameter
+combinations we initialize the use case class. To grant access in the use case
+class to these parameters, we set them as instance attributes to the initialized
+use case instance. If the use case class defines for example the parameters
+\inlinecode{Python}{'number': [0, 1]}, we can access the value of this
+parameter in the use case class during execution by calling 
+\inlinecode{Python}{self.number}.
+
+\lstinputlisting[
+    language=Python,
+    linerange={90-119}
+]{resources/widgetmark/base/launcher.py}
+
+To resolve the right window and executor implementation for the backend defined
+by the use case, we have the class \inlinecode{Python}{BackendResolver} which
+does iterates through a classes subclass using the underscore function
+\inlinecode{Python}{__subclasses__()} to find one fitting to the requested
+backend. For this each subclass defines a class attribute
+\inlinecode{Python}{gui_backend}, which can be compared to the
+\inlinecode{Python}{backend} class attribute of the use case classes.
+
+\subsection{Subpackage widgetmark.qt}
+
+This package contains qt specific implementations of the benchmarking window and
+the executor, as well as the qt plotting interface.
+
+\subsubsection*{benchmark.py}
+
+This module provides a Qt based implementation of the
+\inlinecode{Python}{AbstractBenchmarkingWindow} based on 
+\inlinecode{Python}{QtWidgets.QMainWindow}. Since Python supports multi
+inheritance, the Qt benchmarking window can be implemented as follows. The
+\inlinecode{Python}{make_qt_abc_meta()} function in this class definition is for
+solving the meta class conflict between qt classes and the
+\inlinecode{Python}{ABCMeta} from the \inlinecode{Python}{abc} package. This is
+achieved by returning a metaclass that is derived from both the meta class of
+\inlinecode{Python}{QMainWindow} and \inlinecode{Python}{ABCMeta}. Its
+implementation can be found in the \inlinecode{Python}{util.py} module of the
+same package.
+
+\lstinputlisting[
+    language=Python,
+    linerange={7-9}
+]{resources/widgetmark/qt/benchmark.py}
+
+\subsubsection*{executor.py}
+
+This module provides a Qt based implementation of the
+\inlinecode{Python}{AbstractBenchmarkExecutor} based on
+\inlinecode{Python}{QtCore.QObject}. The executor has to start a Qt application
+and implement two functions based on it: \inlinecode{Python}{_launch()} and
+\inlinecode{Python}{_complete()}. Initialization of the benchmark execution loop is the
+purpose of \inlinecode{Python}{_launch}. To make sure, that no pending events
+are skipped, we want to give back control to Qt's event loop after each time our
+operation we want to benchmark is executed. In Qt we can achieve such a loop
+by using the \inlinecode{Python}{QtCore.QTimer} with a timeout of zero seconds.
+Such a timer will timeout everytime it is possible. 
+%% Source: https://doc.qt.io/qt-5/qtimer.html#details
+To the timer's timeout signal we can connect the executor's base's
+\inlinecode{Python}{_redraw_operation} function, which handles profiling, timing
+and operation execution. After the timer is set up we can start the event loop
+of our Qt application.
+
+\lstinputlisting[
+    language=Python,
+    linerange={60-64}
+]{resources/widgetmark/qt/executor.py}
+
+After the executor's base notices in its
+\inlinecode{Python}{_check_if_completed} function, that either the timeout or
+the maximum repeat counter is reached, it will call the
+\inlinecode{Python}{_complete} function. Its purpose is not only to wrap the
+recorded performance figures in a \inlinecode{Python}{UseCaseResult} instance,
+but also to stop the execution loop. Since the loop is based on a
+\inlinecode{Python}{QtCore.QTimer}, we can use its \inlinecode{Python}{stop()}
+function to achieve this.
+
+\lstinputlisting[
+    language=Python,
+    linerange={66-77}
+]{resources/widgetmark/qt/executor.py}
+
+The Executor is also responsible to start and quit the
+\inlinecode{Python}{QtWidgets.QApplication}. One caveat worth mentioning in this
+context is, that there should only be a single instance of the application
+running, since multiple \inlinecode{Python}{QApplication} instances will lead to
+problems. Because of this, the executor class has to make sure, that there is
+no existing one before creating a new one.
+
+\lstinputlisting[
+    language=Python,
+    linerange={79-87}
+]{resources/widgetmark/qt/executor.py}
+
+Since the window and the widget is exposed during the benchmark execution, the
+user is able to interact with it. Since these interactions are not part of the
+use case, they would affect the results negatively, since their work effort
+would be counted as work produced by the use case. Because of this, we have to
+filter out all operations, which are not directly caused by operations of the
+use case. As described in section \ref{sec:fundamentals:qt:eventloop}, Qt offers
+us the possibility to install event filters, which can filter out all events
+coming from the window system. For our purposes we want to filter out all mouse
+interactions using the following class derived from
+\inlinecode{Python}{QtCore.QObject}.
+
+\lstinputlisting[
+    language=Python,
+    linerange={9-10, 15-27, 29-32}
+]{resources/widgetmark/qt/executor.py}
+
+\subsubsection*{plot.py}
+
+The module \inlinecode{Python}{widgetmark.qt.plot} contains the implementation
+of the abstraction layer for plotting operations.  As described in section
+\ref{sec:application:design:usecases} and in figure
+\ref{fig:application:design:classdiagram:plot}, we want to introduce an
+abstraction layer for the plotting libraries we are focusing on to write
+benchmark use cases that are reusable for multiple plotting libraries.  This
+abstraction layer should allow us to perform common actions on different
+plotting libraries without relying on their library specific API. The
+abstraction layer itself is implemented as an abstract class, that provides a
+factory method which returns the fitting subclass to the passed plotting
+library.
+
+\lstinputlisting[
+    language=Python,
+    linerange={44-48, 54-57, 60-63, 70-76, 87-97}
+]{resources/widgetmark/qt/plot.py}
+
+Each operation we want to use will get its own method in this abstract class. As
+an example we will have a look at the \inlinecode{Python}{add_item} function,
+which allows us to add a new item to the plot, which displays some data.
+
+\lstinputlisting[
+    language=Python,
+    linerange={107-108, 118-118}
+]{resources/widgetmark/qt/plot.py}
+
+For PyQtGraph we can implement the \inlinecode{Python}{add_item} function based
+on the \inlinecode{Python}{PlotDataItem}.
+
+\lstinputlisting[
+    language=Python,
+    linerange={186-187, 189-196, 201-209}
+]{resources/widgetmark/qt/plot.py}
+
+For Matplotlib on the other hand we can use the \inlinecode{Python}{Line2D}
+object for implementing the same function.
+
+\lstinputlisting[
+    language=Python,
+    linerange={247-263, 279-289}
+]{resources/widgetmark/qt/plot.py}
+
+Both functions will return objects derived from the same
+\inlinecode{Python}{AbstractDataItem}, which allows reading, writing and adding
+data in form of a two dimensional numpy array containing x and y-values, which
+fits our planned usage in listing \ref{listing:application:plotabstraction}. In
+our use cases, we can add the plotting library we want to benchmark as a
+parameter in its \inlinecode{Python}{parameters} section which we can then pass
+to the factory function \inlinecode{Python}{using()} of the
+\inlinecode{Python}{AbstractBasePlot} class. This way we can benchmark the exact
+same use case in two completely different plotting libraries without having to
+define two separate use cases.
+
+\subsection{Subpackage widgetmark.cli}
+
+The last package of our project's source code contains all modules related to
+the command line interface. It's purpose is accept user input to start the
+launcher with the files or use cases the user want as well as to present the
+results gathered from execution. Additionally it write the recorded profiles to
+separate files to a location defined by the user and start the visualization for
+them using the \inlinecode{Python}{snakeviz} python application. For defining
+command line arguments, the python package \inlinecode{Python}{argsparse} is
+used, which allows convenient parsing of arguments passed on the command line
+when executing the CLI module from the command line. Additionally, a help option
+will be added, which explains the usage when the user executes
+\inlinecode{bash}{widgetmark --help}.
+
+When installing \inlinecode{Python}{widgetmark} using
+\inlinecode{Python}{setuptools}, we can register wrap register our CLI as an
+console script. This allows us to make a Python function accessible from the
+command line. In the module main, we have our central main method, which
+initializes the CLI and executes it.
+
+\lstinputlisting[
+    language=Python,
+    linerange={4-6}
+]{resources/widgetmark/cli/__main__.py}
+
+In the module \inlinecode{bash}{setup.py} we can register this function as
+a \inlinecode{Python}{console_script} follows and define the name of the
+produces executable. In our case this will simply be
+\inlinecode{Python}{'widgetmark'}
+
+\lstinputlisting[
+    language=Python,
+    linerange={65-66, 77-79, 99-99}
+]{resources/widgetmark/setup.py}
+
+\section{Use Case Implementation}
+
 \dots
 
-\subsection{Implementation of the Use Cases}
-\dots
