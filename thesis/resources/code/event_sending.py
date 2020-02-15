@@ -18,7 +18,5 @@ class MainWindow(QtWidgets.QMainWindow):
             QtCore.Qt.LeftButton,
             QtCore.Qt.NoModifier
         )
-        QtCore.QCoreApplication.postEvent(
-            widget, event
-        )
+        QtCore.QCoreApplication.postEvent(widget, event)
         self.show()
