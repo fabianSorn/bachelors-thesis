@@ -41,11 +41,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.edit = QtWidgets.QLineEdit()
         self.watch_tick = WatchTick()
         self.watch = WatchLabel()
-        # Connect Text-Changed-Signal to the Set-Text-Slot
-        self.edit.textChanged.connect(self.label.setText)
-        self.watch_tick.start()
         # Update the watch label as soon as the ticker sends an update.
         self.watch_tick.sig_time.connect(self.watch.set_time)
+        self.watch_tick.start()
+        # Connect Text-Changed-Signal to the Set-Text-Slot
+        self.edit.textChanged.connect(self.label.setText)
         self.setup_layout()
         self.show()
 
