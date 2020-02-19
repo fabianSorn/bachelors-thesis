@@ -127,155 +127,63 @@ same data sets in the same style as the Matplotlib example
 \section{Analysis}
 \label{sec:application:analysis}
 
-After having a closer look at the two plotting libraries we will focus on, this
-chapter will focus on the design of the benchmarking framework, which we can use
-to investigate performance of both in the different use cases.
+After having a closer look at the two plotting libraries, this chapter will
+focus on the analysis of the requirements which we will base the design and
+implementation of our framework on.
 
-This section will focus on the conceptual design of such a framework, while the
-following section \ref{sec:application:implementation} will focus on actual
-implementation.
-
-\subsection{Describing Performance of GUI systems}
-\label{sec:application:analysis:performance}
-
-From a Usability Engineering perspective, rendering performance is a vital
-aspect, since it greatly impacts a \glspl{gui} response time. The general advice
-on system's response times is 100 milliseconds, which is roughly the boundary
-up to which a systems feels like it is instantly responding to input. Delays
-over one second can already interrupt the thought process of the user, since he
-is clearly noticing the delay. Delays over ten seconds on the other hand require
-feedback from the system to signal the user it is performing long lasting tasks,
-since the user often already wants to perform other tasks.
-\cite{UsabilityEngineering}
-
-An often used measurements for describing a system's rendering performance is the
-frame rate, which describes the frequency, with which images appear on a screen.
-This size originates from the movie industry, where the standard frame rate is 24
-Frames per Second. The minimum frequency needed for the human eye to see a
-consecutive movement from a sequence of images is as low as 16 Frames per
-Second. This does not mean, that frame rates beyond this won't be recognized by
-the human eye. Increasing the Frame Rate leads to the reduction of motion blur,
-increasing details and clarity of a moving image.
-
-Especially in the area of computer games, high frame rates are desirable, since
-they will not only enhance the visual experience, but will give the player a
-strategic advantage in a competitive environment.  A popular demonstration of
-the increased clarity of high frame rates is the Blur Buster's UFO Motion Blur
-Test website, which shows the same scene of fast moving cartoon UFO in different
-frame rates (https://www.testufo.com).
-
-In many Hardware Benchmarks, Frames per Second can be found as the central
-description of a hardware component's abilities to render a complex scene. To
-measure this, the hardware benchmark will try to rerender the scene as fast as
-possible. At the same step in the rendering process of a single frame or image,
-the current time stamp is recorded. From these series of timestamps we can
-calculate the difference between two adjacent timestamps. This concept is known
-as Delta Timing and gives us information, how long the rendering process is
-taking us per Frame. In Video Games for example, this information allows us to
-find out, how much an object in the displayed scene should have moved since the
-last displayed frame. As a result, figure movement stays consistent, even under
-different load scenarios.
-\cite{DeltaTiming}
-
-From the recorded timing information, we can calculate the frame rate $f$ from a
-set of $m$ recorded time stamps $t_n$ as follows.
-\cite{FrameRates}
-
-$$f = \frac{1}{\frac{ \sum_{n=0}^{m-1} t_{n+1} - t_{n} }{ m - 1 }}$$
-
-While frame rates already provides very important information from a user's
-perspective, it does not yet help improving those from a developers perspective.
-Profilers are software tools which are able to measure different aspects of
-performance, like execution time, memory management, garbage collection and
-more. The type of profiler we will mainly focus on is deterministic CPU
-utilization profilers, collects information about time spent in functions, the
-origin and amount of calls to these functions. With the help of this
-information, optimization efforts can be directed to where they really can make
-a difference. Additionally Profilers can not only uncover slow performing
-functions, but also, if functions are more often called as intended by a programs
-author.
-\cite{CProfilerExample}
-
-The standard option in Python to profile code, is the C extension cProfile,
-which allows deterministic profiling of your Python programs. Compared to the
-profiling profile, which is written in Python, cProfile offers a much lower
-overhead, which makes it suitable for profiling longer running programs Compared
-to the profiling profile, which is written in Python, cProfile offers a much
-lower overhead, which makes it suitable for profiling longer running programs.
-To provide this information about the execution of a program, cProfile does use
-hooks for events, which are offered by the Python interpreter. These hooks are
-callbacks, which allow cProfile to receive and record timing information about
-every function executed by the Python interpreter. For profile and cProfile,
-there are two limitations, which you have to be aware of when profiling
-software.  The first one is the granularity of the underlying timer used for
-recording the duration of an operation, which is mostly around 0.001 seconds.
-The other limitation is the lag between the event being dispatched and the
-profiler to get the current time. Since profiling is introducing a certain
-overhead to the execution of a python program, it is not suitable for
-benchmarking itself.
-\cite{CProfiler}
-
-\subsection{Use Cases}
-
-\label{sec:application:analysis:usecase}
-
-One important aspect of designing a framework, is the possible use cases it
-offers to the user. Users interested in the performance of a graph library in a
-specific scenario, have a clear idea of their use case. Most higher level
-descriptions can be broken down in a simple operation or a sequence of
-operations. Since these Use Cases are the central point of interaction with the
-Framework, the we will define the following requirements, which have to be met
-for the definition of Use Cases.
+Users interested in the performance of graph libraries often have a very clear
+idea of what their use case looks like, since they already know the background
+information of the data they want to plot. Because of this, the central
+interface to the framework should be these use cases. Most higher level use
+cases can be broken down in a simple operation or a sequence of operations. From
+our collected use cases we can define the following requirements.
 
 \begin{description}
     \item[Ease of Use] 
-        The Framework should handle everything that is not relevant for the Use
-        Case. The user should only define, what is part of the Use Case and
-        nothing else.
+        The user should only define the relevant parts for his use cases.
+        Everything else should be handled by the framework.
     \item[Widget and Operation]
-        The central items for defining a Use Case are a widget, and an operation
+        The central items for defining a use case are a widget, and an operation
         which is executed on this widget.
     \item[Multiple Use Cases]
-        Adding and removing Use Cases has to be possible without much effort.
+        Adding and removing use cases has to be possible without much effort.
     \item[Parameterization]
-        A Use Case has to be reusable for different parameters and has to be
+        A use case has to be reusable for different parameters and has to be
         easily extensible.
     \item[Performance Expectations]
         The author has to be able to define his performance expectations per use
         case.
     \item[Timeout]
-        In case Use Cases take much longer than expect, it should be possible
-        to define a timeout, which will terminate the Use Case execution, if
+        In case a use case takes much longer than expect, it should be possible
+        to define a timeout, which will terminate the use case's execution, if
         reached.
 \end{description}
 
-One framework type, which allows a similar way of defining specific use cases,
-are Testing Frameworks like unittest or pytest. Since most users are to an
-extend familiar with their functionality, the interface should conform the
-expectations built from the usage of these frameworks.
+One framework type, which allows a very similar way of defining specific use
+cases, are testing frameworks like unittest or pytest for python projects. Since
+most users are to an extend familiar with their functionality, the interface
+should conform the expectations built from the usage of these frameworks.
 
-For easy execution of Use Cases, the Framework will offer a command line
-interface, which offers similar functionality like other python tools. The
-interface should conform the user's expectations in the same way with a few
-additions specific for our needs. 
+For easy execution of use cases, the framework will offer a command line
+interface, which offers similar functionality as other python tools. The
+\gls{cli} should conform the user's expectations in the same way with a few
+additions specific to our needs. 
 
 \begin{description}
     \item[Use Case Exection]
-        Similar to Frameworks like pytest, it should be able to execute a full
-        suite of Use Cases or only specific ones.
+        Similar to frameworks like pytest, it should be able to execute multiple
+        use cases as well as single ones.
     \item[Meaningful Results]
         After execution, the user should be able to clearly see the results of
-        his Use Cases. This includes the Use Case, its performance requirements,
+        his use cases. This includes the use case, its performance requirements,
         the actually achieved performance and the parameters used in the run.
     \item[Profiling]
         Since Profiling introduces additional overhead to the code's execution,
-        profiling should be optional.
+        profiling should be optional and activatable through the \gls{cli}.
     \item[Profiling Visualization]
         Since profiles often contain large amount of data, they have to be
         visualized in a user friendly way.
 \end{description}
-
-
 
 
 %% ==============================================
@@ -286,29 +194,29 @@ additions specific for our needs.
 
 \label{sec:application:design}
 
-This section will focus on the design decisions for the framework and describing
-the components involved. The most outer layer of the framework contains two
-components. The first component is the command line interface, which offers the
-user the possibility to execute his benchmarking use cases. Additionally the
-interface offers functionality to display the results gathered by the framework.
-The second component is the actual framework in the narrow sense, which is
-responsible for providing the necessary interfaces for the definition of use
-cases, the functionality for executing use cases, as well as recording the
-performance metrics that are displayed later. We will refer to the executing
-part of the framework as the launcher from now on.
+This section will focus on describing the design of the framework. The most
+outer layer contains two components: the command line interface and the business
+logic. The command line interface offers the user the possibility to start the
+execution of his benchmarking use cases. Additionally it is responsible for
+presenting the results after the execution finished. The second component is the
+business logic, which is responsible for providing interfaces for defining use
+cases, the logic for executing them, as well the functionality to record the
+achieved results. We will refer to the executing part of the framework as the
+launcher from now on.
 
 \subsection{Benchmark Execution}
 
 Figure \ref{fig:application:design:cli} shows the communication between the
-user, the command line interface and the launcher for the application case of
-executing a benchmarking use case from the command line.  When the User starts
-the executable, a \gls{cli} instance is created, which parses the command line
-arguments and instantiates the launcher. To keep the user interface
-exchangeable, launcher and \gls{cli} are strictly separated from each other.
-After the Launcher is initialized, it will import the use case modules. With the
-completion of the step, the launcher can be started, which will execute all
-collected use cases, collect the results and return them to the \gls{cli}, where
-they can be displayed.
+user, the command line interface and the launcher when executing use cases from
+the command line.  When the user starts the framework's executable, a \gls{cli}
+instance is created, which parses the command line arguments and instantiates
+the launcher. To keep the user interface exchangeable, launcher and \gls{cli}
+are strictly separated from each other. The launcher will import the passed use
+case modules, with which the initialization is completed. To start the
+execution, the launcher offers a \inlinecode{Python}{run()} method. Each
+collected use case will then be executed sequentially and its achieved results
+collected. After all use cases are executed and all results are available, they
+are passed back the \gls{cli}, where they can be presented to the user.
 
 \begin{figure}[h]
     \centering
@@ -319,6 +227,8 @@ they can be displayed.
     }
     \label{fig:application:design:cli}
 \end{figure}
+
+%% ~~~~~~~~~~~~~~ Reviewed until here ~~~~~~~~~~~~~~
 
 As next we will have a more detailed look at the execution of a collection of
 use cases, which is visualized in depiction
