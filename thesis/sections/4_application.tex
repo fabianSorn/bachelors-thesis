@@ -222,54 +222,55 @@ are passed back the \gls{cli}, where they can be presented to the user.
     \centering
     \includegraphics[width=11cm]{resources/img/sequence/cli}
     \caption{
-        Sequence diagram showing the communication between the Command Line
-        interface and the Framework.
+        Sequence diagram showing the communication between the command line
+        interface and the business logic.
     }
     \label{fig:application:design:cli}
 \end{figure}
 
-%% ~~~~~~~~~~~~~~ Reviewed until here ~~~~~~~~~~~~~~
 
-As next we will have a more detailed look at the execution of a collection of
-use cases, which is visualized in depiction
-\ref{fig:application:design:launcher}. We want to allow executing a whole suite
-of use cases similar to testing frameworks allowing us to execute entire test
-suites. This means that out launcher has to be able to handle multiple use
-cases, execute them sequentially and save the record of each. Additionally, the
-launcher has to be able to handle parameterized use cases and execute them for
-every possible parameter combination similar to the parameterize functionalities
-of many testing framework. 
+Next we will have a more detailed look at the inner workings of the launcher.
+Its central task is the execution of use cases, which is visualized in depiction
+\ref{fig:application:design:launcher}. Our goal is to allow executing a suite of
+use cases similar to testing frameworks allowing the execution of entire test
+suites at once. Each use case will have to be executed sequentially and in a
+separate environment, to prevent different use cases having an influence on each
+other.  The same principle applies to parameterized use cases. This means the
+execution will take place in a nested loop with the outer one cycling through
+the use cases and the inner one through its parameter combinations.
 
-For the execution we will introduce two new components to our framework. The
-first component is the \gls{gui} window, which we will embed the widget in,
-which we want to operate on. The second one is the executor, which is
-responsible to execute the defined operation on the window and record timing
-information and the profile. After our Launcher is initialized and out benchmark
-files are properly imported, we will execute each use case in all possible
-parameter combinations. For each Combination we create a benchmarking
-window, which embeds the widget defined in the use case to display it. The
-window will then be passed to the executor, which needs the window to execute
-the operations defined in the use case on it. After the executor is fully
-initialized, we can run it.
+Visualization \ref{fig:application:design:launcher} introduces two new
+components, which build the execution environment for a single use case. The
+first component is the window, which will house our widget, on which we want to
+operate. The second component is the executor, which is responsible for
+executing the defined operation on the window and record timing information and
+profiling statistics. After our Launcher is initialized and our benchmark files
+are fully imported, we will execute each use case in all possible parameter
+combinations. For each combination we create a new benchmarking window. The
+window will then be passed to the executor. The executor will access all use
+case related information and operations through this window reference. For
+starting the execution, the executor offers a \inlinecode{Python}{run()}
+function, which gets called by the launcher.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=12cm]{resources/img/sequence/launcher}
     \caption{
-        Sequence diagram showing the creation of the benchmarking window and the
-        executor.
+        Sequence diagram showing the execution of a set of use cases in more
+        detail.
     }
     \label{fig:application:design:launcher}
 \end{figure}
 
-Depiction \ref{fig:application:design:executor} shows this process in more
-detail. Before each operation, the current time stamp is taken. If a profile is
-supposed to be created, the profiler is started here as well. Afterwards the
-operation, which we want to benchmark, is executed on the passed window
-instance.  After it and all of its side effects are completed, the profiler is
-stopped if necessary. This execution cycle is repeated, until the defined repeat
-count or the timeout is reached. Afterwards, the timing information and the
-profile data are can be returned to the launcher.
+Depiction \ref{fig:application:design:executor} shows the execution of a single
+use case in more detail. Before each operation, the current time stamp is taken.
+If a profile is supposed to be created, the profiler is started right after
+that.  Next the operation, which we want to benchmark, is executed on the passed
+window reference. After it and all of its side effects are completed, the
+profiler is stopped if necessary. Its statistics are added to the already
+collected ones. This execution cycle is repeated, until the defined repeat count
+or the timeout is reached. At the end, the timing information and the profiling
+statistics will be returned to the launcher.
 
 \begin{figure}[h]
     \centering
@@ -281,11 +282,14 @@ profile data are can be returned to the launcher.
     \label{fig:application:design:executor}
 \end{figure}
 
-Figure \ref{fig:application:design:classdiagram:widgetmark} shows the classes
-from the prior sequence diagrams and their relations to each other. Since
-Launcher and \gls{cli} are clearly separated from each other, it will be easily
-possible to replace the User Interface without having to change any business
-logic of the framework. 
+Figure \ref{fig:application:design:classdiagram:widgetmark} shows a class
+diagram of all classes involved in the sequence diagrams and their relationships
+to each other. Additionally it shows the use case interface with all its
+attributes and functions based on our analysis in section
+\ref{sec:application:analysis}. To define a new use case, the user can subclass
+this class and implement all necessary components. The results of a single use
+case are represented by its own class, which can be passed between each of the
+components involved in the execution until they can be display by the \gls{cli}.
 
 \begin{figure}[h]
     \centering
@@ -299,27 +303,25 @@ logic of the framework.
 
 \clearpage
 
-\subsection{Use Case Definition}
+\subsection{Use Case Definition and Plotting Abstraction Layer}
 
 \label{sec:application:design:usecases}
 
-In this section we will have a closer look at the design of Use Case definition
-after collecting the requirements for Use Cases in section
-\ref{sec:application:analysis:usecase}. To define a Use Case, Users will have to
-define a class in a python module. To mark the class as a Use Case, it will have
-to subclass the class \inlinecode{Python}{UseCase}. This will allow us to have a
-clearly defined interface for Use Cases, and makes the discovery of use case
-classes easier on execution. Figure
-\ref{fig:application:design:classdiagram:widgetmark} shows the classes methods.
+In this section we will have a closer look at definition of use cases based on
+the requirements collected in section \ref{sec:application:analysis}. A
+single use case is represented by a class implementing the
+\inlinecode{Python}{UseCase} interface. One python module can contain multiple
+of these use case classes. By only executing classes derived from the use case
+interface, we can allow defining other classes in the same modules as well
+without them being executed by accident.
 
 To define plotting benchmarks that are executable with different plotting
-libraries we will implement a unified interface for them, that can be
-implemented using different graph libraries. For now we will limit this
-interface to the functionality of our use cases we need. Such an interface is of
-course limited as well to the functionality that all libraries used for the
-implementation offer in common. With using the parameterization functionalities
-of our Use Cases, we can simply define higher level plotting benchmarks and
-execute them using different libraries to compare the results from each library.
+libraries we will define a unified interface for them. For the purpose of this
+work, we will limit this interface to the functionality needed to execute our
+use cases. In general this interface is limited to operations supported by all
+graph libraries implementing it. With using the parameterization functionalities
+of our use case interface, we can define higher level plotting benchmarks and
+execute them using different libraries to compare the results from each of them.
 
 \begin{figure}[h]
     \centering
@@ -331,23 +333,25 @@ execute them using different libraries to compare the results from each library.
     \label{fig:application:design:classdiagram:plot}
 \end{figure}
 
-Figure \ref{fig:application:design:classdiagram:plot} shows the abstract
-base classes for the plot widget as well as data items like curves, bar graphs,
+Figure \ref{fig:application:design:classdiagram:plot} shows the abstract base
+classes for the plot widget as well as data items like curves, bar graphs,
 scatter plots and more. The class \inlinecode{Python}{AbstractBasePlot} offers
-plot functionalities to add a new item, get the current view range, set the
-current view range and a factory method for creating a plot using a specific
-plotting library. The two subclasses \inlinecode{Python}{PyQtGraphPlot} and
+plot functionalities to add a new item, get and set the current view range and a
+factory method for creating a plot using a specific plotting library. The two
+subclasses \inlinecode{Python}{PyQtGraphPlot} and
 \inlinecode{Python}{MatplotlibPlot} can implement the functionality defined by
-the base class using the specific libraries \gls{api}. The
+the base class using their specific \gls{api}. The
 \inlinecode{Python}{AbstractDataItem} on the other hand defines a common
 interface for setting, getting and adding new data to a data item of a plot.
-Similar to the plot, the two subclasses \inlinecode{Python}{PyQtGraphDataItem}
-and \inlinecode{Python}{MatplotlibDataItem} implement this.
+Similar to the \inlinecode{Python}{AbstractBasePlot}, this interface is
+implemented by the two subclasses \inlinecode{Python}{PyQtGraphDataItem} and
+\inlinecode{Python}{MatplotlibDataItem} using their specific \gls{api}.
 
-Code Example \ref{listing:application:plotabstraction} shows an example of the
-interface usage in a standard Qt window. Which library is used for the
-visualization can be simply controlled by choosing it during the widget's
-creation using the \inlinecode{Python}{AbstractBasePlot} factory method.
+Listing \ref{listing:application:plotabstraction} shows, how the interface
+should be usable in a standard Qt application. Which library is used for the
+visualization can be controlled during the widget's initialization using the
+\inlinecode{Python}{AbstractBasePlot} factory method
+\inlinecode{Python}{using()}.
 
 \lstinputlisting[ 
     caption=Creating a plot showing a sinus curve using the Plot Abtraction 
@@ -357,6 +361,9 @@ creation using the \inlinecode{Python}{AbstractBasePlot} factory method.
     firstline=9,
     lastline=30
 ]{resources/code/plot_abstraction.py}
+
+
+%% ~~~~~~~~~~~~~~~~~~ Reviewed until here ~~~~~~~~~~~~~~~~~
 
 
 \subsection{User Interface}
