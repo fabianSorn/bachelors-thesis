@@ -363,24 +363,24 @@ visualization can be controlled during the widget's initialization using the
 ]{resources/code/plot_abstraction.py}
 
 
-%% ~~~~~~~~~~~~~~~~~~ Reviewed until here ~~~~~~~~~~~~~~~~~
-
-
 \subsection{User Interface}
 
 In this section we will have a look at the design of the command line interface
-of the framework based on the requirements we collected in
-\ref{sec:application:analysis:usecase}. Since our command line is supposed to be
-easily usable for users of other testing frameworks, our command line interface
-should be kept similar. Listing \ref{listing:application:cliusage:location}
-shows how to specify the location of one or multiple use cases from the command
-line. We will use a specific naming convention to mark files who define use
-cases. Each file which is supposed to be searched has to start with the prefix
-\inlinecode{bash}{bench_*}. This pattern should be configurable from the command
-line as well.
+based on the requirements we collected in \ref{sec:application:analysis}. Since
+our command line is supposed to be easily usable for users of other testing
+frameworks, it should meet the user's expectations. The main purpose of the
+command line is starting the execution of one or multiple use cases. Listing
+\ref{listing:application:cliusage:location} shows how to specify, which use
+cases should be executed. It should be possible to define a folder, a python
+module or a specific use case inside a python module. For python modules
+containing use cases, we will introduce a specific naming convention. The
+default one should be, that the python module's name is prefixed with
+\inlinecode{bash}{bench_}, similar to test files being often prefixed with
+\inlinecode{Python}{test_}. This pattern should be configurable from the
+command line as well.
 
 \lstinputlisting[ 
-    caption=Starting benchmarks from the command line,
+    caption=Executing use cases from the command line,
     language=bash,
     label=listing:application:cliusage:location,
     lastline=39
@@ -399,19 +399,18 @@ configuration options on the command line as well as the generated files.
     lastline=52
 ]{resources/code/widgetmark_cli_usage.sh}
 
-Additionally the \gls{cli} should provide a visualization option for these binary
-profile files, which listing \ref{listing:application:cliusage:visualize} is
-showing. Simply printing profile files would not be very helpful, since they can
-grow very fast in size. Because of this, there are multiple tools available,
-which offer a much more user friendly visualization. For our purposes we decide
-for \emph{snakeviz}, a browser based graphical viewer for profile files.
-\cite{Snakeviz}
+Additionally the \gls{cli} should provide a visualization option for the
+profiling statistics. Simply printing the profiling statistics to the command
+line would not be very helpful, since they can grow very fast in size. Because
+of this, there are multiple tools available, which offer a much more user
+friendly visualization. For our purposes we decide for \emph{snakeviz}, a
+browser based graphical viewer for profiling files.  \cite{Snakeviz}
 
-To improve the usability of the \gls{cli}, a help function should be offered which
-explains what the framework is and how it is going to be used.
+To improve the usability of the \gls{cli}, a help function should be offered
+which explains what the framework is and how it is going to be used.
 Listing \ref{listing:application:cliusage:help} shows how such a help message
 could look like. Additionally it should be possible to run the \gls{cli} with
-additional output when searching for the cause of bugs. 
+additional output when searching for bugs in a use cases definition. 
 
 \lstinputlisting[ 
     caption=Starting benchmarks and create profiles for them,
@@ -421,10 +420,11 @@ additional output when searching for the cause of bugs.
     lastline=68
 ]{resources/code/widgetmark_cli_usage.sh}
 
-The \gls{cli} output should contain all important information about the found files,
-the use cases, the performance requirements, the parameters and the actual
-reached frame rate. Listing \ref{listing:application:cliusage:output} shows these
-informations on the command line after all found benchmarks were executed.
+After the execution is completed, the \gls{cli} output should show all
+important information about the found files, the use cases, the performance
+requirements, the parameters and the actual reached frame rate. Listing
+\ref{listing:application:cliusage:output} shows, how these informations could be
+presented.
 
 \lstinputlisting[ 
     caption=Output of the CLI with showing the benchmark results,
@@ -432,8 +432,6 @@ informations on the command line after all found benchmarks were executed.
     label=listing:application:cliusage:output,
     firstline=69,
 ]{resources/code/widgetmark_cli_usage.sh}
-
-
 
 
 %% ==============================================
