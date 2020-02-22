@@ -851,25 +851,22 @@ This section will focus on the implementation of the use cases described in
 chapter \ref{ch:usecases} based on widgetmark and its plotting library
 abstraction layer. To have an overview over the development of the performance
 of each use case depending the increasing plot counts, curve counts or dataset
-sizes, we will run each use cases with different parameters. We will start with
+sizes, we will run each use case with different parameters. We will start with
 smaller sizes and increase them until we reach the use cases demanded
-requirements. As a minimum refresh rate we will take the update frequency of a
-use case. To keep the depicted movement as smooth as possible, the goal frame
-rate of our plot should match the refresh rate of common monitors at around 60
-frames per second. As data we will take random points each redraw, so we can be
-sure that the we will get a full redraw every time. As an repeat count size we
-will take a reasonable big number of 1000 redraws. Additionally we will define a
-timeout that can stop use cases which unexpected long amount of time. This way
-we can stop the execution of an use case as soon as it gets clear, that it won't
-even come close to the minimum performance requirements. Each use case will be
-tested against both PyQtGraph and Matplotlib.
+requirements. As a minimum refresh rate we will take the update frequency of the
+use case. We will set the goal frame rate to 60Hz, which matches most modern
+monitors. As data we will take random points each redraw, so we can be sure that
+we will get a full redraw every time. As a repeat count we will take a
+reasonable big number of 2000 redraws. Additionally we will define a timeout
+that can stop use cases which take an unexpected long amount of time. Each use
+case will be tested against both PyQtGraph and Matplotlib.
 
 All of our three use cases have a very common setup. To avoid duplicated code,
-we will define a setup helper class outside of the use cases, which each one can
-take advantage from. The implementation of its widget setup function can be seen
+we will define a setup helper class next to the use cases, which each one can
+take advantage of. The implementation of its widget setup function can be seen
 in listing \ref{listing:application:usecases:helper}. This helper function is
 responsible for initializing a given number of plots, curves and random data
-sets which can be later used for refreshing the image.
+sets.
 
 \lstinputlisting[ 
     caption=Setup helper function for creating plots, visualization items and
@@ -899,8 +896,9 @@ of the widget setup and the operation. For the setup we use the helper function
 defined in listing \ref{listing:application:usecases:helper}. Since we only
 create a single plot, we return it as the widget to use. The next function is
 our operation definition, where we choose data and display in in our created
-plots. To choose data we take the current redraw run as an index, which can be
-accessed through the runtime context object, that every use case has access to.
+plots. To choose data from our random data sets, we take the current redraw run
+as an index, which can be accessed through the runtime context object, that
+every use case has access to.
 
 \lstinputlisting[ 
     caption=Widget setup and operation definition for the BE-CO-HT use case.,
@@ -911,7 +909,7 @@ accessed through the runtime context object, that every use case has access to.
 
 \subsection{Monitoring Application for BE-OP-LHC}
 
-Out second use case features one central plot containing up to 3000 curves
+Our second use case features one central plot containing up to 3000 curves
 displaying up to 2 * 3600 points, which should be updated every second. Listing
 \ref{listing:application:usecases:ht:params} shows the implementation of these
 requirements as parameters in the use case class. Widget Setup and operation
@@ -954,58 +952,126 @@ we can pass our plots bundled as one single widget to the benchmark window.
 
 \subsection{Results}
 
-After our benchmarks are defined, we can execute them using the Widgetmark
+After our benchmarks are defined, we can execute them using the widgetmark
 command line interface. To receive results closest to the conditions in the
 later production environment, we will run the benchmarks on machines with
 similar hardware configurations.
 
 \begin{description}
 
-    \item[CPU:] Intel Core i7 4790 with 4 Cores (8 Threads),
-                3.6GHz Baseclock,
+    \item[CPU:] Intel Core i7 6700 with 4 Cores (8 Threads),
+                3.4GHz Baseclock,
                 TurboBoost up to 4GHz
 
-    \item[RAM:] 16GB
+    \item[RAM:] 32GB
 
-    \item[GPU:] Intel HD 4600 Integrated Graphics
+    \item[GPU:] Intel HD 530 Integrated Graphics
 
     \item[OS:] 64bit CentOS7
 
 \end{description}
 
 The size of the testing window was 800 x 600 pixels on all executed use cases.
-The table \ref{tab:application:usecases:results} shows the recorded results on
-the machine. As we can see, PyQtGraph does perform substantially better compared
-to Matplotlib, but some use cases clearly reveal that it has its limits as well.
+The tables \ref{tab:application:usecases:results:ht},
+\ref{tab:application:usecases:results:lhc} and
+\ref{tab:application:usecases:results:aps} show the recorded results on
+this machine. As we can see, PyQtGraph does perform substantially better compared
+to Matplotlib, but the use cases clearly reveal that it has its limits as well.
 From the given two libraries it is still the library of choice when it comes to
 plotting performance.
+
+%% ~~~~~~~~~~~~~~~~~ BE-CO-HT Use case ~~~~~~~~~~~~~~~~~~~~
 
 \begin{table}[h]
 \begin{center}
 
-\captionof{table}{Achieved results listed by use case and used parameters}
-\label{tab:application:usecases:results}
+\captionof{table}{Results of the BE-CO-HT use case}
+\label{tab:application:usecases:results:ht}
 
 \begin{tabular}{llrrlrr}
 
 \hline
-Use Case  & Library   & Plots & Items & Type    & Dataset & Performance \\ \hline
-BE-CO-HT  & PyQtGraph & 1     & 8     & Curve   & 100000  & X           \\
-BE-OP-LHC & PyQtGraph & 1     & 3000  & Curve   & 7200    & Y           \\
-BE-CO-APS & PyQtGraph & 4     & 3     & Scatter & 3000    & Z           \\ \hline
+Use Case  & Library    & Plots & Items & Type    & Dataset & Frame Rate  \\
+\hline
+BE-CO-HT  & PyQtGraph  & 1     & 1     & Curve   & 1000    & 861.6       \\
+BE-CO-HT  & Matplotlib & 1     & 1     & Curve   & 1000    & 31.0        \\
+BE-CO-HT  & PyQtGraph  & 1     & 1     & Curve   & 10000   & 150.7       \\
+BE-CO-HT  & Matplotlib & 1     & 1     & Curve   & 10000   & 5.2         \\
+BE-CO-HT  & PyQtGraph  & 1     & 1     & Curve   & 100000  & 24.7        \\
+BE-CO-HT  & Matplotlib & 1     & 1     & Curve   & 100000  & 1.6         \\
+\hline
+BE-CO-HT  & PyQtGraph  & 1     & 4     & Curve   & 1000    & 434.9       \\
+BE-CO-HT  & Matplotlib & 1     & 4     & Curve   & 1000    & 7.7         \\
+BE-CO-HT  & PyQtGraph  & 1     & 4     & Curve   & 10000   & 95.6        \\
+BE-CO-HT  & Matplotlib & 1     & 4     & Curve   & 10000   & 1.6         \\
+BE-CO-HT  & PyQtGraph  & 1     & 4     & Curve   & 100000  & 9.3         \\
+BE-CO-HT  & Matplotlib & 1     & 4     & Curve   & 100000  & 0.5         \\
+\hline
+BE-CO-HT  & PyQtGraph  & 1     & 8     & Curve   & 1000    & 256.5       \\
+BE-CO-HT  & Matplotlib & 1     & 8     & Curve   & 1000    & 3.6         \\
+BE-CO-HT  & PyQtGraph  & 1     & 8     & Curve   & 10000   & 59.2        \\
+BE-CO-HT  & Matplotlib & 1     & 8     & Curve   & 10000   & 0.8         \\
+BE-CO-HT  & PyQtGraph  & 1     & 8     & Curve   & 100000  & 5.8         \\
+BE-CO-HT  & Matplotlib & 1     & 8     & Curve   & 100000  & 0.2         \\
+\hline
 
 \end{tabular}
-
 \end{center}
+\end{table}
 
+%% ~~~~~~~~~~~~~~~~~ BE-OP-LHC Use case ~~~~~~~~~~~~~~~~~~~~
+
+\begin{table}[h]
+\begin{center}
+
+\captionof{table}{Results of the BE-OP-LHC use case}
+\label{tab:application:usecases:results:lhc}
+
+\begin{tabular}{llrrlrr}
+
+\hline
+Use Case  & Library    & Plots & Items & Type    & Dataset & Frame Rate  \\
+\hline
+BE-OP-LHC & PyQtGraph  & 1     & 300   & Curve   & 720     & 10.5        \\
+BE-OP-LHC & Matplotlib & 1     & 300   & Curve   & 720     & 0.0         \\
+BE-OP-LHC & PyQtGraph  & 1     & 3000  & Curve   & 720     & 2.6         \\
+BE-OP-LHC & Matplotlib & 1     & 3000  & Curve   & 720     & 0.0         \\
+BE-OP-LHC & PyQtGraph  & 1     & 3000  & Curve   & 7200    & 0.9         \\
+BE-OP-LHC & Matplotlib & 1     & 3000  & Curve   & 7200    & 0.0         \\
+\hline
+
+\end{tabular}
+\end{center}
+\end{table}
+
+%% ~~~~~~~~~~~~~~~~~ BE-OP-APS Use case ~~~~~~~~~~~~~~~~~~~~
+
+\begin{table}[h]
+\begin{center}
+
+\captionof{table}{Results of the BE-CO-APS use case}
+\label{tab:application:usecases:results:aps}
+
+\begin{tabular}{llrrlrr}
+
+\hline
+Use Case  & Library    & Plots & Items & Type    & Dataset & Frame Rate  \\
+\hline
+BE-CO-APS & PyQtGraph  & 1     & 3     & Scatter & 3000    & 15.9        \\
+BE-CO-APS & Matplotlib & 1     & 3     & Scatter & 3000    & 9.6         \\
+BE-CO-APS & Matplotlib & 1     & 3     & Scatter & 3000    & 3.9         \\
+BE-CO-APS & Matplotlib & 1     & 3     & Scatter & 3000    & 2.4         \\
+\hline
+
+\end{tabular}
+\end{center}
 \end{table}
 
 With the profiler activated we can investigate where most of the computing time
 is spent. For plots containing curves with a high amount of data, this is the
-function \inlinecode{Python}{pytgraph.PlotDataItem.paint()}, which is
-responsible for redrawing the curve using \inlinecode{Python}{QtGui.QPainter}:
-
-% TODO: Switch image of image of the profile in snakeviz
+function \inlinecode{Python}{pytgraph.PlotDataItem.paint()} and its subroutines,
+which is responsible for redrawing the curve using
+\inlinecode{Python}{QtGui.QPainter}:
 
 \begin{figure}[h]
     \centering
