@@ -552,7 +552,7 @@ can be implemented as a class attribute in subclasses.
 \lstinputlisting[ 
     language=Python,
     linerange={19-19, 22-22}
-]{resources/widgetmark/bench_label.py}
+]{resources/widgetmark/benchLabel.py}
 
 With this implementation, there is no visual difference for the user between
 defining a mandatory or optional attribute. Both, class attributes and abstract
@@ -874,7 +874,7 @@ sets.
     language=python,
     label=listing:application:usecases:helper,
     linerange={20-27, 43-57}
-]{resources/widgetmark/bench_cern.py}
+]{resources/widgetmark/benchCern.py}
 
 \subsection{Distributed Oscilloscope for BE-CO-HT}
 
@@ -889,7 +889,7 @@ parameters in a use case class as class attributes.
     language=python,
     label=listing:application:usecases:ht:params,
     linerange={73-74, 79-89}
-]{resources/widgetmark/bench_cern.py}
+]{resources/widgetmark/benchCern.py}
 
 Listing \ref{listing:application:usecases:ht:methods} shows the implementation
 of the widget setup and the operation. For the setup we use the helper function
@@ -905,7 +905,7 @@ every use case has access to.
     language=python,
     label=listing:application:usecases:ht:methods,
     linerange={91-106}
-]{resources/widgetmark/bench_cern.py}
+]{resources/widgetmark/benchCern.py}
 
 \subsection{Monitoring Application for BE-OP-LHC}
 
@@ -921,7 +921,7 @@ definition do not differ from listing
     language=python,
     label=listing:application:usecases:ht:params,
     linerange={109-110, 115-125}
-]{resources/widgetmark/bench_cern.py}
+]{resources/widgetmark/benchCern.py}
 
 \subsection{Linac4 Source GUI for BE-CO-APS}
 
@@ -935,7 +935,7 @@ in \ref{listing:application:usecases:aps:params}.
     language=python,
     label=listing:application:usecases:aps:params,
     linerange={145-146, 151-162}
-]{resources/widgetmark/bench_cern.py}
+]{resources/widgetmark/benchCern.py}
 
 Using multiple Plots means as well, that we have to change our setup function
 slightly as seen in \ref{listing:application:usecases:aps:methods} by wrapping
@@ -948,7 +948,7 @@ we can pass our plots bundled as one single widget to the benchmark window.
     language=python,
     label=listing:application:usecases:aps:methods,
     linerange={164-181}
-]{resources/widgetmark/bench_cern.py}
+]{resources/widgetmark/benchCern.py}
 
 \subsection{Results}
 
@@ -960,8 +960,8 @@ similar hardware configurations.
 \begin{description}
 
     \item[CPU:] Intel Core i7 6700 with 4 Cores (8 Threads),
-                3.4GHz Baseclock,
-                TurboBoost up to 4GHz
+                3.4GHz Base Clockspeed,
+                4.0GHz Maximum Clockspeed
 
     \item[RAM:] 32GB
 
@@ -1059,8 +1059,8 @@ Use Case  & Library    & Plots & Items & Type    & Dataset & Frame Rate  \\
 \hline
 BE-CO-APS & PyQtGraph  & 1     & 3     & Scatter & 3000    & 15.9        \\
 BE-CO-APS & Matplotlib & 1     & 3     & Scatter & 3000    & 9.6         \\
-BE-CO-APS & Matplotlib & 1     & 3     & Scatter & 3000    & 3.9         \\
-BE-CO-APS & Matplotlib & 1     & 3     & Scatter & 3000    & 2.4         \\
+BE-CO-APS & PyQtGraph  & 4     & 3     & Scatter & 3000    & 3.9         \\
+BE-CO-APS & Matplotlib & 4     & 3     & Scatter & 3000    & 2.4         \\
 \hline
 
 \end{tabular}
@@ -1068,33 +1068,37 @@ BE-CO-APS & Matplotlib & 1     & 3     & Scatter & 3000    & 2.4         \\
 \end{table}
 
 With the profiler activated we can investigate where most of the computing time
-is spent. For plots containing curves with a high amount of data, this is the
-function \inlinecode{Python}{pytgraph.PlotDataItem.paint()} and its subroutines,
-which is responsible for redrawing the curve using
-\inlinecode{Python}{QtGui.QPainter}:
+is spent. In the following we will for example have a look at the profiles
+created for the use cases run with PyQtGraph with high amounts of data. For
+plots containing curves with a high amount of data, this is mainly the paint
+event handler of the graphics view, which handles repainting the plot every time
+the plot gets changed or moved. In more detail, the translation of the raw data
+to a \inlinecode{Python}{QtGui.QPainterPath} as well as the actual painting done
+by Qt's GraphicsView Framework. Screenshot
+\ref{fig:application:lhc:usecase:profile:ht} shows the profile of the \gls{ht}
+use case presented by Snakeviz in the Browser.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=11cm]{resources/img/placeholder}
-    \caption{
-        Screenshot of the BE-OP-LHC use case's profile visualized in snakeviz
-    }
-    \label{fig:application:lhc:usecase:profile}
+    \includegraphics[width=15cm]{resources/img/profiles/HtProfile}
+    \caption{Screenshot of the BE-CO-HT use case using Snakeviz}
+    \label{fig:application:lhc:usecase:profile:ht}
 \end{figure}
 
 When it comes to scatter plots, another function does take quite some time as
 well. A big amount of time is spent in the preparation of the symbol atlas,
 which is a prerendered image of all symbols used in the scatter plot. When it
 comes to rendering the actual plot, the already rendered symbols can simply be
-copied from this atlas and pasted into the image.
-
-% TODO: Switch image of image of the profile in snakeviz
+copied from this atlas and pasted into the image. One potential way of improving
+performance here is to bypass the loop over each data point in case all symbols
+are the same. Screenshot \ref{fig:application:aps:usecase:profile:ht} shows the
+profile of the \gls{aps} use case presented by Snakeviz in the browser.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=11cm]{resources/img/placeholder}
+    \includegraphics[width=15cm]{resources/img/profiles/ApsProfile}
     \caption{
         Screenshot of the BE-CO-APS use case's profile visualized in snakeviz
     }
-    \label{fig:application:aps:usecase:profile}
+    \label{fig:application:aps:usecase:profile:ht}
 \end{figure}

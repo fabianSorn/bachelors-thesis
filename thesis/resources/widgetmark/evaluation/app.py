@@ -26,6 +26,8 @@ class PyQtGraphWindow(QtWidgets.QMainWindow):
                 ds = int(sys.argv[1])
             except:
                 ds = DATASET_SIZE
+        else:
+            ds = DATASET_SIZE
 
         self._x = np.linspace(0, 10, ds)
         self._y = np.random.normal(size=(50, ds))
