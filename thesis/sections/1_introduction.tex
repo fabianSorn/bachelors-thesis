@@ -10,7 +10,7 @@
 The following chapter will provide an introduction into this work. First the
 setting in which the work is done, will be described, starting with the
 organization followed by the team. Afterwards the fundamental problem and the
-goal of this work will be explained, rounded up by an overview about the
+goal of this work will be explained, rounded up by an overview of the
 structure of the following chapters.
 
 
@@ -28,9 +28,9 @@ mathematical tasks, could be performed in very little time. Since the
 beginnings, a lot has happened and computers got much more powerful. Even with
 these improvements, the question of good performance could not be more relevant
 as today. We have to make sure, that the hardware and our algorithms are fast
-enough, to keep up with the tasks we we want to accomplish. This demand is
+enough, to keep up with the tasks we want to accomplish. This demand is
 especially relevant in the scientific world, where often gigantic data sets have
-to be filtered, recorded and analyzed. A popular tool for such work are software
+to be filtered, recorded and analyzed. Popular tools for such work are software
 products, that allow us to visualize data as graphs, since visualization allows
 us to have a much deeper insight into the data we want to understand. As with
 any type of software, the performance of graphs has to keep up with our high
@@ -115,11 +115,10 @@ these components are different sections within the controls group.  This work
 has been conducted in the \gls{aps}, whose responsibility it is, to provide
 software solutions for the many tasks of the control system. One of these
 products are \glspl{gui}, that are vital tools for the operators' work.  A
-\gls{gui} application allow to monitor the current state of the machine and
-react to occurring problems by altering the setting of these machines. To develop
-such monitoring applications, \gls{aps} is providing different reusable
-\gls{gui} widgets, from which more complex monitoring applications can be
-developed.
+\gls{gui} application allows to monitor the current state of the machine and
+react to occurring problems by altering the setting. To develop such monitoring
+applications, \gls{aps} is providing different reusable \gls{gui} widgets, from
+which more complex monitoring applications can be developed.
 
 
 
@@ -141,7 +140,7 @@ their \glspl{gui}.
 Choosing a library to implement graph widgets is not a trivial topic. Especially
 in python, there are many charting libraries, from which you can choose from,
 including matplotlib, Seaborn, PyQtGraph, Plotly and more \cite{PyDataVisLibs}.
-The comparison of offered features is in most cases not enough. Many users have
+The comparison of features is in most cases not enough. Many users have
 specific needs and use cases, which rely heavily on the performance of the
 library. Compared to the evaluation of needed features and the offerings in
 libraries, evaluating the performance is not just a decision between \emph{is
@@ -183,11 +182,10 @@ Goal of our work is, to develop a benchmarking framework for python graph
 libraries.  The benchmark framework will be used to develop a suite of
 benchmarks, that can be used to verify the performance of a graph library
 written in Python in real world use cases. The benchmark suite should not only
-give use comparable results to objectively judge performance, but also help us
-to find and improve slow operations.  Afterwards, we will implement potential
-improvements for found performance deficits. To evaluate our framework, we will
-run the same benchmarks, but now based on our changed implementation and compare
-the results to the original implementation.
+give users comparable results to objectively judge performance, but provide
+solutions to search and improve slow operations. To evaluate the benchmarks
+performance measurement capabilities, we will compare the results of the
+framework against an example production application.
   
 
 
@@ -199,21 +197,21 @@ the results to the original implementation.
 \section{Structure of this work}
 \label{sec:Introduction:problem}
 
-\todo{Mention concrete chapter to distinguish this chapter from the prior one}
-
-In the beginning of this work, we will create a common knowledge base that is
-necessary to understand the following chapters, by going through the basics of
-data visualization. To understand technical decisions we took and
-implementations of our solution, we will have a look at the technologies we will
-use. The next chapter will deal with real use cases, that users of charting
-libraries at \gls{cern} have provided. From those we will derive metrics, which
-we can use for our later implementation. Following that, we will have a look at
-the basics of benchmarking as well as already existing benchmarking solutions,
-from which we can derive concepts, we can use for our own implementation. The
-next chapter then guides through the analysis, design and implementation of a
-benchmark framework and benchmarking suite, which allows us to run our graph
-library of choice against the collected use cases. Following that, we can use
-the benchmarks detailed results, to plan ways to remove performance bottle-necks
-in the implementation. Finally the exact same benchmarks will be run again, to
-objectively judge, which impact our changes had on the tested operations.
-
+In the beginning of this work in chapter \ref{ch:fundamentals}, we will create a
+common knowledge base that is necessary to understand the following chapters, by
+going through the basics of data visualization. To understand technical
+decisions we took and implementations of our solution, we will have a look at
+the technologies we will use. The following chapter \ref{ch:usecases} will deal
+with real use cases, that users of charting libraries at \gls{cern} have
+provided. From those we will derive metrics, which we can use for our later
+implementation. The next chapter \ref{ch:analysisAndDesign} then guides through
+the analysis and design of a benchmark framework, which allows us to run our
+graph library of choice against the collected use cases.  Based on this design,
+we will implement the framework in chapter \ref{ch:implementation}. In the
+following chapter \ref{ch:evaluation} we will use the developed framework to
+implement the use cases from chapter \ref{ch:usecases} and record the results to
+see, if the framework covers all of our requirements.  To evaluate, how close
+the framework's results come to a production application, we will compare a use
+case with a minimal application with both displaying the same load. In the end
+of this work, chapter \ref{ch:conclusion} will provide a summary as well as a
+outlook based on this work.

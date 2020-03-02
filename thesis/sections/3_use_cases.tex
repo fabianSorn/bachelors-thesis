@@ -7,10 +7,11 @@
 \chapter{Use Cases}
 \label{ch:usecases}
 
-This chapter will give an overview over different scenarios that we will use for
+This chapter will give an overview of different scenarios that we will use for
 the evaluation of the Plotting Libraries. All of these originate from teams at
 CERN, that are looking into PyQt as an option to implement different \gls{gui}
-applications, which also contain plots in them.
+applications, which also contain plots in them. Each of the three following
+subsection present one use case from \gls{ht}, \gls{lhcop} and \gls{aps}.
 
 
 %% ==============================================
@@ -92,7 +93,7 @@ visible points per data set.
 \end{figure}
 
 The Application where this Use Case is originated from is a \gls{gui} for the
-Linear Accelerator Linac4, whose tasks it is to boost negative hydrogen ions to
+Linear Accelerator Linac4, whose task it is to boost negative hydrogen ions to
 high energies. The GUI will allow monitoring and manipulation of different
 device settings. Image \ref{fig:linac4sourcegui} shows a screenshot of an early
 version of the application with multiple scatter plots in the upper right part
@@ -123,7 +124,7 @@ Delays over ten seconds require feedback from the system to
 signal the user it is performing long running tasks.
 \cite{UsabilityEngineering}
 
-An often used measurements for describing a system's rendering performance is the
+An often used measurement for describing a system's rendering performance is the
 frame rate, which describes the frequency, with which images appear on a screen.
 This size originates from the movie industry, where the standard frame rate is 24
 Frames per Second. The minimum frequency needed for the human eye to see a
