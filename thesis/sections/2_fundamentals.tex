@@ -383,18 +383,48 @@ as well.
 
 
 %% ==============================================
-%%           Software Benchmarks
+%%           Software Performance Tests
 %% ==============================================
 
-\subsection{Software Benchmarks}
+\subsection{Software Performance Tests}
 
 Next to benchmarking hardware, we can also measure the performance of software.
-Benchmarking software means executing the same task in different implementations
-on the same hardware and compare the recorded results. One example of software
-benchmarking is the comparison of different programming languages. The free
-software project \emph{The Computer Language Benchmark Game} uses a set of
-different algorithms to test the performance of different programming languages
-. There are no restrictions on how to implement the solution as long as they
+Testing the performance is an important quality aspect in software development,
+since it allows us to find performance related problems. Especially in
+applications with multiple components involved, each of them can become a bottle
+neck under certain circumstances. There are different variants of performance
+testing you can test your system against. The most common one is called Load or
+Stress testing and tests the application under different load scenarios, from
+very common to extreme ones. How these scenarios do look like depends on the
+type of application. For web applications for example, a scenario could be
+a lot of concurrent users visiting the website. To see, if the system can
+withstand high loads for a longer time period, Endurance tests can be conducted.
+Spike Testing on the other hand involves switching very fast between low and
+high stress levels. Next to high load scenarios, other topics can be the focus
+of performance testing as well. This includes testing different configurations
+for the system, scalability with different hardware resources, different amounts
+of requested or written data and more.
+
+Executing performance tests on a system allows us to compare them, determine, if
+they will meet our performance requirements and help us finding components,
+whose performance needs to be improved. Since performance tests should always be
+conducted with a goal in mind, we have to ask ourselves, what this goal is for
+our particular system. Since our focus will lie soley on end-user \gls{gui}
+applications, server response times or amount of concurrent users are no
+suitable performance goal. Much more interesting for us are render response
+times, which describe, how much time passes when presenting the results of an
+operation to the user. How important this response time is for the user
+experience, shows a test conducted by Google, in which a page, whose load times
+were increased by half a second (from 0.4 to 0.9 seconds), lost 20 percent of
+its traffic.
+\cite{SoftwarePerformanceTesting, RenderResponseTimes, PerformanceIsAFeature}
+
+Another example of software benchmarks include testing the same task using
+different implementations under the same conditions.  One example of such
+software benchmarking is the comparison of different programming languages. The
+free software project \emph{The Computer Language Benchmark Game} uses a set of
+different algorithms to test the performance of different programming languages.
+There are no restrictions on how to implement the solution as long as they
 withstand a set of unit tests, that make sure the implementation is actually
 correct. A description of the different benchmarks, the different
 implementations and the results achieved in each implementation can be found on
