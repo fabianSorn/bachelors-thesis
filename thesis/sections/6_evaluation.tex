@@ -147,11 +147,17 @@ similar hardware configurations.
 The size of the testing window was 800 x 600 pixels on all executed use cases.
 The tables \ref{tab:application:usecases:results:ht},
 \ref{tab:application:usecases:results:lhc} and
-\ref{tab:application:usecases:results:aps} show the recorded results on
-this machine. As we can see, PyQtGraph does perform substantially better compared
-to Matplotlib, but the use cases clearly reveal that it has its limits as well.
-From the given two libraries it is still the library of choice when it comes to
-plotting performance.
+\ref{tab:application:usecases:results:aps} show the recorded results on this
+machine. As we can see, PyQtGraph does perform substantially better compared to
+Matplotlib, but the use cases clearly reveal that both have their limits.
+Especially on the load provided by the \gls{lhcop} use case, both are struggling
+severely with frame rates as low as 0.0 FPS, which means that a single redraw of
+the entire dataset was taking more than 20 seconds on average. An interaction
+with the plot is impossible at this point. For both libraries the amount of
+points or datasets should be heavily reduced in these scenarios to keep the user
+interface interactive. From the two given libraries, PyQtGraph is still the
+better choice when it comes representing large data sets, if interactive
+rendering speeds are required.
 
 %% ~~~~~~~~~~~~~~~~~ BE-CO-HT Use case ~~~~~~~~~~~~~~~~~~~~
 

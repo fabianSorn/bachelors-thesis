@@ -11,8 +11,8 @@
 - Discuss evaluation in more detail
 - Write a bit more about software benchmarking. 
 - Overview over Appendix
+- Comment extreme results of 0 FPS
 
 # Open TODOs:
   
-- Comment extreme results of 0 FPS
 - Write more in summary 6.1 (f.e. significance of the findings)
