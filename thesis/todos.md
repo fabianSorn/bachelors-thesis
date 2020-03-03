@@ -9,10 +9,10 @@
 - Describe use case + app in evaluation chapter
 - Overhead in percent column for evaluation table
 - Discuss evaluation in more detail
+- Write a bit more about software benchmarking. 
+- Overview over Appendix
 
 # Open TODOs:
   
-- Write a bit more about software benchmarking. 
 - Comment extreme results of 0 FPS
 - Write more in summary 6.1 (f.e. significance of the findings)
-- Overview over Appendix
