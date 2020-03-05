@@ -140,19 +140,19 @@ focus on the analysis of the requirements which we will base the design and
 implementation of our framework on.
 
 Users interested in the performance of graph libraries often have a very clear
-idea of what their use case looks like, since they already know the background
+idea of what their use case looks like since they already know the background
 information of the data they want to plot. Because of this, the central
-interface to the framework should be these use cases. Most higher level use
+interface to the framework should be these use cases. Most higher-level use
 cases can be broken down in a simple operation or a sequence of operations. From
-our collected use cases we can define the following requirements.
+our collected use cases, we can define the following requirements.
 
 \begin{description}
     \item[Ease of Use] 
         The user should only define the relevant parts for his use cases.
         Everything else should be handled by the framework.
     \item[Widget and Operation]
-        The central items for defining a use case are a widget, and an operation
-        which is executed on this widget.
+        The central items for defining a use case are a widget and an operation
+        that is executed on this widget.
     \item[Multiple Use Cases]
         Adding and removing use cases has to be possible without much effort.
     \item[Parameterization]
@@ -162,7 +162,7 @@ our collected use cases we can define the following requirements.
         The author has to be able to define his performance expectations per use
         case.
     \item[Timeout]
-        In case a use case takes much longer than expect, it should be possible
+        In case a use case takes much longer than expected, it should be possible
         to define a timeout, which will terminate the use case's execution, if
         reached.
 \end{description}
@@ -170,11 +170,11 @@ our collected use cases we can define the following requirements.
 One framework type, which allows a very similar way of defining specific use
 cases, are testing frameworks like unittest or pytest for python projects. Since
 most users are to an extend familiar with their functionality, the interface
-should conform the expectations built from the usage of these frameworks.
+should conform to the expectations built from the usage of these frameworks.
 
-For easy execution of use cases, the framework will offer a command line
+For easy execution of use cases, the framework will offer a command-line
 interface, which offers similar functionality as other python tools. The
-\gls{cli} should conform the user's expectations in the same way with a few
+\gls{cli} should conform to the user's expectations in the same way with a few
 additions specific to our needs. 
 
 \begin{description}
@@ -182,15 +182,15 @@ additions specific to our needs.
         Similar to frameworks like pytest, it should be able to execute multiple
         use cases as well as single ones.
     \item[Meaningful Results]
-        After execution, the user should be able to clearly see the results of
+        After execution, the user should be able to see the results of
         his use cases. This includes the use case, its performance requirements,
-        the actually achieved performance and the parameters used in the run.
+        the achieved performance and the parameters used in the run.
     \item[Profiling]
         Since Profiling introduces additional overhead to the code's execution,
         profiling should be optional and activatable through the \gls{cli}.
     \item[Profiling Visualization]
-        Since profiles often contain large amount of data, they have to be
-        visualized in a user friendly way.
+        Since profiles often contain a large amount of data, they have to be
+        visualized in a user-friendly way.
 \end{description}
 
 
