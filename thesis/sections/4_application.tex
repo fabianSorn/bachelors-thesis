@@ -8,14 +8,14 @@
 \chapter{Analysis and Design of a Benchmark Framework}
 \label{ch:analysisAndDesign}
 
-In this chapter, we will further analyze requirements of a benchmarking
+In this chapter, we will further analyze the requirements of a benchmarking
 framework, which allows users to benchmark specific charting operations. The
 results of this analysis will then be combined with the results from the
-previous two chapters for the design of our framework. First we will have a
+previous two chapters for the design of our framework. First, we will have a
 closer look at the two libraries, PyQtGraph and Matplotlib, which we will use
-for the implementation of our use cases. Afterwards we will further analyze the
-requirements for our use cases we have to be able to depict in the framework. In
-the last section we will then design the components as well as the main
+for the implementation of our use cases. Afterward, we will further analyze the
+requirements for the use cases we have to be able to depict in the framework. In
+the last section, we will then design the components as well as the main
 functionality of it.
 
 
@@ -43,11 +43,11 @@ Visualization in Matlab.
 Matplotlib's central item is the \inlinecode{Python}{matplotlib.figure.Figure}.
 The Figure itself does not yet display anything, neither a plot with axes nor
 data. A plot is referred as an \inlinecode{Python}{matplotlib.axes.Axes}. A
-figure can have multiple Axes in it. For each dimension in the data space the
+figure can have multiple Axes in it. For each dimension in the data space, the
 Axes contains \inlinecode{Python}{matplotlib.axis.Axis} objects, which
-represents the minimum and maximum data limit for each dimension of the data. An
+represent the minimum and maximum data limit for each dimension of the data. An
 Axes object can be personalized through axis labels and a title. In Matplotlib
-terminology, Artists are everything which is visible in a Figure. This includes
+terminology, Artists are everything that is visible in a Figure. This includes
 Labels, Lines and Bar Graphs, Axis Items and more. The last crucial component is
 the Canvas, which is not really a visual component in the plot, but the
 component responsible for rendering the image. A summary of all components can
@@ -56,16 +56,16 @@ be seen in \ref{a:fig:matplotlib:content}
 Matplotlib is built for many different use cases. While showing data in
 \gls{gui} applications is one of them, other use cases, like generating plots as
 images for publications are possible as well. This is achieved by Matplotlib's
-different backends. All available Backends can be divided in interactive and
-hard copy ones. An example for a interactive backend is in our case PyQt5, but
-other Frameworks like Tkinter or PyGTK are supported as well. Non interactive
+different backends. All available Backends can be divided into interactive and
+hard copy ones. An example of an interactive backend is in our case PyQt5, but
+other Frameworks like Tkinter or PyGTK are supported as well. Non-interactive
 backends are for creating image files in different file formats like PNG, SVG,
 PDF and more.
 \cite{MatplotlibIntro, PythonDataVis}
 
 Listing \ref{listing:application:matplotlib} shows the creation of a window
 containing a plot representing a sinus curve through a line, a scatter plot and
-a bar graph. For interaction, matplotlib offers a toolbar, which lets you select
+a bar graph. For interaction, Matplotlib offers a toolbar, which lets you select
 between different interaction modes like panning and zooming. As a backend
 Matplotlib's Qt5 backend was used.  The resulting window can be seen in
 Screenshot \ref{a:fig:matplotlib:window}.
@@ -88,7 +88,7 @@ applications. It provides simple plots containing line graphs, scatter plots,
 bar graphs and more, but also image and video displaying, Region of Interest
 widgets, 3D visualization and more.  Since our benchmarking efforts will be
 tightly focusing on the collected use cases, we will restrict our usage of its
-features mainly on two dimensional plotting. PyQtGraph uses Qt's Graphics View
+features mainly on two-dimensional plotting. PyQtGraph uses Qt's Graphics View
 for drawing, which is a Framework for fast visualization of a large number of
 custom 2D items. A big advantage it offers is a fast performance and the
 possibility to interact and transform the scene through operations like
@@ -106,7 +106,7 @@ itself is only a wrapper for easy integration into Qt Applications. The plot
 item contains different components of the plot, including a
 \inlinecode{Python}{pyqtgraph.ViewBox}, the area data is visualized in,
 a \inlinecode{Python}{pyqtgraph.AxisItem} representing the View Range
-of the View Box, and a Title. Items which are actually representing a dataset are
+of the View Box, and a Title. Items that are actually representing a dataset are
 added to the View Box. For this, PyQtGraph is offering different types of
 representations like \inlinecode{Python}{pyqtgraph.PlotDataItem} for Scatter
 Plots and Line Graphs and \inlinecode{Python}{pyqtgraph.BarGraphItem} for
