@@ -289,7 +289,7 @@ the executor, as well as the plotting abstraction layer.
 
 \subsection{benchmark.py}
 
-This module provides a Qt based implementation of the
+This module provides a Qt-based implementation of the
 \inlinecode{Python}{AbstractBenchmarkingWindow} based on 
 \inlinecode{Python}{QtWidgets.QMainWindow}. A function worth noting here is
 \inlinecode{Python}{make_qt_abc_meta()}. It is responsible for resolving
@@ -303,9 +303,9 @@ common metaclass for both.
 
 \subsection{executor.py}
 
-This module provides a Qt based implementation of the
+This module provides a Qt-based implementation of the
 \inlinecode{Python}{AbstractBenchmarkExecutor} based on
-\inlinecode{Python}{QtCore.QObject}. For the execution loop we will make use of
+\inlinecode{Python}{QtCore.QObject}. For the execution loop, we will make use of
 the \inlinecode{Python}{QtCore.QTimer} class with a timeout of zero seconds,
 which will timeout every time it gets the opportunity to. This way we can make
 sure that control is given back to the event loop each time the use case
@@ -313,9 +313,9 @@ operation was executed.
 \cite{QTimer}
 
 To the timer's timeout signal we can connect the executor's base's
-\inlinecode{Python}{_redraw_operation} function, which handles profiling, timing
-and operation execution. After the timer is set up we can start the event loop
-of our Qt application.
+\inlinecode{Python}{_redraw_operation} function, which handles profiling,
+timing, and operation execution. After the timer is set up we can start the
+event loop of our Qt application.
 
 \lstinputlisting[
     language=Python,
@@ -344,7 +344,7 @@ no existing one before creating a new one.
 ]{resources/widgetmark/qt/executor.py}
 
 Since the window and the widget is exposed during the benchmark execution, the
-user is able to interact with it. To not create additional work next to the use
+user can interact with it. To not create additional work next to the use
 case, we have to filter out all use case unrelated operations. As described in
 section \ref{sec:fundamentals:qt:eventloop}, we can use event filters to filter
 out unwanted mouse interactions.
@@ -359,8 +359,8 @@ out unwanted mouse interactions.
 The module \inlinecode{Python}{widgetmark.qt.plot} contains the implementation
 of the abstraction layer for plotting operations. This abstraction layer should
 allow us to perform common actions on different plotting libraries without
-relying on their library specific \gls{api}. The abstraction layer itself is
-implemented as an abstract class, that provides a factory method which returns
+relying on their library-specific \gls{api}. The abstraction layer itself is
+implemented as an abstract class, that provides a factory method that returns
 the fitting subclass to the passed plotting library.
 
 \lstinputlisting[
@@ -377,15 +377,14 @@ which allows us to add a new item to the plot, which can display some data.
     linerange={107-108, 118-118}
 ]{resources/widgetmark/qt/plot.py}
 
-For PyQtGraph we can implement the \inlinecode{Python}{add_item} function based
-on the \inlinecode{Python}{PlotDataItem}.
+For PyQtGraph we can implement the \inlinecode{Python}{add_item} function based on the \inlinecode{Python}{PlotDataItem}.
 
 \lstinputlisting[
     language=Python,
     linerange={186-187, 189-196, 201-209}
 ]{resources/widgetmark/qt/plot.py}
 
-For Matplotlib on the other hand we can use the \inlinecode{Python}{Line2D}
+For Matplotlib, on the other hand, we can use the \inlinecode{Python}{Line2D}
 object for implementing the same function.
 
 \lstinputlisting[
@@ -395,10 +394,10 @@ object for implementing the same function.
 
 Both functions will return objects derived from the same
 \inlinecode{Python}{AbstractDataItem}, which allows reading, writing and adding
-data in form of a two dimensional numpy array containing x and y-values. In our
+data in the form of a two-dimensional NumPy array containing x and y-values. In our
 use cases, we can add the plotting library we want to benchmark as a parameter
 and pass it to the factory function \inlinecode{Python}{using()} of the
-\inlinecode{Python}{AbstractBasePlot} class. This way we can benchmark the exact
+\inlinecode{Python}{AbstractBasePlot} class. This way we can benchmark the 
 same use case in two completely different plotting libraries without having to
 define two separate use cases.
 
