@@ -368,13 +368,13 @@ result of the benchmarks were published in \gls{flops}.
 \cite{OverviewBenchmarks}
 
 A more modern suite of benchmarking applications is provided by SPEC. Spec is a
-non profit-organization which offers a standardized suite of benchmarks, that
+non-profit organization that offers a standardized suite of benchmarks, that
 can be used to evaluate hardware performance. A new focus that SPEC brought up
 into the world of benchmarking, was the consideration of energy efficiency next
 to performance as a measurement of interest.
 \cite{Spec}
 
-Although it plays a very large role, hardware is not the only factor that we
+Although it plays a very large role, the hardware is not the only factor that we
 have to take into consideration when talking about performance in computing. The
 second important part is the Software. No matter how fast the provided hardware
 is, if the running software is written without fully utilizing the hardware's
@@ -389,30 +389,30 @@ as well.
 
 \subsection{Software Performance Tests}
 
-Next to benchmarking hardware, we can also measure the performance of software.
-Testing the performance is an important quality aspect in software development,
-since it allows us to find performance related problems. Especially in
-applications with multiple components involved, each of them can become a bottle
-neck under certain circumstances. There are different variants of performance
+Next to benchmarking hardware, we can also measure the performance of the software.
+Testing performance is an important quality aspect in software development
+since it allows us to find performance-related problems. Especially in
+applications with multiple components involved, each of them can become a
+bottle-neck under certain circumstances. There are different variants of performance
 testing you can test your system against. The most common one is called Load or
 Stress testing and tests the application under different load scenarios, from
 very common to extreme ones. How these scenarios do look like depends on the
-type of application. For web applications for example, a scenario could be
+type of application. For web applications, for example, a scenario could be
 a lot of concurrent users visiting the website. To see, if the system can
 withstand high loads for a longer time period, Endurance tests can be conducted.
-Spike Testing on the other hand involves switching very fast between low and
+Spike Testing, on the other hand, involves switching very fast between low and
 high stress levels. Next to high load scenarios, other topics can be the focus
 of performance testing as well. This includes testing different configurations
 for the system, scalability with different hardware resources, different amounts
 of requested or written data and more.
 
-Executing performance tests on a system allows us to compare them, determine, if
+Executing performance tests on a system allows us to compare them, determine if
 they will meet our performance requirements and help us finding components,
 whose performance needs to be improved. Since performance tests should always be
 conducted with a goal in mind, we have to ask ourselves, what this goal is for
-our particular system. Since our focus will lie soley on end-user \gls{gui}
+our particular system. Since our focus will lie solely on end-user \gls{gui}
 applications, server response times or amount of concurrent users are no
-suitable performance goal. Much more interesting for us are render response
+suitable performance goals. Much more interesting for us are render response
 times, which describe, how much time passes when presenting the results of an
 operation to the user. How important this response time is for the user
 experience, shows a test conducted by Google, in which a page, whose load times
@@ -429,11 +429,11 @@ There are no restrictions on how to implement the solution as long as they
 withstand a set of unit tests, that make sure the implementation is actually
 correct. A description of the different benchmarks, the different
 implementations and the results achieved in each implementation can be found on
-the projects official web page
+the project's official web page
 (https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html). Even
 though the results can hint the performance capabilities of different languages,
 the project states, that it is important to see them in context. The performance
-of these mostly synthetic, very isolated operations are not capable of
+of these mostly synthetic, very isolated operations is not capable of
 displaying the performance capability of the language in its entirety.
 \cite{CompLangBenchmGame}
 
@@ -444,25 +444,25 @@ displaying the performance capability of the language in its entirety.
 
 \subsection{Application Benchmarks}
 
-For most real life use cases, measurements like \gls{flops} are not very
+For most real-life use cases, measurements like \gls{flops} are not very
 helpful, when choosing hardware or software products, since those numbers only
-describe a very narrow field of use. The tasks whose performance we actually do
+describe a very narrow field of use. The tasks whose performance we do
 care about, are very high-level and can be divided into countless subroutines.
 Application Benchmarks allow us, to investigate the performance in such
 high-level use cases. Very common use cases, whose success is very highly
-dependent on good performance, often already have a big offering in application
+dependent on a good performance, often already have a big offering in application
 benchmarks available on the market. Especially in journalism about computer
-hardware you can find a very wide spread usage of application benchmarks to
-describe the performance of new released hardware products and how they will
+hardware, you can find a very widespread usage of application benchmarks to
+describe the performance of newly released hardware products and how they will
 perform compared to other models. In advertisements for hardware products,
 benchmarks are used as well to prove the gains in performance available from new
 developments. For hardware that is often used to play video games with, many
 benchmarks exist, which allow displaying scenes similar to real video games
 while evaluating the performance of the system doing so. Some video games like
-the open world action game \emph{Grand Theft Auto V} even offer a benchmarking
+the open-world action game \emph{Grand Theft Auto V} even offer a benchmarking
 mode, where common scenes from the game are depicted together with the current
 performance on the computer it is running on. Other benchmarks like
-\emph{DeepBench} or \emph{MLPerf} allow us to gain insights in the performance
+\emph{DeepBench} or \emph{MLPerf} allow us to gain insights into the performance
 of hardware for machine learning tasks. Such results can help tremendously in
 the buying decision for new hardware components. 
 \cite{ApplicationBenchmark, Gta5Bench}
@@ -482,11 +482,11 @@ us to port them easily onto other hardware. It is often required to execute
 benchmarks on different architectures without changing the implementation
 between them.
 
-2) To give us a realistic view on a machines performance, the Benchmark should
-also representative to the task we want to perform later on the hardware.
-Running rendering benchmarks on graphics hardware does maybe give us an
-comparable number when it comes to rendering capabilities, but does for example
-no help us, if we are looking for graphics hardware to execute a certain machine
+2) To give us a realistic view of the performance of a machine, the Benchmark should
+also representative of the task we want to perform later on the hardware.
+Running rendering benchmarks on graphics hardware does maybe give us a
+comparable number when it comes to rendering capabilities, but does, for example,
+no help us if we are looking for graphics hardware to execute a certain machine
 learning task on it. The best benchmark would always be the user's actual
 application.
 
@@ -510,7 +510,7 @@ comparability between them.
 To effectively develop benchmarking tools for python graph libraries, we have to
 understand the principles of the underlying \gls{gui} framework first, which in
 our case is the Qt application framework. This chapter will present an
-introduction into the core principles of it.
+introduction to the core principles of it.
 
 
 %% ==============================================
@@ -524,7 +524,7 @@ For the implementation of the Benchmarking Framework, we have to focus on a
 \gls{gui} Framework, in which our widgets will be embedded and tested. Since
 \gls{aps} has decided for Qt as the framework of choice for \gls{gui}
 applications, we will take the same decision for our implementation. This
-chapter will give a general introduction in the creation of \gls{gui}
+chapter will give a general introduction to the creation of \gls{gui}
 applications with the help of Qt.
 
 Qt is a C++ Framework for developing cross-platform applications. It is
@@ -550,7 +550,7 @@ Qt. Only one instance of it can exist at a time, which represents the current
 state of our Application, but does not yet represent any visual components like
 windows. If we want to present a window to the user, one option is to use
 \inlinecode{Python}{QtWidgets.QMainWindow}. One way to create a window
-containing our GUI components in it, is to subclass
+containing our GUI components in it is to subclass
 \inlinecode{Python}{QMainWindow}. In this subclass we will have access to all
 functionality of \inlinecode{Python}{QMainWindow} and its subclasses. One of
 these functions is \inlinecode{Python}{QtWidgets.QWidget.show()}, which will
@@ -562,7 +562,7 @@ role will be discussed in section \ref{sec:fundamentals:qt:eventloop}.
 
 Listing \ref{listing:fundamentals:qt:basicapp} combines these mentioned steps in
 a running Qt Application written in Python Code. The main window does not yet
-containing any widgets, but has a custom window title set to it. A simple
+contain any widgets but has a custom window title set to it. A simple
 application like this does only depend on classes from the
 \inlinecode{Python}{QtWidgets} package.
 
@@ -577,26 +577,26 @@ Two additional details in regards to example
 we are passing of \inlinecode{Python}{sys.argv} to the
 \inlinecode{Python}{QApplication} constructor. This allows us to define
 parameters for the \inlinecode{Python}{QApplication} when invoking the python
-application from command line. The second one is, that we use the return status
-from \inlinecode{Python}{app.exec()} when exiting Python. This allows us for
-example to mark our Python Application as failed, if the
+application from the command line. The second one is, that we use the return status
+from \inlinecode{Python}{app.exec()} when exiting Python. This allows us, for
+example, to mark our Python Application as failed, if the
 \inlinecode{Python}{QApplication} fails and exits with an exit code unequal to
 zero.
 
-To add content to out window, Qt offers the concept of widgets. The base class
+To add content to our window, Qt offers the concept of widgets. The base class
 for every widget is \inlinecode{Python}{QtWidgets.QWidget}. Next to
 \inlinecode{Python}{QWidget}, the package \inlinecode{Python}{QtWidgets} offers
 many more ready to use widgets for many different purposes. All common \gls{ui}
-building blocks, like labels, check boxes, combo boxes and more can be found in
-it ready to to be added to a window. \inlinecode{Python}{QWidget} itself can
+building blocks, like labels, checkboxes, combo boxes and more can be found in
+it ready to be added to a window. \inlinecode{Python}{QWidget} itself can
 also be used as a wrapper around multiple other widgets. Each widget can be
-given a parent on creation. Using this functionality, the user can define a tree
-like parent child hierarchy for all widgets starting from the main window. A big
+given a parent on creation. Using this functionality, the user can define a
+tree-like parent-child hierarchy for all widgets starting from the main window. A big
 advantage that this hierarchy offers, is, that with the deletion of a widget, all
 its child widgets will be deleted as well.
 
 Next to widget classes, Qt offers layout classes to order multiple children
-inside a parent widget. Some very basic layouting options include:
+inside a parent widget. Some very basic layout options include:
 
 \begin{description}
 
@@ -611,13 +611,13 @@ inside a parent widget. Some very basic layouting options include:
 \end{description}
 
 Next to those basic ones, Qt also offers more complex layouts with additional
-functionality. Other options for layouting a window is grouping widgets using
+functionality. Other options for window layouts are grouping widgets using
 Container Widgets. As an example, the class
 \inlinecode{Python}{QtWidgets.QTabWidget} allows grouping widgets into different
 views, which can be switched between by clicking on different tabs. By utilizing
 these different widgets and layout options, you can build more complex window
-layouts as seen as seen visible in figure \ref{fig:qt:examplewindow}. On the
-right side of the depiction you can see the widget and layout types contained in
+layouts as seen visible in figure \ref{fig:qt:examplewindow}. On the
+right side of the depiction, you can see the widget and layout types contained in
 the window visible on the left. The source code for this window is
 appended in \ref{a:fig:qt:examplewindow:code}. 
 \cite{PythonGui1}
@@ -639,10 +639,10 @@ appended in \ref{a:fig:qt:examplewindow:code}.
 
 At this point, we have learned, how we can define the appearance of a \gls{gui}
 application, but interacting with these components does not yet invoke any
-logic. For this we have to define a connection between user interface
+logic. For this, we have to define a connection between user interface
 components and a function, which implements the logic we want to invoke. Many
 \gls{gui} Frameworks realize this connection through callbacks. A callback is a
-pointer to a function, which is invoked, when interaction with a certain user
+pointer to a function, which is invoked when interaction with a certain user
 interface element is detected. One problem this approach harbors is, that with
 callbacks it can't be ensured, that the passed arguments have the right type.
 
@@ -652,7 +652,7 @@ communication between objects. All widgets from the package
 \inlinecode{Python}{QtCore.QObject} and do offer different standard signals and
 slots for informing about and reacting to state changes. The usage of Signals
 and Slots is not restricted to the communication between \gls{gui} elements and
-business logic, but can be used in any classes derived from
+business logic but can be used in any classes derived from
 \inlinecode{Python}{QtCore.QObject}.
 
 Signals are public functions, which emit messages informing about changes in the
@@ -673,12 +673,12 @@ different objects are communicating using signals and slots.
 \end{figure}
 
 One big advantage of Signals and Slots is, that objects are fully independent
-from each other, since neither the slots knows, which signals it is connected
-to, nor the signals knows which slots it is connected with. Compared to
+of each other, since neither the slots know, which signals it is connected
+to, nor the signals know which slots it is connected with. Compared to
 callbacks, the Signal and Slots have more Overhead, which makes their execution
 slower. Compared to any for example list operation requiring
 \inlinecode{C++}{new} or \inlinecode{C++}{delete}, this overhead is still much
-smaller. In real life applications, the performance losses coming through the
+smaller. In real-life applications, the performance losses coming through the
 usage of Signals and Slots are insignificant. 
 \cite{QtSignalsAndSlots, PythonGui1}
 
@@ -696,14 +696,14 @@ and displays.
     label=listing:fundamentals:qt:signalsslots
 ]{resources/code/signals_and_slots.py}
 
-In some cases, for example when we create own widgets, we have to define own
+In some cases, for example, when we create own widgets, we have to define own
 signals and slots. To do so, we extend our example with another label type
 \inlinecode{Python}{WatchLabel} derived from
 \inlinecode{Python}{QtWidgets.QLabel}, which offers a slot
-\inlinecode{Python}{set_time}, that takes a float value, interprets it as a time
-stamp and displays it. To update this label, we will introduce another class
+\inlinecode{Python}{set_time}, which takes a float value, interprets it as a
+timestamp and displays it. To update this label, we will introduce another class
 \inlinecode{Python}{WatchTick} derived from \inlinecode{Python}{QtCore.QObject},
-which emits a signal 60 times per second containing the current time stamp.
+which emits a signal 60 times per second containing the current timestamp.
 Listing \ref{listing:fundamentals:qt:signalsslots:custom} shows the definition
 of these two components. Since we have typing information in the signal and the
 slot definition, Qt makes sure, that both will work together. If both types do
@@ -731,20 +731,20 @@ the label, which then displays the current time.
     lastline=46
 ]{resources/code/signals_and_slots_custom.py}
 
-Since Qt Applications are event driven, they can be created as a single threaded
+Since Qt Applications are event-driven, they can be created as a single-threaded
 application without any problems. In more complex applications, some operations
 can take a bit of time to complete. When executed in the \gls{gui}
 Thread, this would block all interaction with the \gls{ui}. To keep the \gls{gui}
-responsive, work intensive operations can be moved to a separate Thread for
-parallel execution using for example Qt's \inlinecode{Python}{QtCore.QThread}.
+responsive, work-intensive operations can be moved to a separate Thread for
+parallel execution using, for example, Qt's \inlinecode{Python}{QtCore.QThread}.
 Signals and Slots offer a very convenient way to communicate between these
-multiple Threads. An example for this would be, that the \gls{gui} Thread spawns
-a new Worker Thread, in which a computing intensive process is running. If
+multiple Threads. An example of this would be, that the \gls{gui} Thread spawns
+a new Worker Thread, in which a computing-intensive process is running. If
 finished, this worker thread can inform the \gls{gui} Thread about its
 completion by emitting a signal. The \gls{gui} thread can then display the
 results from the worker thread.
 
-When working with multiples Threads in a Qt Application, it is important to know
+When working with multiples Threads in a Qt application, it is important to know
 about the different connection types which Qt offers. These connection types
 control, when and in which Thread the connected slot is executed. A
 \inlinecode{C++}{QtCore.Qt::DirectConnection} for example leads to the Slot
