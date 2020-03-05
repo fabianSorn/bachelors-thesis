@@ -21,8 +21,8 @@ subsection present one use case from \gls{ht}, \gls{lhcop} and \gls{aps}.
 \label{sec:usecases:becoht}
 
 The first project interested in visualizing data using python graph libraries is
-the Distributed Oscilloscope developed in the \gls{ht} section, who are
-responsible for the development, production and support for the custom
+the Distributed Oscilloscope developed in the \gls{ht} section, which is
+responsible for the development, production, and support for the custom
 electronic modules used in the Control System. The goal of the Digital
 Oscilloscope is to synchronously monitor analog signals in a distributed system.
 To achieve this synchronization, the signals from various sources are
@@ -37,12 +37,12 @@ depicted in figure \ref{fig:doarchitecture}.
     \label{fig:doarchitecture}
 \end{figure}
 
-The layer closest to the hardware the depicted signals originate from, are the
+The layer closest to the hardware the depicted signals originate from are the
 device applications, which provide access to hardware resources. The central
 layer is the Digital Oscilloscope Server, which is responsible for managing all
 connections between device and user applications. The last layer closest to the
-users are the user applications. The application our use case originates from,
-is a \gls{gui} application representing a oscilloscope, a device for displaying
+users is the user applications. The application our use case originates from
+is a \gls{gui} application representing an oscilloscope, a device for displaying
 varying signal voltages over time. A screenshot of this application can be seen
 in figure \ref{fig:dogui}.
 \cite{DistrOscDocs, BeCoHtSection}
@@ -58,7 +58,7 @@ in figure \ref{fig:dogui}.
 
 For this \gls{gui}, \gls{ht} is interested in displaying a plot in their
 application, which is showing up to eight curves with up to 100.000 points per
-curve. The goal for this graph would be an update rate of 25 updates per second.
+curve. The gaol of this graph would be an update rate of 25 updates per second.
 
 
 %% ==============================================
@@ -81,7 +81,7 @@ second.
 
 The third use case originates from \gls{aps}. For this, multiple scatter plots
 should be displayed. The \gls{gui} Application will contain 4 different scatter
-plots, each containing up to 3 data sets, which each contain 1 hour of live
+plots, each containing up to 3 data sets, with each containing 1 hour of live
 data, which receives a new point roughly every 1.2 seconds. This results in 3000
 visible points per data set.
 
@@ -98,7 +98,7 @@ high energies. The GUI will allow monitoring and manipulation of different
 device settings. Image \ref{fig:linac4sourcegui} shows a screenshot of an early
 version of the application with multiple scatter plots in the upper right part
 of the window.
-\cite{LinacFour,LinacFourGuiPres}
+\cite{LinacFour, LinacFourGuiPres}
 
 %% ==============================================
 %%       Performance Metrics from Use Cases
@@ -111,17 +111,17 @@ will be delivered with a certain frequency. This means that the graph has only a
 certain time to redraw until the next bunch of data arrives. Even for
 applications containing graphs, which are not updated regularly, the time it
 takes the graph to redraw is very important for the user interaction. Slow
-redraw times will lead to stuttering user interfaces. As a result our highest
+redraw times will lead to stuttering user interfaces. As a result, our highest
 priority when investigating the performance of plotting libraries should be the
 redraw speed of the graph.
 
 From a Usability Engineering perspective, rendering performance is a vital
 aspect, since it greatly impacts \glspl{gui} response times. The general
-boundary, in which a systems feels like it is responding instantly to a users
+boundary, in which a system feels like it is responding instantly to a user's
 interaction is 100 milliseconds. Delays over one second can already interrupt
-the thought process of the user, since the delay is getting very noticeable.
+the thought process of the user since the delay is getting very noticeable.
 Delays over ten seconds require feedback from the system to
-signal the user it is performing long running tasks.
+signal the user it is performing long-running tasks.
 \cite{UsabilityEngineering}
 
 An often used measurement for describing a system's rendering performance is the
@@ -134,21 +134,21 @@ the human eye. Increasing the Frame Rate leads to the reduction of motion blur,
 increasing details and clarity of a moving image.
 
 Especially in the area of computer games, high frame rates are desirable, since
-they will not only enhance the visual experience, but give the player a
+they will not only enhance the visual experience but give the player a
 strategic advantage in a competitive environment.  A popular demonstration of
 the increased clarity of high frame rates is the Blur Buster's UFO Motion Blur
-Test website, which shows the same scene of fast moving cartoon UFO in different
+Test website, which shows the same scene of a fast-moving cartoon UFO in different
 frame rates (https://www.testufo.com).
 
 In many Hardware Benchmarks, frame rates can be found as the central description
 of a hardware component's abilities to render a complex scene. To measure this,
 the hardware benchmark will try to rerender the scene as fast as possible. At
 the same step in the rendering process of a single frame or image, the current
-time stamp is recorded. From these series of timestamps we can calculate the
+timestamp is recorded. From these series of timestamps, we can calculate the
 difference between two adjacent timestamps. This concept is known as Delta
 Timing and gives us information, how long the rendering process is taking us per
 Frame. Next to a performance description, delta timing can also have other
-usages. In Video Games for example, it allows us to find out, how far an object
+usages. In Video Games, for example, it allows us to find out, how far an object
 in the displayed scene should have moved since the last displayed frame. As a
 result, figure movement stays consistent, even with different frame rates under
 different load scenarios.
@@ -160,19 +160,19 @@ set of $m$ recorded time stamps $t_n$ as follows.
 
 $$f = \frac{1}{\frac{ \sum_{n=0}^{m-1} t_{n+1} - t_{n} }{ m - 1 }}$$
 
-While frame rates already help us describing performance, they do not yet help
-improving it. One way of finding operations in software worth optimizing is
-profiling it.  Profilers are software tools which are able to measure different
+While frame rates already help us describing the performance, they do not yet help
+improving it. One way of finding operations in software worth optimizing is by
+profiling it.  Profilers are software tools that can measure different
 aspects of performance, like execution time, memory management, garbage
 collection and more. The type of profiler we will focus on is deterministic CPU
 utilization profilers, which give us information about the time spent in
 functions, the callers of it and the number of calls to them. Next to finding
-slow performing functions, they can uncover as well, if a function is called
-more often as intended by a programs author. With this information, optimization
+slow-performing functions, they can uncover as well, if a function is called
+more often as intended by the author of a program. With this information, optimization
 efforts can be directed to where they really can make a difference.
 \cite{CProfilerExample}
 
-The standard option in Python for deterministic profiling, is the C extension
+The standard option in Python for deterministic profiling is the C extension
 \emph{cProfile}. Compared to the profiler \emph{profile}, which itself is
 written in Python, cProfile offers a much lower overhead, which makes it
 suitable for profiling longer running programs.  To provide collect information
@@ -181,7 +181,7 @@ offered by the Python interpreter. These hooks are callbacks, which allow
 cProfile to receive and record timing information about every function executed.
 For profile and cProfile, there are two limitations, which you have to be aware
 of. The first one is the granularity of the underlying
-timer used for recording the duration of an operation. On most systems this is
+timer used for recording the duration of an operation. On most systems, this is
 around 0.001 seconds.  The other limitation is the lag between the event being
 dispatched and the profiler getting the current time. Since profiling is
 introducing a certain overhead to the execution of a python program, it is not
