@@ -769,26 +769,26 @@ objects are living.
 Qt Applications can very often be written without using parallel programming at
 all, which vastly decreases the complexity of the application and increases
 maintainability. Qt is an event-driven toolkit, which means, that applications
-are designed to wait for events and react to them appropriately. In general
+are designed to wait for events and react to them appropriately. In general,
 Events can be described as anything that happened, which the application
 has to know about.  These Events can be Mouse Clicks, Timer Timeouts or internal
 events which are supposed to tell a part of the \gls{gui} to redraw. Events can
 come from different places: Mouse Click or Key Events are most likely
 coming from the Window Manager while other events can come either from the
 application code or the Qt Framework.
-Qt does not necessary handle events immediately as they arrive, but queues
+Qt does not necessarily handle events immediately as they arrive, but queues
 them for later handling. The Qt Event Loop is responsible for iterating over
 these queued Events posted to the Event Queue to process them accordingly.
 
 If we have a look at the examples in section \ref{sec:fundamentals:qt:basics},
 we will see the statement \inlinecode{Python}{app.exec()} in them. This call will
 start Qt's Event Loop and will be blocking until the application terminates.
-Code placed below this line will only be evaluated when the application has
+The code placed below this line will only be evaluated when the application has
 already quit. This means, that operations for showing a window or adding widgets
 to it will have to be placed above it. After the main event loop is started, it
 will retrieve events from the queue and process them one by one. Prior defined
 operations for showing a window or adding contents to it are such
-Events. In Qt all these events are represented by a class derived from
+Events. In Qt, all these events are represented by a class derived from
 \inlinecode{Python}{QtCore.QEvent}. A \inlinecode{Python}{QtGui.QMouseEvent} for
 example is derived from it and extends it with functions specific to this type
 of Event like \inlinecode{Python}{QtGui.QMouseEvent::buttons()}, which returns
@@ -803,7 +803,7 @@ Events can be published using either
 \inlinecode{Python}{QtCore.QtCoreApplication.sendEvent()} or
 \inlinecode{Python}{QtCore.QtCoreApplication.postEvent()}. 
 
-The first will lead to immediate delivering and handling of the Event without
+The first will lead to immediate delivery and handling of the Event without
 any involvement of the Event Loop, while the later one will add the Event to the
 Event Queue, from where it will be delivered by Qt when it is its turn. Listing
 \ref{listing:fundamentals:qt:eventcreation} shows as an example the creation of
@@ -851,7 +851,7 @@ overwriting the specific event handler dedicated to Mouse Button Clicks.
 ]{resources/code/event_handler_2.py}
 
 Which events are delivered to which widget, is decided by Qt, where different
-Factors can play a key role. For the Mouse Click Events the position of the
+Factors can play a key role. For the Mouse Click Events, the position of the
 pointer at the time of the Event does play a key role. Qt also offers the
 possibility to install global Event Filters which allow us to filter out events
 we do not like our Widgets to receive. These Filters simply are classes derived
@@ -871,11 +871,11 @@ event does not have to be propagated further in the widget hierarchy.
     label=listing:fundamentals:qt:eventfilter
 ]{resources/code/event_filter.py}
 
-Listing \ref{a:qtevents:code} contains a runnable application which demonstrate
-these three concepts of event creation, even handling and event filtering in a
+Listing \ref{a:qtevents:code} contains a runnable application that demonstrates
+these three concepts of event creation, event handling and event filtering in a
 single simple application window similar to the here shown code snippets. It
 contains two labels reacting to mouse clicks by changing their font size and a
-button sending a mouse press events to both labels. The check box contained in
+button sending a mouse press event to both labels. The checkbox contained in
 the window installs mouse click event-filter on both labels and removes it
 again when unchecked.
 \cite{EventSystem,AnotherLookAtEvents,EventFilters}
@@ -888,12 +888,12 @@ again when unchecked.
 \subsection{Python bindings}
 \label{sec:fundamentals:qt:pyqt}
 
-Even though we do now have a basic understanding about the fundamental principle
+Even though we do now have a basic understanding of the fundamental principle
 of the Qt Framework, we have not yet mentioned, how we can use a C++ application
 Framework in Python Code. This is possible through a principle known as Python
 bindings and is not exclusive to the Qt Application Framework. Python Bindings
 allow you to write code in Python using already existing C and C++ libraries,
-which are already well received and popular. One very popular Python Binding for
+which are already well-received and popular. One very popular Python Binding for
 the Qt Application Framework is PyQt, developed by Riverbank Computing Limited.
 Riverbank provides different versions of PyQt for different versions of Qt, for
 Qt5 we will pick PyQt5, which is the most recent major version of PyQt.
@@ -905,19 +905,19 @@ generally possible to write these bindings by hand, it is a lot of work. To
 automate the creation of Python Bindings, Riverbank has developed the tool SIP,
 which can generate Python bindings from interface header files with similar
 syntax to C++ header files. These files define what classes and methods should
-be exported as well as the python module it should be exported into. Additionally
-it is possible to define the translation between Python and C++ Objects.  SIP
-takes these header files and generates C++ Code, which can then be compiled
-to an extension module for the Python Interpreter. These Extension Modules allow
-us to import and call C and C++ libraries within our Python Code, which in the
-Case of PyQt is the underlying Qt Framework.
+be exported as well as the python module it should be exported into.
+Additionally, it is possible to define the translation between Python and C++
+Objects.  SIP takes these header files and generates C++ code, which can then be
+compiled to an extension module for the Python Interpreter. These Extension
+Modules allow us to import and call C and C++ libraries within our Python Code,
+which in the Case of PyQt is the underlying Qt framework.
 \cite{SipIntro, SipTut, ExtendingPython}
 
 Working with a C++ library comes with a few caveats which we will have to keep
 in mind especially when working with the Qt Framework from Python. One
 particular caveat, which can easily lead to errors, is, that Objects do exist
-not only as Python objects, but as C++ objects as well, which the Python object
-is referencing. Qt has its own Garbage collection mechanism, which can delete
+not only as Python objects but as C++ objects as well, which the Python object
+is referencing. Qt has an own Garbage collection mechanism, which can delete
 objects if their parent object is deleted or if they do not have any parent
 object. The deletion on the C++ side does not influence the existence of the
 object on the Python side in any way. This makes it possible to access a deleted
@@ -927,8 +927,8 @@ object with \inlinecode{Python}{del self.my_widget}, since the C++ object
 underneath can exist further. Not being aware of this can easily create
 applications with severe memory leakage, especially when creating and deleting
 repeatedly new widgets, for example when opening new dialogs in an application.
-To free the memory occupied by an widget's C++ object, we have to tell Qt to
-delete the object and its children, as seen in listing
+To free the memory occupied by a widget's C++ object, we have to tell Qt to
+delete the object and its children, as seen in the listing
 \ref{listing:fundamentals:qt:objectdeletion}.
 
 \begin{lstlisting}[
@@ -943,16 +943,16 @@ self.my_widget.deleteLater()
 del self.my_widget
 \end{lstlisting}
 
-Another caveat when working with PyQt appears when working with multi threaded
+Another caveat when working with PyQt appears when working with multi-threaded
 applications. When working with \inlinecode{Python}{QtCore.QThread} on the C++
-side, execution can be truly parallel on multi core systems. Working with
+side, execution can be truly parallel on multi-core systems. Working with
 different threads in Python is possible as well, but if a
 \inlinecode{Python}{QtCore.QThread} runs CPU bound Python Code, it won't be
 executed in parallel no matter how many CPU cores are available. The reason for
 this is Python's \gls{gil}. The \gls{gil} was introduced to python to keep track
-of object references in multi threaded code. Before a thread accesses any Python
+of object references in multi-threaded code. Before a thread accesses any Python
 objects, it has to hold this lock, which means, that code running inside the
-\gls{gil} can't take real advantage of Multi Core Systems.
+\gls{gil} can't take real advantage of multi-core systems.
 \cite{PythonGil, PythonGilDocs}
 
 Since PyQt5 is not the only available Python binding for Qt, we will use the
