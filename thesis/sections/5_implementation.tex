@@ -15,7 +15,7 @@ cases from chapter \ref{ch:usecases}. As a name for our framework we choose
 The language we use is for the implementation is Python 3, which gives us and
 the framework's users access to newer language features like type hinting. We
 will begin with an introduction into our project layout, followed by a more
-detailed look at each individual sub package and module of the project.
+detailed look at each sub-package and module of the project.
 
 
 
@@ -82,7 +82,7 @@ an introduction into the project, \emph{setup.cfg} for tooling configuration and
 \section{Subpackage widgetmark.base}
 
 The first sub-package of our implementation is the package
-\inlinecode{Python}{widgetmark.base}. In this package we will define all base
+\inlinecode{Python}{widgetmark.base}. In this package, we will define all base
 classes for our benchmarking framework, which are not part of the user
 interface. To keep the framework extensible and not limited to Qt as its
 \gls{gui} framework, we will not yet use Qt specific \glspl{api} in this
@@ -101,7 +101,7 @@ implementation for our functions.
 ]{resources/widgetmark/base/benchmark.py}
 
 We distinguish between three different types of information that can be defined
-in an use case: mandatory functions like widget setup and operation, mandatory
+in a use case: mandatory functions like widget setup and operation, mandatory
 attributes like performance requirements and optional attributes like a timeout.
 Mandatory functions can be simply implemented as abstract methods using the
 \inlinecode{Python}{abstractmethod} decorator provided by the
@@ -112,7 +112,7 @@ Mandatory functions can be simply implemented as abstract methods using the
     linerange={116-117, 124-124}
 ]{resources/widgetmark/base/benchmark.py}
 
-Non mandatory attributes can be easily implemented as simple class attributes
+Non-mandatory attributes can be easily implemented as simple class attributes
 with default values in the use case base class.
 
 \lstinputlisting[ 
@@ -124,7 +124,7 @@ For implementing mandatory class attributes, \inlinecode{Python}{abc} does not
 offer any standard decorators, but we can use \inlinecode{Python}{property} in
 combination with the \inlinecode{Python}{abstractmethod} decorator to create
 abstract properties for our class. While such an implementation does not
-actually depict a mandatory attribute on a class level, the abstract property
+depict a mandatory attribute on a class level, the abstract property
 can be implemented as a class attribute in subclasses.
 
 \lstinputlisting[ 
@@ -145,10 +145,10 @@ using \inlinecode{Python}{instance.attribute_name}.
 The next class defined in this module is the \inlinecode{Python}{UseCaseResult}
 class, which is based on a single use case. For parameterized use cases, there
 will be a result instance for each parameter combination. The result object
-should comprise all information we have recorded from the execution. To make
-sure that use cases are read only after their initialization, we hold the
+should comprise all the information we have recorded from the execution. To make
+sure that use cases are read-only after their initialization, we hold the
 information in private instance attributes and allow reading access only over
-properties without defining property setters. Additionally the class offers
+properties without defining property setters. Additionally, the class offers
 convenience properties for later checks.  An example is a
 \inlinecode{Python}{failed} property that can be used to check if exceptions
 were raised during the execution.
@@ -163,7 +163,7 @@ incorporates the widget defined in the use case and grants access to the
 operation we want to benchmark. Wrapping the operation allows us to access it
 later in the executor without having a direct reference to the use case
 instance itself. Since our goal is to keep the base implementation free from
-\gls{gui} framework specific \gls{api}, we won't subclass any Qt window but
+\gls{gui} framework-specific \gls{api}, we won't subclass any Qt window but
 only define common operations for windows.
 
 \subsection{executor.py}
@@ -203,11 +203,11 @@ operation on the window, collect timing information and control the profiler.
     linerange={107-121}
 ]{resources/widgetmark/base/executor.py}
 
-To get the current time stamp we can use the \inlinecode{Python}{time()}
-function of the python package \inlinecode{Python}{time}. From this time stamp
-and the last recorded one we can calculate the delta timing for the last step.
-The recorded time stamp will be saved in an instance attribute for the next loop
-step as the last time stamp.
+To get the current timestamp we can use the \inlinecode{Python}{time()}
+function of the python package \inlinecode{Python}{time}. From this timestamp
+and the last recorded one, we can calculate the delta timing for the last step.
+The recorded timestamp will be saved in an instance attribute for the next loop
+step as the last timestamp.
 
 \lstinputlisting[
     language=Python,
@@ -216,7 +216,7 @@ step as the last time stamp.
 
 The protected function \inlinecode{Python}{_profile} is responsible for
 controlling the profiler. Before executing the operation the profiler will be
-activated. After the execution the current profile will be disabled and the
+activated. After the execution, the current profile will be disabled and the
 stats are added to the previously saved ones.
 
 \lstinputlisting[
@@ -224,12 +224,12 @@ stats are added to the previously saved ones.
     linerange={124-137}
 ]{resources/widgetmark/base/executor.py}
 
-The last important function is \inlinecode{Python}{_check_if_completed()}
-, which stops execution if either the timeout or the repeat counter of
+The last important function is \inlinecode{Python}{_check_if_completed()}, 
+which stops execution if either the timeout or the repeat counter of
 the use case is reached. If one is the case, the protected function
 \inlinecode{Python}{_complete()} is called. Since reaching the end of the
 execution cycle means stopping the execution loop, this step is \gls{gui}
-framework specific and will be implemented in the subclasses. 
+framework-specific and will be implemented in the subclasses. 
 
 \lstinputlisting[
     language=Python,
@@ -244,7 +244,7 @@ list of types, which are derived from the \inlinecode{Python}{UseCase} class or
 with a list of file locations, where these classes are defined. If a list of
 files is passed, the modules are imported using the
 \inlinecode{Python}{importlib} package. To make sure we import only classes that
-actually define use cases, we filter the found classes by their type. If the
+define use cases, we filter the found classes by their type. If the
 user passes a specific use case name, the found types are additionally filtered
 by their names.
 
@@ -258,9 +258,9 @@ The initialized launcher instance can be started using the
 \inlinecode{Python}{profile} for controlling if the executor will create a
 profile of the use case or not. Before initializing window and executor we
 create a list of all parameter combinations. For each of these 
-combinations we initialize the use case class. To grant access in the use case
+combinations, we initialize the use case class. To grant access in the use case
 class to these parameters, we set them as instance attributes to the 
-use case instance. If the use case class defines for example the parameter
+use case instance. If the use case class defines ,for example, the parameter
 \inlinecode{Python}{'number': [0, 1]}, we can access the current value of this
 parameter in the use case during execution by calling 
 \inlinecode{Python}{self.number}.
