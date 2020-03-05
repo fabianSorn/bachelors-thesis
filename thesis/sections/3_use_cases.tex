@@ -33,13 +33,13 @@ depicted in figure \ref{fig:doarchitecture}.
 \begin{figure}[h]
     \centering
     \includegraphics[width=8cm]{resources/img/DoArchitecture}
-    \caption{Digital Oscilloscope Architecture}
+    \caption{Distributed Oscilloscope Architecture}
     \label{fig:doarchitecture}
 \end{figure}
 
 The layer closest to the hardware the depicted signals originate from are the
 device applications, which provide access to hardware resources. The central
-layer is the Digital Oscilloscope Server, which is responsible for managing all
+layer is the Distributed Oscilloscope Server, which is responsible for managing all
 connections between device and user applications. The last layer closest to the
 users is the user applications. The application our use case originates from
 is a \gls{gui} application representing an oscilloscope, a device for displaying
@@ -51,7 +51,7 @@ in figure \ref{fig:dogui}.
     \centering
     \includegraphics[width=15cm]{resources/img/DistributedOscilloscope}
     \caption{
-        Distributed Oscilloscope GUI application displaying two analog signals
+        Screenshot of the Distributed Oscilloscope GUI application
     }
     \label{fig:dogui}
 \end{figure}
@@ -88,7 +88,7 @@ visible points per data set.
 \begin{figure}[h]
     \centering
     \includegraphics[width=15cm]{resources/img/Linac4SourceGui}
-    \caption{Screenshot of the Linac4 Source Gui}
+    \caption{Screenshot of the Linac4 Source GUI application}
     \label{fig:linac4sourcegui}
 \end{figure}
 
@@ -158,7 +158,7 @@ From the recorded timing information, we can calculate the frame rate $f$ from a
 set of $m$ recorded time stamps $t_n$ as follows.
 \cite{FrameRates}
 
-$$f = \frac{1}{\frac{ \sum_{n=0}^{m-1} t_{n+1} - t_{n} }{ m - 1 }}$$
+$$f = \frac{1}{\frac{ \sum_{n=1}^{m-1} t_{n+1} - t_{n} }{ m - 1 }}$$
 
 While frame rates already help us describing the performance, they do not yet help
 improving it. One way of finding operations in software worth optimizing is by

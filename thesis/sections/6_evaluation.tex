@@ -260,7 +260,9 @@ use case presented by Snakeviz in the Browser.
 \begin{figure}[h]
     \centering
     \includegraphics[width=15cm]{resources/img/profiles/HtProfile}
-    \caption{Screenshot of the BE-CO-HT use case using Snakeviz}
+    \caption{
+        Screenshot of the BE-CO-HT use case's profile visualized in snakeviz
+    }
     \label{fig:application:lhc:usecase:profile:ht}
 \end{figure}
 
@@ -329,7 +331,7 @@ framework being slightly slower compared to the minimal PyQt application.
 \begin{center}
 
 \captionof{table}{
-    Frame rate comparison between widgetmark and a minimal PyQt application
+    Frame rate comparison between widgetmark and the comparison application.
 }
 \label{tab:evaluation}
 
@@ -365,14 +367,14 @@ $$\Delta t_{i} = t_{i+1} - t_{i}$$
 The arithmetic mean or average $\bar{\Delta t}$ describes the average from our
 set of $m-1$ measured delta times and is defined as:
 
-$$\bar{\Delta t} = \frac{1}{m-1} * \sum_{i=0}^{m-1} {\Delta t_{i}}$$
+$$\bar{\Delta t} = \frac{1}{m-1} * \sum_{i=1}^{m-1} {\Delta t_{i}}$$
 
 The standard deviation $\sigma$ of our delta times describes, how far values are
 deviated on average from $\bar{\Delta t}$. From the standard $\sigma$ we can get
 a better idea, if the measured times are very consistent or if they differ much
 from each other. It is defined as:
 
-$$ \sigma_{\Delta t} = \sqrt{\frac{1}{m-2} * \sum_{i=1}^{m-2} (\Delta t_{i} - \bar{\Delta t})^2} $$
+$$ \sigma_{\Delta t} = \sqrt{\frac{1}{m-2} * \sum_{i=1}^{m-1} (\Delta t_{i} - \bar{\Delta t})^2} $$
 
 The range of a set of $m-1$ delta times $\Delta t_i$ describes the difference
 between the largest and smallest measured $\Delta t$ and is defined as:
@@ -391,7 +393,7 @@ apparent.
 \begin{figure}[h]
     \centering
     \includegraphics[width=12cm]{resources/img/evaluation/Eval_AVG}
-    \caption{Average delta timing between both execution variants}
+    \caption{Average Delta Timing of Widgetmark and the Comparison Application}
     \label{fig:evaluation:avg}
 \end{figure}
 
@@ -417,8 +419,8 @@ small as possible.
 \begin{figure}[h]
     \centering
     \includegraphics[width=12cm]{resources/img/evaluation/Eval_STD}
-    \caption{Standard deviation compared to the delta timing value ranges and
-        the average delta timing difference between both execution variants}
+    \caption{Standard Deviation, Delta Time Value Ranges and
+        average Delta Times of Widgetmark and the Comparison Application}
     \label{fig:evaluation:std}
 \end{figure}
 
