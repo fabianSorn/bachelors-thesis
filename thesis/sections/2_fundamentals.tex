@@ -7,13 +7,13 @@
 \chapter{Fundamentals}
 \label{ch:fundamentals}
 
-This chapter will give an introduction into the fundamental topics that are
-relevant for the context of this work. In the first section we will have a look
+This chapter will give an introduction to the fundamental topics that are
+relevant to the context of this work. In the first section, we will have a look
 at data visualization in general. We will start with a short exploration of the
 development in history leading to our modern usage of data visualization in the
-world of computing. Further we will explore a model which describes in general
+world of computing. Further, we will explore a model that describes, in general,
 the functionality and steps of modern data visualization frameworks and the
-different types of data visualization applications. Finally the first section
+different types of data visualization applications. Finally, the first section
 will present different usages of data visualization applications at \gls{cern},
 which different scenarios exist and what solutions are offered at the moment
 from the \gls{aps} section. In the second section we will move our focus on the
@@ -32,7 +32,7 @@ functionalities in the third section.
 \label{sec:fundamentals:charting}
 
 The following chapter gives a brief introduction into the history and
-development of data visualization, presents a model which describes modern data
+development of data visualization, presents a model that describes modern data
 visualization frameworks and explores the usage of data visualization at CERN.
 
 
@@ -44,31 +44,31 @@ visualization frameworks and explores the usage of data visualization at CERN.
 \label{sec:fundamentals:charting:history}
 
 Good visualization helps us to understand patterns, trends and relationships in
-data much more easily and share discoveries with others. Representing data in a
-visual way has its root in the earliest of humanities history, where drawings on
+data much more easily and share discoveries with others. Visually representing
+data has its root in the earliest of humanity's history, where drawings on
 cave walls were a way to share stories, whose marks we can still find
 preserved until today. From there the idea of visualizing information, which we
 want to share, evolved into many different directions. One very early way to
-present data to viewers, was to use tables. The oldest preserved documents
+present data to viewers was to use tables. The oldest preserved documents
 presenting data in tables can be dated back to the 2nd century AD. Even though
-the information was still presented mainly in text, alignment, white spaces and
+the information was still presented mainly in text, alignment, white spaces, and
 lines, were already utilized to support the viewer to navigate through data in
-large quantities.  Visualizing data in a two dimensional space using a system of
-coordinates has its roots in the 17th century. The two dimensional cartesian
+large quantities.  Visualizing data in a two-dimensional space using a system of
+coordinates has its roots in the 17th century. The two-dimensional cartesian
 coordinate system was the basis for displaying data as graphs. In the following
 18th and 19th century more types of graphs like Bar Graphs and Pie Charts
 emerged, which we still use in modern representations of datasets today.
 \cite{DataVisHistory}
 
-Visualization does not only help us in understanding static data, but also
-discovering trends in its development over a period of time. In 1753, Jacques
-Barbeu-Dubourg created a graph displaying a large historical time line, called
-the Carne Chronographique. The graph displays events from a total time span of
-6480 years, drawn by hand on a 54 foot long paper roll. Entries are listed
+Visualization does not only help us in understanding static data but also
+discovering trends in its development over some time. In 1753, Jacques
+Barbeu-Dubourg created a graph displaying a large historical timeline, called
+the Carne Chronographique. The graph displays events from a total period of
+6480 years, drawn by hand on a 54-foot long paper roll. Entries are listed
 chronologically behind each other from left to right. Special about this paper
-roll was, that it visualizes a big amount of historical data, while keeping a
+roll was, that it visualizes a big amount of historical data while keeping a
 small form factor, which is achieved, by rolling the large paper onto a scroll.
-Both parts of the scrolls were connected to keep always the same exact distance
+Both parts of the scrolls were connected to keep always the same distance
 to each other, presenting the Viewer view on a part of the entire data. To move
 the timespan of this detailed view you could simply roll the paper further into
 one direction to go back or forward in history.
@@ -83,9 +83,9 @@ one direction to go back or forward in history.
 \end{figure}
 
 With the invention of computers and the rise of more affordable models in homes
-and offices, data could be visualized much faster and easier then ever before.
-The labor intensive process of drawing graphs by hand on special paper was
-replaced by computer generated ones that could be created with the click of a
+and offices, data could be visualized much faster and easier than ever before.
+The labor-intensive process of drawing graphs by hand on special paper was
+replaced by computer-generated ones that could be created with the click of a
 button. This drastic improvement in ease of use further increased the popularity
 of data visualization and brought it into many more fields.
 \cite{DataVisHistory2}
@@ -95,9 +95,9 @@ No matter what language is chosen by a developer to write \gls{gui}
 applications, chances are high that there already exist powerful libraries for
 visualizing data. Compared to printed charts and graphs, graphs in software can
 be a much more powerful tool, since they do allow the user to interact with
-their data and alter its visual representation. Additionally graphs
+their data and alter its visual representation. Additionally, graphs
 displayed on a screen can be updated when new data is available compared to
-printed ones. A model which describes the functionality of such libraries, is
+printed ones. A model that describes the functionality of such libraries, is
 the Data Visualization Pipeline.
 \cite{VisIdioms}
 
@@ -124,30 +124,30 @@ executed to transform the data step by step.
 \end{figure}
 
 The starting point of the pipeline is the raw data acquired from a process
-we are collecting data from. At this point the data has not yet been altered in
+we are collecting data from. At this point, the data has not yet been altered in
 any way. The first transformation we execute on this data is an operation to
 enhance or enrich the data. This can include interpolation for missing points in
 the dataset or smoothing filters for noise in our dataset we want to get rid of.
 In general, this step includes every calculation based on our raw dataset, which
-is useful, but does not yet produce any visual information.  The resulting
+is useful but does not yet produce any visual information.  The resulting
 dataset from this operation is called the derived data. 
 
 The next transformation in the Pipeline is the mapping of the derived data onto
 \glspl{avo}. These are not yet the image itself, but objects that describe the
 later visual representation of an entry in the dataset using certain attributes.
-An example for such an attribute could be a color, which is calculated from one
-of the dimensions in derived data. An example for this transformation step would
+An example of such an attribute could be a color, which is calculated from one
+of the dimensions in derived data. An example of this transformation step would
 be the mapping of a float value representing a measured temperature to a
 corresponding color representing a specific temperature range.
 
 The last step in the pipeline is the Rendering, which produces an actual pixel
 image from the \gls{avo}. This step often involves operations from computer
 graphics like transformations between object, scene and device coordinates. With
-these transformations it is possible to produce a two dimensional pixel image of
-an three dimensional scene. The rendering step of course depends highly on the
+these transformations, it is possible to produce a two-dimensional pixel image of
+a three-dimensional scene. The rendering step, of course, depends highly on the
 technologies used and the \glspl{avo} we want to display. Compared to other
 usages of computer graphics, the goal of rendering for data visualization is not
-the production of a photo realistic image, but the creation of an abstract
+the production of a photo-realistic image, but the creation of an abstract
 approximation, that allows us to understand the scientific data it represents.
 Unnecessary details would in this case only harm the performance of the pipeline
 and distract the viewer. 
@@ -162,21 +162,21 @@ in the beginning, the data is collected and the visualization is done later.
 This type of software is mainly used for visualizing results of experiments
 running once without constant repetition. An example of such a system is the
 acquisition of data coming from a particle detector. The recorded collision is
-not something that will constantly be repeated over a long period of time, so
+not something that will constantly be repeated over a long time, so
 the main priority of performance is, that the storage system can keep up with
-the high band-width data coming from the experiment. The visualization of such
+the high bandwidth data coming from the experiment. The visualization of such
 data is often done on heavily filtered versions, that only take data into
 account, which is interesting.
 
-The second type of visualisation software systems are runtime monitoring
+The second type of visualization software systems is runtime monitoring
 software. Compared to our first scenario, this software type requires all steps
 of the pipeline to be completed more than once. As soon as new data gets
 available from the source, it is passed through each step of the pipeline, to be
-visualized at the end. One way to take load from a very work intensive step in
-the pipeline, is to accumulate a certain amount of data before passing it onto
+visualized at the end. One way to take load from a very work-intensive step in
+the pipeline is to accumulate a certain amount of data before passing it onto
 this step.
 
-The third type of visualisation software allows the conductor of the source, to
+The third type of visualization software allows the conductor of the source, to
 interactively influence its execution. This means, that a runtime monitoring
 system is extended using inputs, which allow the interaction between user and
 data source. If the user sees problems rising while monitoring the process, he
@@ -186,7 +186,7 @@ running.
 \cite{VisIdioms}
 
 All of these three types of applications can be found to a certain extend at
-\gls{cern}. In the next section we will have a look, how such software systems
+\gls{cern}. In the next section, we will have a look, how such software systems
 are used in a real scientific environment.
 
 
@@ -208,24 +208,24 @@ Visualization Software Systems of the first type can be found at CERN for
 example in the experiments using one of \gls{cern}'s particle detectors. During
 Run 2, which lasted for four years and ended in October 2018, all four
 experiments produced around 25 Gigabytes of data per second. Even for the most
-modern storage solutions, storing such a band-width of data is a unrealistic
-challenge. This would require massive amounts of high performance storage
+modern storage solutions, storing such a band-width of data is an unrealistic
+challenge. This would require massive amounts of high-performance storage
 devices, which would be a prohibitively expensive solution. To reduce the amount
 of storage space needed, the Atlas Experiment filters out around 99 percent of
 data in a two-step filtering process and only leaves the most promising events.
 The actually stored data can then be analyzed and visualized offline. One
-example for such a display is a three dimensional view of recorded collisions in
-the ATLAS Control room, which can be followed live online, if the detector is
+example of such a display is a three-dimensional view of recorded collisions in
+the ATLAS Control room, which can be followed live online if the detector is
 running.
 \cite{LhcDataStorage, LhcRun2, AtlasLiveCollisions, AtlasTrigger}
 
-Implementations of the second and third type of data visualization software
+Implementations of the second and third types of data visualization software
 systems can be found as well at \gls{cern}, especially for monitoring
 continuously running processes. One of these places is the \gls{ccc}, whose
 main purpose is the monitoring of the accelerator complex. Operators, experts
 for components of the complex, work here around the clock, to make sure that all
 of them are running as expected. The \gls{ccc} is set up from four circular
-areas called \emph{islands}, which are dedicated to monitor different parts of
+areas called \emph{islands}, which are dedicated to monitoring different parts of
 the accelerator complex. These parts are the \gls{ti}, \gls{ps}, \gls{sps} and
 \gls{lhc}. Collecting all of them under one roof allows them to directly keep
 contact with each other making communication between them more efficient.
@@ -235,8 +235,8 @@ Consoles are computers in the \gls{ccc} that allow interaction with the
 accelerator complexes control system through \glspl{gui}. Operator's Consoles
 are used for setting parameters of components in the control system. \gls{gui}
 applications running on these machines can be categorized as the inputs of data
-visualization software systems of the third type.  Next to Operator Consoles
-there are big wall mounted displays called Fixed Displays or Vistars, which are
+visualization software systems of the third type.  Next to Operator Consoles,
+there are big wall-mounted displays called Fixed Displays or Vistars, which are
 running runtime monitoring applications in the form of dashboards, which allow
 operators to monitor the status of a specific component of the accelerator
 complex and see the resulting behavior of their interaction. Since they do not
@@ -251,11 +251,11 @@ applications of type two.
     \label{fig:leir}
 \end{figure}
 
-One Vistar used as reference for the feature development of a graph library for
+One Vistar used as a reference for the feature development of a graph library for
 PyQt was the LEIR Vistar. LEIR is \gls{cern}'s Low Energy Ion Ring, which is
 responsible for transforming a longer bunch of lead ions into shorter ones,
 preparing them for the injection into the \gls{lhc}. Its Vistar contains a graph
-at the top displaying the injection of particles, the energy level and the
+at the top displaying the injection of particles, the energy level, and the
 different cycles.
 \cite{Leir}
 
@@ -273,13 +273,13 @@ Fixed displays and \gls{gui} applications running on an Operator Console are
 built using components provided by \gls{aps}. Previous to PyQt, \gls{aps}
 focused mainly on Java and Swing to develop graphical user interfaces.
 JDataViewer is a powerful library that allowed users to easily create charts and
-interact with them. The library was developed in house at \gls{cern}, since
+interact with them. The library was developed in house at \gls{cern} since
 products on the market at that time were satisfying the charting needs of the
 users. One feature, which separates JDataViewer from the rest of libraries on
 the market, is its capabilities, to use charts for editing the underlying data
 set it is representing. Additionally to its large offerings in Features,
-JDataViewer provides class leading performance when used in runtime monitoring
-applications. Goal for its PyQt predecessor is to offer similar features and
+JDataViewer provides class-leading performance when used in runtime monitoring
+applications. The goal for its PyQt predecessor is to offer similar features and
 performance.
 \cite{JDataViewer}
 
@@ -291,10 +291,10 @@ performance.
 \section{Benchmarking}
 \label{sec:fundamentals:benchmarking}
 
-The main advantage that invention of computers introduced into our lives was the
+The main advantage the invention of computers introduced into our lives was the
 massive increase in speed and the possibility to automate tasks, which would
 have taken us a time to complete in the past. Since then, computing speeds have
-increased drastically over time. According to Gordon E. Moore, co-funder of
+increased drastically over time. According to Gordon E. Moore, co-founder of
 Intel, one of the world's largest semiconductor chip manufacturer, the
 transistor count in a dense integrated circuit doubles every second year. While
 this does not mean, that computing power doubles exactly in the same way, it
@@ -305,7 +305,7 @@ amount of data which we work with.
 
 One way of handling highly complex computing tasks is to acquire more powerful
 hardware, which can process more quickly through the given data. This approach
-harbors a simple problem, because the hardware we are able to acquire is often
+harbors a simple problem because the hardware we can acquire is often
 bound to a specific budget. Since more computing power will inevitably mean a
 higher count of transistor cores and clock-speeds, the price of hardware will
 raise with its computing power. A potentially less costly approach is the
@@ -314,15 +314,16 @@ efficiently, we can achieve the same results with less powerful hardware. These
 two options lead to the question, which hardware and software combinations are
 performant enough to carry out the work we want. To answer this question, we
 need a procedure, which allows us to analyze performance objectively. Only
-objective results allow us to take a sound decision which hardware and software
-combinations are suitable for our use cases. \cite{mooresLaw}
+objective results allow us to make a sound decision in which hardware and
+software combinations are suitable for our use cases.
+\cite{mooresLaw}
 
-Benchmarking is a procedure which allows us to objectively compare the
-performance of a system or process, to find out, which work loads they are
+Benchmarking is a procedure that allows us to objectively compare the
+performance of a system or process, to find out, which workloads they are
 capable of handling. The usage of Benchmarking is not restricted to computing.
 In the field of Performance Management, benchmarking is a popular approach to
 evaluate the effectiveness of processes in a business. In journals testing new
-computing hardware, you can often find results, which a tested hardware achieved
+computing hardware, you can often find results, which tested hardware achieved
 in common benchmarking applications to give the potential customer a way to
 compare different offerings on the market.
 \cite{BenchmPerfManagement}
@@ -335,11 +336,11 @@ compare different offerings on the market.
 \subsection{Synthetic Hardware Benchmarks}
 
 Hardware benchmarks can range from simple and synthetic sequences of operations
-to much more complex application like benchmarks that try to test a components
-performance in a much more real world test scenario.
+to much more complex applications like benchmarks that try to test the
+performance of a component in a much more real-world test scenario.
 
 Before synthetic benchmarking applications were a thing, manufacturers used
-\gls{mips} as a measurement to describe performance of their chips. This would
+\gls{mips} as a measurement to describe the performance of their chips. This would
 describe, how many machine instructions a chip could execute per second.
 Additionally \gls{flops} were used to supplement the computing performance
 description in \gls{mips}, since high numbers in \gls{mips} were often achieved
@@ -350,19 +351,19 @@ manufacturer NVIDIA, can theoretically reach up to 10.6 \gls{tflops} or $10.6 *
 10^{12}$ \gls{flops}.
 \cite{heiseGtx2080}
 
-The first ever program that was explicitly designed to test the performance of
+The first-ever program that was explicitly designed to test the performance of
 computer hardware was called Whetstone. The first version was published by H.J.
 Curnow and B.A. Wichmann in 1976 and was written in the programming language
 Algol 60. The goal of Whetstone was to test a hardware's performance without
-relying on any hardware specific instructions. Instead of them, a collection of
-different higher level operations containing integer arithmetic, floating
+relying on any hardware-specific instructions. Instead of them, a collection of
+different higher-level operations containing integer arithmetic, floating
 pointer arithmetic, if statements, calls and more, which we still use frequently
 in modern programming languages. When executing the benchmark, all of these
 instructions are repeatedly executed. By using different weights for different
-operations, the results of the benchmark in the end could be described in a
+operations, the results of the benchmark, in the end, could be described in a
 measurement called \emph{Whetstone operations per second}.  Another early
 benchmark that resulted from a library of linear algebra subroutines was
-LINPACK, which measured a computers speed in solving operations on matrices. The
+LINPACK, which measured a computer's speed in solving operations on matrices. The
 result of the benchmarks were published in \gls{flops}.
 \cite{OverviewBenchmarks}
 

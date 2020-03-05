@@ -31,18 +31,18 @@ section in the Beams Controls group. With the change to PyQt for new native GUI
 applications, the question raises, which python library is suitable for this
 task. Next to the features of each library, their speed in the later application
 plays a central role. A bad performance will significantly lower the
-productivity of the application's user, since he is slowed down by having to wait
+productivity of the application's user since he is slowed down by having to wait
 for the system to respond to his interaction.
 
-Goal of this work is to develop a framework, which allows testing the
+The goal of this work is to develop a framework, which allows testing the
 performance of python graph libraries in specific use cases. The user has to be
 possible to depict his use cases using the framework without much effort and
 without having to be familiar with performance testing. Using the framework
-should be easy for user's familiar with other python testing frameworks. Through
-the on demand creation of profiles for the given use case, advanced users should
-have the opportunity to find performance bottle-necks and eliminate them.
+should be easy for users familiar with other python testing frameworks. Through
+the on-demand creation of profiles for the given use case, advanced users should
+have the opportunity to find performance bottlenecks and eliminate them.
 
-To reach this goal we will begin with a general overview about the fundamental
+To reach this goal we will begin with a general overview of the fundamental
 topics of data visualization and benchmarking as well as the application
 framework Qt. Following that, real use cases are presented which originate from
 monitoring applications, which are being developed at CERN at the time of
@@ -50,7 +50,7 @@ writing. Based on these requirements and prior findings a concept for the
 central tasks of the framework as well as all involved components is developed.
 The implementation will be done using python 3 as the programming language of
 choice. The evaluation of the implementation will be done in two separate steps.
-First all collected use cases will be implemented using the framework to make
+First, all collected use cases will be implemented using the framework to make
 sure that the functionality will meet our requirements to make sure that the
 functionality will meet our requirements. This is followed by the presentation
 of the recorded results for each use case. To evaluate the accuracy of the
