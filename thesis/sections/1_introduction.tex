@@ -7,11 +7,11 @@
 \chapter{Introduction}
 \label{ch:Introduction}
 
-The following chapter will provide an introduction into this work. First the
-setting in which the work is done, will be described, starting with the
-organization followed by the team. Afterwards the fundamental problem and the
-goal of this work will be explained, rounded up by an overview of the
-structure of the following chapters.
+The following chapter will provide an introduction to this work. First, the
+setting in which the work is done will be described, starting with the
+organization followed by the team. Afterward, the fundamental problem and the
+goal of this work will be explained, rounded up by an overview of the structure
+of the following chapters.
 
 
 
@@ -47,21 +47,21 @@ where the fundamental question the following work is based on, was researched.
 \section{CERN}
 \label{sec:Introduction:CERN}
 
-The \gls{cern} is one of the biggest and most well known research facilities in
-the world. It is most known as the host of one of the world most complex and
-astonishing machines, the \gls{lhc} as well as the birth place of the \gls{web},
+The \gls{cern} is one of the biggest and most well-known research facilities in
+the world. It is most known as the host of one of the world's most complex and
+astonishing machines, the \gls{lhc} as well as the birthplace of the \gls{web},
 on which we rely on daily everywhere around the world. \cite{Cern} These and
 many more achievements and projects all contribute to the central mission at
 \gls{cern}: Finding out, what our universe is made of. To find answers to this
 question, \gls{cern} brings together over 17500 people from all over the world,
 to work together in many different fields including physics, engineering,
 computer science and more. Today, \gls{cern} counts 23 member states that
-collaborate on decisions made at in the organization every day
+collaborate on decisions made in the organization every day
 \cite{CernWhoWeAre}.
 
 \gls{cern}'s roots can be traced back to the 1940s, when a hand full of
 scientists saw the needs for Europe to advance its role in the scientific world
-by hosting its own research facility for physics. Starting with 12 original
+by hosting an own research facility for physics. Starting with 12 original
 member states, \gls{cern} originally was founded based on this vision in 1954
 located at the franco-swiss border, as the \emph{Conseil Européen pour la
 Recherche Nucléaire}, leading to today's well recognized acronym \gls{cern}.
@@ -84,7 +84,7 @@ improve our knowledge in this field, \gls{cern} is operating the world's most
 powerful particle accelerator called \gls{lhc}. The \gls{lhc} allows us to gain
 a much deeper insight into the subatomic structure of the world around us
 bringing us closer to understanding the inner workings of our universe.
-\gls{cern} itself is divided into different departments which have their own
+\gls{cern} itself is divided into different departments thath have their own
 purposes. The \gls{be} is responsible for developing software and hardware
 instruments for the accelerator complex. \cite{CernBeamsDep}
 
@@ -97,8 +97,8 @@ strength of the magnetic field is increased with every round the beam travels in
 the accelerator, until the beam reaches speeds very close to the speed of light.
 Is this level of energy reached, the next step is to make particles from the two
 beams collide with each other. \gls{cern} is operating four experiments, Atlas,
-CMS, Alice and LHCb, where the particles can be led to collisions. The particles
-detectors then can record the results of the collisions in great detail for
+CMS, Alice and LHCb, where the particles can be led to collisions. The particle
+detectors than can record the results of the collisions in great detail for
 later analysis. The operation of the \gls{lhc} is under one roof, the \gls{ccc}.
 \cite{CernLhc, HowParticleAccsWork}
 
@@ -112,10 +112,10 @@ development of this control system for the accelerator complex is done by the
 \gls{co} which is part of \gls{be}. \cite{ControlSystemBible} The control system
 itself is composed of different components that work together. Responsible for
 these components are different sections within the controls group.  This work
-has been conducted in the \gls{aps}, whose responsibility it is, to provide
-software solutions for the many tasks of the control system. One of these
+has been conducted in the \gls{aps}, whose responsibility is, to provide
+software solutions for the many tasks of the control system. Part of these
 products are \glspl{gui}, that are vital tools for the operators' work.  A
-\gls{gui} application allows to monitor the current state of the machine and
+\gls{gui} application allows monitoring the current state of the machine and
 react to occurring problems by altering the setting. To develop such monitoring
 applications, \gls{aps} is providing different reusable \gls{gui} widgets, from
 which more complex monitoring applications can be developed.
@@ -132,14 +132,14 @@ which more complex monitoring applications can be developed.
 
 A recent decision of \gls{aps} at \gls{cern} was, to move from Java to Python
 for \glspl{gui}. This decision opens the door for many people, which aren't
-primarily software developers, to write their own \gls{gui} applications for
+primarily software developers, to write their \gls{gui} applications for
 their specific use cases. The framework of widgets which \gls{aps} is providing,
 does also contain graph components, that allow operators to visualize data in
 their \glspl{gui}.
 
 Choosing a library to implement graph widgets is not a trivial topic. Especially
 in python, there are many charting libraries, from which you can choose from,
-including matplotlib, Seaborn, PyQtGraph, Plotly and more \cite{PyDataVisLibs}.
+including matplotlib, Seaborn, PyQtGraph, Plotly, and more \cite{PyDataVisLibs}.
 The comparison of features is in most cases not enough. Many users have
 specific needs and use cases, which rely heavily on the performance of the
 library. Compared to the evaluation of needed features and the offerings in
@@ -159,10 +159,10 @@ running the same code on different hardware, we can run different
 implementations of the same tasks on the same hardware and measure the
 performance of each. For more complex operations, like visualizing data, this inevitably
 raises the question, how we can implement such a measurement and what metrics
-describe the libraries performance.
+describe the library's performance.
 
 Benchmarking for different implementations would not only allow us to compare
-the same high level operations between different libraries, but also the
+the same high-level operations between different libraries, but also the
 development of certain operations in the same library over time. For the user,
 such a benchmarking possibility would also make a decision between libraries
 much easier, since he could actively test his demands and use cases on different
@@ -178,11 +178,11 @@ libraries to find the library that fits his performance needs the best.
 \section{Planned Solution}
 \label{sec:Introduction:problem}
 
-Goal of our work is, to develop a benchmarking framework for python graph
+The goal of our work is, to develop a benchmarking framework for python graph
 libraries.  The benchmark framework will be used to develop a suite of
 benchmarks, that can be used to verify the performance of a graph library
-written in Python in real world use cases. The benchmark suite should not only
-give users comparable results to objectively judge performance, but provide
+written in Python in real-world use cases. The benchmark suite should not only
+give users comparable results to objectively judge performance but provide
 solutions to search and improve slow operations. To evaluate the benchmarks
 performance measurement capabilities, we will compare the results of the
 framework against an example production application.
@@ -197,21 +197,21 @@ framework against an example production application.
 \section{Structure of this work}
 \label{sec:Introduction:problem}
 
-In the beginning of this work in chapter \ref{ch:fundamentals}, we will create a
+At the beginning of this work in chapter \ref{ch:fundamentals}, we will create a
 common knowledge base that is necessary to understand the following chapters, by
-going through the basics of data visualization. To understand technical
+going through the basics of data visualization. To understand the technical
 decisions we took and implementations of our solution, we will have a look at
 the technologies we will use. The following chapter \ref{ch:usecases} will deal
 with real use cases, that users of charting libraries at \gls{cern} have
-provided. From those we will derive metrics, which we can use for our later
+provided. From those, we will derive metrics, which we can use for our later
 implementation. The next chapter \ref{ch:analysisAndDesign} then guides through
 the analysis and design of a benchmark framework, which allows us to run our
 graph library of choice against the collected use cases.  Based on this design,
 we will implement the framework in chapter \ref{ch:implementation}. In the
 following chapter \ref{ch:evaluation} we will use the developed framework to
 implement the use cases from chapter \ref{ch:usecases} and record the results to
-see, if the framework covers all of our requirements.  To evaluate, how close
+see if the framework covers all of our requirements.  To evaluate, how close
 the framework's results come to a production application, we will compare a use
-case with a minimal application with both displaying the same load. In the end
-of this work, chapter \ref{ch:conclusion} will provide a summary as well as a
+case with a minimal application with both displaying the same load. At the end
+of this work, chapter \ref{ch:conclusion} will provide a summary as well as an
 outlook based on this work.
