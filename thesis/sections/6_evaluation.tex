@@ -293,9 +293,9 @@ profile of the \gls{aps} use case presented by Snakeviz in the browser.
 \section{Performance Overhead}
 
 This chapter will focus on the evaluation of the framework. The biggest question
-when it comes to evaluating performance of widgetmark is, how much overhead it
+when it comes to evaluating the performance of widgetmark is, how much overhead it
 is adding compared to a standard application. The bigger our overhead is, the
-more negative the results will be compared to the realistic value we can expect.
+more negative the results will be compared to the real value we can expect.
 
 \subsection{Comparison Application}
 
@@ -305,17 +305,17 @@ minimal PyQt application. This application will only house a single plot updated
 by the same conditions as the use case. To measure the timing in the
 application, we will record a timestamp after each update. To find out how the
 overhead of the framework develops under different load scenarios, we will use
-different dataset size parameters for the plotting. For the evaluation we will
+different dataset size parameters for the plotting. For the evaluation, we will
 only choose a single plotting library, which will be PyQtGraph. The source code
 for this application can be seen in listing \ref{listing:evaluation:pyqtapp}. It
 is comprised of a single main window, containing the plot as its central widget.
 The plot is a \inlinecode{Python}{pyqtgraph.PlotWidget()}, which is updated
-using a \inlinecode{Python}{QtCore.QTimer} with a 0 second timeout, similar to
+using a \inlinecode{Python}{QtCore.QTimer} with a zero-second timeout, similar to
 widgetmark's Qt executor class. Next to the data update, the current timestamp
-is recorded on every timer timeout. As a hard coded barrier, 1000 redraws are
-chosen. For every configuration, we have to executed the python module with
+is recorded on every timer timeout. As a hardcoded barrier, 1000 redraws are
+chosen. For every configuration, we have to execute the python module with
 different parameters. The source code for the use case is appended in listing
-\ref{listing:evaluation:usecase}. In both cases, the data generation are
+\ref{listing:evaluation:usecase}. In both cases, the data generation is
 excluded from time recording.
 
 \subsection{Delta Time Accuracy}
@@ -350,7 +350,7 @@ Dataset Size & Widgetmark & PyQt Application & Overhead \\
 
 While these measurements already provide us with a general trend of the
 framework adding a small overhead to our execution, it raises the question, how
-this deviation compares with the fluctuation of the recorded times within a
+this deviation compares with the fluctuation of the recorded times within an
 execution. To compare this we first will have to get access to all measured
 delta times for the PyQt application as well as the widgetmark run.
 
@@ -369,7 +369,7 @@ $$\bar{\Delta t} = \frac{1}{m-1} * \sum_{i=0}^{m-1} {\Delta t_{i}}$$
 
 The standard deviation $\sigma$ of our delta times describes, how far values are
 deviated on average from $\bar{\Delta t}$. From the standard $\sigma$ we can get
-a better idea if the measured times are very consistent or if they differ much
+a better idea, if the measured times are very consistent or if they differ much
 from each other. It is defined as:
 
 $$ \sigma_{\Delta t} = \sqrt{\frac{1}{m-2} * \sum_{i=1}^{m-2} (\Delta t_{i} - \bar{\Delta t})^2} $$
@@ -403,14 +403,14 @@ to their individual standard deviations $\sigma_{\Delta t}$. If it was in this
 deviation range, it would be much more likely to be just a fluctuation in our
 measurements. By clearly exceeding the expected deviation, we can assume that
 the overhead will be reproducible, which supports our assumption, that
-widgetmark does add an additional overhead to the execution, especially for
+widgetmark does add additional overhead to the execution, especially for
 larger data set sizes. Compared to the measured value ranges $R_{\Delta t}$ of
 each run, the difference is considerably smaller. These large ranges clearly
 show, that it is very hard to further estimate, how high this actual overhead
-will be on a run, since the recorded delta times can be very heavily influenced
+will be on a run since the recorded delta times can be very heavily influenced
 by factors like the current load on the system. This is especially well
 represented by the exceptional high range for the comparison application at
-a data set size of $50000$ points. Additionally it shows the importance of a
+a data set size of $50000$ points. Additionally, it shows the importance of a
 reasonably high repeat counter, to keep the influence of such stray bullets as
 small as possible.
 
@@ -422,7 +422,7 @@ small as possible.
     \label{fig:evaluation:std}
 \end{figure}
 
-As a summary for the evaluation we can see, that widgetmark does add a slight
-overhead to the executed use case. This overhead however does only slightly
-influence the outcome of each use case, since it is still manages to represent
-the libraries realistic performance capabilities.
+As a summary of the evaluation we can see, that widgetmark does add a slight
+overhead to the executed use case. This overhead, however, does only slightly
+influence the outcome of each use case, since it still manages to represent
+the library's realistic performance capabilities.
