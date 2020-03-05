@@ -7,7 +7,7 @@
 \chapter{Evaluation}
 \label{ch:evaluation}
 
-In this chapter we will evaluate the framework we designed and developed in the
+In this chapter, we will evaluate the framework we designed and developed in the
 last two chapters. We will start by evaluating, if the implementation fits our
 requirements, by implementing the use cases presented in chapter
 \ref{ch:usecases} and investigating their results. This will be followed by an
@@ -23,22 +23,22 @@ the results with a minimal PyQt application recreating the same use case.
 This section will focus on the implementation of the use cases described in
 chapter \ref{ch:usecases} based on widgetmark and its plotting library
 abstraction layer. To have an overview of the development of the performance
-of each use case depending the increasing plot counts, curve counts or dataset
+of each use case depending on the increasing plot counts, curve counts or dataset
 sizes, we will run each use case with different parameters. We will start with
 smaller sizes and increase them until we reach the use cases demanded
-requirements. As a minimum refresh rate we will take the update frequency of the
+requirements. As a minimum refresh rate, we will take the update frequency of the
 use case. We will set the goal frame rate to 60Hz, which matches most modern
 monitors. As data we will take random points each redraw, so we can be sure that
-we will get a full redraw every time. As a repeat count we will take a
-reasonable big number of 2000 redraws. Additionally we will define a timeout
-that can stop use cases which take an unexpected long amount of time. Each use
+we will get a full redraw every time. As a repeat count, we will take a
+reasonable big number of 2000 redraws. Additionally, we will define a timeout
+that can stop use cases that take an unexpectedly long amount of time. Each use
 case will be tested against both PyQtGraph and Matplotlib.
 
 All of our three use cases have a very common setup. To avoid duplicated code,
 we will define a setup helper class next to the use cases, which each one can
 take advantage of. The implementation of its widget setup function can be seen
 in listing \ref{listing:application:usecases:helper}. This helper function is
-responsible for initializing a given number of plots, curves and random data
+responsible for initializing a given number of plots, curves, and random data
 sets.
 
 \lstinputlisting[ 
@@ -68,7 +68,7 @@ Listing \ref{listing:application:usecases:ht:methods} shows the implementation
 of the widget setup and the operation. For the setup we use the helper function
 defined in listing \ref{listing:application:usecases:helper}. Since we only
 create a single plot, we return it as the widget to use. The next function is
-our operation definition, where we choose data and display in in our created
+our operation definition, where we choose data and display in our created
 plots. To choose data from our random data sets, we take the current redraw run
 as an index, which can be accessed through the runtime context object, that
 every use case has access to.
@@ -126,7 +126,7 @@ we can pass our plots bundled as one single widget to the benchmark window.
 \subsection{Results}
 
 After our benchmarks are defined, we can execute them using the widgetmark
-command line interface. To receive results closest to the conditions in the
+command-line interface. To receive results closest to the conditions in the
 later production environment, we will run the benchmarks on machines with
 similar hardware configurations.
 
@@ -149,14 +149,14 @@ The tables \ref{tab:application:usecases:results:ht},
 \ref{tab:application:usecases:results:lhc} and
 \ref{tab:application:usecases:results:aps} show the recorded results on this
 machine. As we can see, PyQtGraph does perform substantially better compared to
-Matplotlib, but the use cases clearly reveal that both have their limits.
+Matplotlib, but the use cases reveal that both have their limits.
 Especially on the load provided by the \gls{lhcop} use case, both are struggling
 severely with frame rates as low as 0.0 FPS, which means that a single redraw of
-the entire dataset was taking more than 20 seconds on average. An interaction
-with the plot is impossible at this point. For both libraries the amount of
+the entire dataset was taking more than 20 seconds on average. Interaction
+with the plot is impossible at this point. For both libraries, the number of
 points or datasets should be heavily reduced in these scenarios to keep the user
 interface interactive. From the two given libraries, PyQtGraph is still the
-better choice when it comes representing large data sets, if interactive
+better choice when it comes to representing large data sets, if interactive
 rendering speeds are required.
 
 %% ~~~~~~~~~~~~~~~~~ BE-CO-HT Use case ~~~~~~~~~~~~~~~~~~~~
@@ -247,7 +247,7 @@ BE-CO-APS & Matplotlib & 4     & 3     & Scatter & 3000    & 2.4         \\
 \end{table}
 
 With the profiler activated we can investigate where most of the computing time
-is spent. In the following we will for example have a look at the profiles
+is spent. In the following we will, for example, have a look at the profiles
 created for the use cases run with PyQtGraph with high amounts of data. For
 plots containing curves with a high amount of data, this is mainly the paint
 event handler of the graphics view, which handles repainting the plot every time
