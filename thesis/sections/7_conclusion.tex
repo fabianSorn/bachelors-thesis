@@ -19,41 +19,41 @@
 \chapter{Conclusion}
 \label{ch:conclusion}
 
-This chapter will provide a summary over this work as well as a outlook in the
-future for further improvements.
+This chapter will provide a summary of this work as well as an outlook for
+further improvements.
 
 \section{Summary}
 \label{sec:Conclusion:Summary}
 
 The purpose of this work was to analyze the performance requirements for python
-plotting libraries at CERN, developing a design and implement a solution which
+plotting libraries at CERN, developing a design and implement a solution that
 allows use case driven performance benchmarking.
 
-In the beginning we had a look on all major technologies and topics involved in
+In the beginning, we had a look at all major technologies and topics involved in
 the later solution to create a common knowledge base for the following chapters.
 We started with a general introduction into data visualization, explored
 different types of benchmarking software to learn about performance testing and
 discussed the fundamental principles of the Qt application framework with
-Widgets, Layouts, Signals and Slots as well as the Event System.
+Widgets, Layouts, Signals, Slots as well as the Event System.
 
 Following that, we investigated use cases for plotting libraries at CERN
 originating from three different applications. Based on the expected update
 frequencies of each use case we chose the frame rate as our metric of choice to
-describe the rendering performance. A short summary of the profiling options in
-Python presented a useful tooling option to discover performance bottle necks in
+describe the rendering performance. A summary of the profiling options in
+Python presented a useful tooling option to discover performance bottlenecks in
 end-user applications.
 
 Using the findings from the previous chapters, we further analyzed the
-requirements for defining each use case and designed a solution which allowed us
+requirements for defining each use case and designed a solution that allowed us
 to depict them. Our focus for the implementation was providing a use case
-definition interface which was easy to use, capable enough to cover all
-collected use cases and easily parametrizable, an user friendly \gls{cli} for
+definition interface that was easy to use, capable enough to cover all
+collected use cases and easily parametrizable, an user-friendly \gls{cli} for
 executing multiple use cases, as well as a helpful representation of the
 recorded results.
 
 To investigate, how close the results reached the later production application
 the use case originated from, we compared the results of different use cases
-with a minimal example application. Even tough we could measure an overhead
+with a minimal example application. Even though we could measure an overhead
 produced by the framework during the execution, the results could still
 realistically represent performance we could expect.
 
@@ -77,8 +77,8 @@ without having to change the base implementation.
 
 Another area of improvement is minimizing the overhead added by the framework
 during the execution. By minimizing this overhead the results could be even
-closer to the later real life performances.
+closer to the later real-life performances.
 
-Additionally the findings in analysis and design can bring insights into other
+Additionally, the findings in analysis and design can bring insights into other
 areas of software performance evaluation and can be a template for other
-benchmarking frameworks which do not focus on \gls{gui} widgets.
+benchmarking frameworks that do not focus on \gls{gui} widgets.
