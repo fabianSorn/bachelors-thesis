@@ -2,8 +2,6 @@
 
 This repository contains the following subprojects.
 - [Thesis Latex Sources](thesis)
-- [Affinity Designer Files for images used in the Thesis](images)
-- [Latex Template for the Thesis](thesis_template)
 
 Additionally related are the following repositories:
 
